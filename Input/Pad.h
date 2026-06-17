@@ -13,6 +13,4 @@ namespace Pad
 
 	// 離した瞬間か
 	bool IsRelease(int key);
-
-	// 前フレームのキー
 }

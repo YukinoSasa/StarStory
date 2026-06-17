@@ -1,5 +1,6 @@
 #include <Dxlib.h>
 #include "Scene/SceneMain.h"
+#include "Input/Pad.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	PSTR lpCmdLine, int nCmdShow)
@@ -32,6 +33,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 		// 画面クリア
 		ClearDrawScreen();
+
+		// パッドの入力を更新
+		Pad::Update();
 
 		pSceneMain->Update();
 		pSceneMain->Draw();
