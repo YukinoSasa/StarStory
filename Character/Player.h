@@ -21,6 +21,6 @@ public:
 	void Draw() override;
 
 private:
-	// ¶‰EˆÚ“®
+	// ¶‰E‚ÌˆÚ“®—Ê‚ğŒvZ
 	void Move();
 };

@@ -1,4 +1,5 @@
 #pragma once
+#include "../Math/Vec2.h"
 
 /// <summary>
 /// キャラクターのベースクラス
@@ -22,4 +23,9 @@ public:
 protected:
 	// 画像を読み込む変数
 	int m_Handle;
+
+	// キャラクターの座標
+	Vec2 m_Pos;
+	// キャラクターの移動量
+	Vec2 m_Move;
 };
