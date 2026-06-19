@@ -19,4 +19,8 @@ public:
 
 	// •`‰æ
 	void Draw() override;
+
+private:
+	// ¶‰EˆÚ“®
+	void Move();
 };

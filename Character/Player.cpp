@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "Player.h"
+#include "../Input/Pad.h"
 
 Player::Player()
 {
@@ -24,4 +25,9 @@ void Player::Update()
 void Player::Draw()
 {
 	CharacterBase::Draw();
+}
+
+void Player::Move()
+{
+	// ˆÚ“®ˆ—
 }

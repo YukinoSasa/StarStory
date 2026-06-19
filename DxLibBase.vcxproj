@@ -146,6 +146,7 @@
     <ClInclude Include="Character\CharacterBase.h" />
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="Input\Pad.h" />
+    <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneMain.h" />
   </ItemGroup>
