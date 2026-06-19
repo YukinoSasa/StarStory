@@ -23,4 +23,7 @@ public:
 private:
 	// 左右の移動量を計算
 	void Move();
+
+	// ジャンプ
+	void Jump();
 };

@@ -5,7 +5,10 @@
 namespace
 {
 	// プレイヤーの速度
-	constexpr float K_SPEED = 2.0f;
+	constexpr float K_SPEED = 1.0f;
+
+	// ジャンプ力
+	constexpr float K_JUMP_POWER = 15.0f;
 }
 
 Player::Player()
@@ -25,7 +28,10 @@ void Player::Init()
 
 void Player::Update()
 {
+	CharacterBase::Update();
+
 	Move();
+	Jump();
 
 	// プレイヤー座標を更新
 	m_Pos += m_Move;
@@ -33,7 +39,7 @@ void Player::Update()
 
 void Player::Draw()
 {
-	DrawGraph(m_Pos.m_x, m_Pos.m_y, m_Handle, true);
+	CharacterBase::Draw();
 }
 
 void Player::Move()
@@ -50,5 +56,21 @@ void Player::Move()
 	else
 	{
 		m_Move.m_x = 0.0f;
+	}
+}
+
+void Player::Jump()
+{
+	// 空中の場合以降の処理を行わない
+	if (!m_IsGround)
+	{
+		return;
+	}
+
+	if (Pad::IsTrigger(PAD_INPUT_1))
+	{
+		m_Move.m_y -= K_JUMP_POWER;
+
+		m_IsGround = false;
 	}
 }
