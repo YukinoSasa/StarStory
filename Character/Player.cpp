@@ -47,10 +47,16 @@ void Player::Move()
 	// 移動量を計算
 	if (Pad::IsPress(PAD_INPUT_LEFT))
 	{
+		// プレイヤーの向きを変更
+		m_IsRight = false;
+
 		m_Move.m_x -= K_SPEED;
 	}
 	else if (Pad::IsPress(PAD_INPUT_RIGHT))
 	{
+		// プレイヤーの向きを変更
+		m_IsRight = true;
+
 		m_Move.m_x += K_SPEED;
 	}
 	else

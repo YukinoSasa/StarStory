@@ -28,6 +28,9 @@ protected:
 	// 画像を読み込む変数
 	int m_Handle;
 
+	// キャラクターが右向きかどうか
+	bool m_IsRight;
+
 	// キャラクターの座標
 	Vec2 m_Pos;
 	// キャラクターの移動量

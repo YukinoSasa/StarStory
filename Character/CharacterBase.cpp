@@ -11,7 +11,7 @@ namespace
 }
 
 CharacterBase::CharacterBase() :
-	m_Handle(-1), m_Pos(0, 0), m_Move(0, 0), m_IsGround(false)
+	m_Handle(-1), m_IsRight(true), m_Pos(0, 0), m_Move(0, 0), m_IsGround(false)
 {
 	
 }
@@ -42,7 +42,14 @@ void CharacterBase::Update()
 
 void CharacterBase::Draw()
 {
-	DrawGraphF(m_Pos.m_x, m_Pos.m_y, m_Handle, true);
+	if (m_IsRight)
+	{
+		DrawGraphF(m_Pos.m_x, m_Pos.m_y, m_Handle, true);
+	}
+	else
+	{
+		DrawTurnGraphF(m_Pos.m_x, m_Pos.m_y, m_Handle, true);
+	}
 }
 
 void CharacterBase::Gravity()
