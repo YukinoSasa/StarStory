@@ -9,7 +9,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	SetOutApplicationLogValidFlag(false);
 #endif
 	// 画面サイズの変更
-	SetGraphMode(1980, 1080, 32);
+	SetGraphMode(1920, 1080, 32);
 
 	// ダブルバッファモード
 	SetDrawScreen(DX_SCREEN_BACK);

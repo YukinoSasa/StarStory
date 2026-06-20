@@ -3,6 +3,7 @@
 #include "SceneBase.h"
 
 class Player;
+class BackGround;
 
 /// <summary>
 /// メインシーンクラス
@@ -26,4 +27,7 @@ public:
 private:
 	// プレイヤーのポインタ
 	std::shared_ptr<Player> m_pPlayer = nullptr;
+
+	// 背景のポインタ
+	std::shared_ptr<BackGround> m_pBackGround = nullptr;
 };
