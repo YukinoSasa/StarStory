@@ -137,20 +137,24 @@
   <ItemGroup>
     <ClCompile Include="Character\CharacterBase.cpp" />
     <ClCompile Include="Character\Player.cpp" />
+    <ClCompile Include="csv\LoadCsv.cpp" />
     <ClCompile Include="Input\Pad.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Scene\BackGround\BackGround.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneMain.cpp" />
+    <ClCompile Include="Stage\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character\CharacterBase.h" />
     <ClInclude Include="Character\Player.h" />
+    <ClInclude Include="csv\LoadCsv.h" />
     <ClInclude Include="Input\Pad.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Scene\BackGround\BackGround.h" />
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneMain.h" />
+    <ClInclude Include="Stage\Stage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

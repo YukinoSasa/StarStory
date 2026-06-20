@@ -1,9 +1,11 @@
 #pragma once
 #include <memory>
 #include "SceneBase.h"
+#include "../csv/LoadCsv.h"
 
 class Player;
 class BackGround;
+class Stage;
 
 /// <summary>
 /// メインシーンクラス
@@ -30,4 +32,7 @@ private:
 
 	// 背景のポインタ
 	std::shared_ptr<BackGround> m_pBackGround = nullptr;
+
+	// ステージのポインタ
+	std::shared_ptr<Stage> m_pStage = nullptr;
 };
