@@ -140,6 +140,7 @@
     <ClCompile Include="csv\LoadCsv.cpp" />
     <ClCompile Include="Input\Pad.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Math\Rect.cpp" />
     <ClCompile Include="Scene\BackGround\BackGround.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneMain.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="csv\LoadCsv.h" />
     <ClInclude Include="Input\Pad.h" />
+    <ClInclude Include="Math\Rect.h" />
     <ClInclude Include="Math\Vec2.h" />
     <ClInclude Include="Scene\BackGround\BackGround.h" />
     <ClInclude Include="Scene\SceneBase.h" />

@@ -1,5 +1,6 @@
 #pragma once
 #include "../Math/Vec2.h"
+#include "../Math/Rect.h"
 
 /// <summary>
 /// キャラクターのベースクラス
@@ -31,11 +32,14 @@ protected:
 	// キャラクターが右向きかどうか
 	bool m_IsRight;
 
-	// キャラクターの座標
+	// キャラクターの中心座標
 	Vec2 m_Pos;
 	// キャラクターの移動量
 	Vec2 m_Move;
 
 	// 接地しているかどうか
 	bool m_IsGround;
+
+	// 当たり判定用矩形
+	Rect m_Rect;
 };

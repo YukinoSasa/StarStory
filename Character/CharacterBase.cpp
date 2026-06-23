@@ -11,9 +11,9 @@ namespace
 }
 
 CharacterBase::CharacterBase() :
-	m_Handle(-1), m_IsRight(true), m_Pos(0, 0), m_Move(0, 0), m_IsGround(false)
+	m_Handle(-1), m_IsRight(true), m_Pos(0, 0), m_Move(0, 0), m_IsGround(false), m_Rect()
 {
-	
+
 }
 
 CharacterBase::~CharacterBase()
@@ -42,6 +42,7 @@ void CharacterBase::Update()
 
 void CharacterBase::Draw()
 {
+	// キャラクターの向きによって画像を反転
 	if (m_IsRight)
 	{
 		DrawGraphF(m_Pos.m_x, m_Pos.m_y, m_Handle, true);
@@ -50,6 +51,11 @@ void CharacterBase::Draw()
 	{
 		DrawTurnGraphF(m_Pos.m_x, m_Pos.m_y, m_Handle, true);
 	}
+
+#ifdef _DEBUG
+	// デバック時のみ矩形を描画
+	m_Rect.Draw();
+#endif
 }
 
 void CharacterBase::Gravity()
