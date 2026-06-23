@@ -10,11 +10,11 @@ namespace
 	// ジャンプ力
 	constexpr float K_JUMP_POWER = 15.0f;
 
-	// プレイヤーの幅
-	constexpr float K_PLAYER_WIDTH = 32.0f;
+	//// プレイヤーの幅
+	//constexpr float K_PLAYER_WIDTH = 32.0f;
 
-	// プレイヤーの高さ
-	constexpr float K_PLAYER_HEIGHT = 32.0f;
+	//// プレイヤーの高さ
+	//constexpr float K_PLAYER_HEIGHT = 32.0f;
 }
 
 Player::Player()
@@ -29,7 +29,7 @@ Player::~Player()
 
 void Player::Init()
 {
-
+	CharacterBase::Init();
 }
 
 void Player::Update()
@@ -42,8 +42,8 @@ void Player::Update()
 	// プレイヤー座標を更新
 	m_Pos += m_Move;
 
-	// 矩形の端をセット
-	m_Rect.SetEdges(m_Pos.m_x, m_Pos.m_y, K_PLAYER_WIDTH, K_PLAYER_HEIGHT);
+	//// 矩形の端をセット
+	//m_Rect.SetEdges(m_Pos.m_x, m_Pos.m_y, K_PLAYER_WIDTH, K_PLAYER_HEIGHT);
 }
 
 void Player::Draw()

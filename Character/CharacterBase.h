@@ -29,6 +29,12 @@ protected:
 	// 画像を読み込む変数
 	int m_Handle;
 
+	// 画像の幅を保存するポインタ変数
+	int m_HandleWidth;
+
+	// 画像の高さを保存するポインタ変数
+	int m_HandleHeight;
+
 	// キャラクターが右向きかどうか
 	bool m_IsRight;
 

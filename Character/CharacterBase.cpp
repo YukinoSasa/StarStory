@@ -11,7 +11,7 @@ namespace
 }
 
 CharacterBase::CharacterBase() :
-	m_Handle(-1), m_IsRight(true), m_Pos(0, 0), m_Move(0, 0), m_IsGround(false), m_Rect()
+	m_Handle(-1), m_HandleWidth(-1), m_HandleHeight(-1), m_IsRight(true), m_Pos(0, 0), m_Move(0, 0), m_IsGround(false), m_Rect()
 {
 
 }
@@ -23,7 +23,7 @@ CharacterBase::~CharacterBase()
 
 void CharacterBase::Init()
 {
-
+	GetGraphSize(m_Handle, &m_HandleWidth, &m_HandleHeight);
 }
 
 void CharacterBase::Update()
@@ -38,18 +38,25 @@ void CharacterBase::Update()
 
 		m_IsGround = true;
 	}
+
+	// 矩形の端をセット
+	m_Rect.SetEdges(m_Pos.m_x, m_Pos.m_y, static_cast<float>(m_HandleWidth), static_cast<float>(m_HandleHeight));
 }
 
 void CharacterBase::Draw()
 {
+	// 画像描画用の座標
+	float drawX = m_Pos.m_x - static_cast<float>(m_HandleWidth / 2);
+	float drawY = m_Pos.m_y - static_cast<float>(m_HandleHeight / 2);
+
 	// キャラクターの向きによって画像を反転
 	if (m_IsRight)
 	{
-		DrawGraphF(m_Pos.m_x, m_Pos.m_y, m_Handle, true);
+		DrawGraphF(drawX, drawY, m_Handle, true);
 	}
 	else
 	{
-		DrawTurnGraphF(m_Pos.m_x, m_Pos.m_y, m_Handle, true);
+		DrawTurnGraphF(drawX, drawY, m_Handle, true);
 	}
 
 #ifdef _DEBUG
