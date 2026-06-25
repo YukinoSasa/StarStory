@@ -15,7 +15,7 @@ Stage::Stage()
 
 Stage::~Stage()
 {
-
+	DeleteGraph(m_Handle1);
 }
 
 void Stage::Init()
@@ -46,4 +46,37 @@ void Stage::Draw()
 			}
 		}
 	}
+}
+
+bool Stage::IsCollision(const Rect& rect, Rect& chipRect)
+{
+	for (int y = 0; y < (int)m_MapData.size(); y++)
+	{
+		for (int x = 0; x < (int)m_MapData[y].size(); x++)
+		{
+			// マップチップ0は当たり判定がないので飛ばす
+			if (m_MapData[y][x] == 0)
+			{
+				continue;
+			}
+			
+			// マップチップ1の時当たり判定の矩形を持つ
+			Rect ChipRect;
+			// 矩形の端をセット
+			float chipX = (x * K_SIZE) + (K_SIZE / 2);
+			float chipY = (y * K_SIZE) + (K_SIZE / 2) + 100;
+
+			ChipRect.SetEdges(chipX, chipY, K_SIZE, K_SIZE);
+			// 対象の矩形とマップチップの矩形の当たりを調べる
+			if (ChipRect.IsCollision(rect))
+			{
+				// ぶつかったマップチップの矩形を設定
+				chipRect.SetEdges(chipX, chipY, K_SIZE, K_SIZE);
+				return true;
+			}
+
+		}
+	}
+
+	return false;
 }

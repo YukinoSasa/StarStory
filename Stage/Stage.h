@@ -1,5 +1,6 @@
 #pragma once
 #include "../csv/LoadCsv.h"
+#include "../Math/Rect.h"
 
 /// <summary>
 /// マップのデータを持つステージクラス
@@ -19,6 +20,9 @@ public:
 
 	// 描画
 	void Draw();
+
+	// 指定した矩形がマップチップと当たっているかどうか
+	bool IsCollision(const Rect& rect, Rect& chipRect);
 
 private:
 	// マップのデータ

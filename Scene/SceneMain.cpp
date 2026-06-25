@@ -9,6 +9,7 @@ SceneMain::SceneMain()
 	m_pPlayer = std::make_shared<Player>();
 	m_pBackGround = std::make_shared<BackGround>();
 	m_pStage = std::make_shared<Stage>();
+	m_pPlayer->SetStage(m_pStage);
 }
 
 SceneMain::~SceneMain()

@@ -39,8 +39,8 @@ void Player::Update()
 	Move();
 	Jump();
 
-	// プレイヤー座標を更新
-	m_Pos += m_Move;
+	//// プレイヤー座標を更新
+	//m_Pos += m_Move;
 
 	//// 矩形の端をセット
 	//m_Rect.SetEdges(m_Pos.m_x, m_Pos.m_y, K_PLAYER_WIDTH, K_PLAYER_HEIGHT);

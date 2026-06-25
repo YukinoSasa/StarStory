@@ -1,6 +1,9 @@
 #pragma once
+#include <memory>
 #include "../Math/Vec2.h"
 #include "../Math/Rect.h"
+
+class Stage;
 
 /// <summary>
 /// キャラクターのベースクラス
@@ -20,6 +23,13 @@ public:
 
 	// 描画
 	virtual void Draw();
+
+	// ステージのポインタをセット
+	void SetStage(std::shared_ptr<Stage> stage) { m_pStage = stage; }
+
+protected:
+	// マップとの当たり判定
+	void CheckHitMap(Rect& chipRect);
 
 private:
 	// 重力を受ける計算
@@ -48,4 +58,7 @@ protected:
 
 	// 当たり判定用矩形
 	Rect m_Rect;
+
+	// ステージクラスのポインタ変数
+	std::shared_ptr<Stage> m_pStage = nullptr;
 };
