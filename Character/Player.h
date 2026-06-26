@@ -18,7 +18,7 @@ public:
 	void Update() override;
 
 	// 描画
-	void Draw() override;
+	void Draw(Vec2 cameraPos) override;
 
 	// プレイヤー座標のゲッタ
 	Vec2 GetPlayerPos() const { return m_Pos; }

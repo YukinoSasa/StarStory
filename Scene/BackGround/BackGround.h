@@ -1,4 +1,5 @@
 #pragma once
+#include "../../Math/Vec2.h"
 
 class BackGround
 {
@@ -14,9 +15,12 @@ public:
 	void Update();
 
 	// •`‰æ
-	void Draw();
+	void Draw(Vec2 cameraPos);
 
 private:
 	// ‰æ‘œ‚ğ“Ç‚İ‚Ş•Ï”
 	int m_Handle;
+
+	// •`‰æ‚·‚éˆÊ’u
+	Vec2 m_Pos;
 };

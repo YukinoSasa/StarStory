@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "Stage.h"
+#include "../Character/Camera.h"
 
 namespace
 {
@@ -42,7 +43,16 @@ void Stage::Draw()
 				break;
 
 			case 1:
-				DrawGraph(x * K_SIZE, y * K_SIZE + 100, m_Handle1, true);
+				// マップチップのワールド座標を求める
+				float worldX = (x * K_SIZE) + (K_SIZE / 2);
+				float worldY = (y * K_SIZE) + (K_SIZE / 2);
+
+				// 描画するスクリーン座標を求める
+				Vec2 screenPos = m_pCamera->GetCameraPos();
+				float screenX = worldX - screenPos.m_x + 960.0f;
+				float screenY = worldY - screenPos.m_y + 540.0f;
+				//DrawGraph(x * K_SIZE, y * K_SIZE + 100, m_Handle1, true);
+				DrawGraph(screenX, screenY, m_Handle1, true);
 			}
 		}
 	}
@@ -84,4 +94,6 @@ bool Stage::IsCollision(const Rect& rect, Rect& chipRect)
 void Stage::UpdateStagePos()
 {
 	// マップの世界座標 - カメラ座標 + 画面中心
+	// 現在は不要？
+
 }

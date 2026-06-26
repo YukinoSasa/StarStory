@@ -13,6 +13,7 @@ SceneMain::SceneMain()
 	m_pCamera = std::make_shared<Camera>();
 	m_pPlayer->SetStage(m_pStage);
 	m_pCamera->SetPlayer(m_pPlayer);
+	m_pStage->SetCamera(m_pCamera);
 	
 }
 
@@ -29,11 +30,12 @@ void SceneMain::Init()
 void SceneMain::Update()
 {
 	m_pPlayer->Update();
+	m_pCamera->Update();
 }
 
 void SceneMain::Draw()
 {
-	m_pBackGround->Draw();
-	m_pPlayer->Draw();
+	m_pBackGround->Draw(m_pCamera->GetCameraPos());
+	m_pPlayer->Draw(m_pCamera->GetCameraPos());
 	m_pStage->Draw();
 }

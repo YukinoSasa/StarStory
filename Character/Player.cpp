@@ -46,9 +46,9 @@ void Player::Update()
 	//m_Rect.SetEdges(m_Pos.m_x, m_Pos.m_y, K_PLAYER_WIDTH, K_PLAYER_HEIGHT);
 }
 
-void Player::Draw()
+void Player::Draw(Vec2 cameraPos)
 {
-	CharacterBase::Draw();
+	CharacterBase::Draw(cameraPos);
 }
 
 void Player::Move()

@@ -2,6 +2,7 @@
 #include "CharacterBase.h"
 #include "../Stage/Stage.h"
 
+
 namespace
 {
 	// キャラクターが受ける重力
@@ -12,7 +13,7 @@ namespace
 }
 
 CharacterBase::CharacterBase() :
-	m_Handle(-1), m_HandleWidth(-1), m_HandleHeight(-1), m_IsRight(true), m_Pos(0, 0), m_Move(0, 0), m_IsGround(false), m_Rect(), m_pStage()
+	m_Handle(-1), m_HandleWidth(-1), m_HandleHeight(-1), m_IsRight(true), m_Pos(0, 0), m_Move(0, 0), m_IsGround(false), m_Rect()
 {
 
 }
@@ -46,24 +47,26 @@ void CharacterBase::Update()
 
 		m_IsGround = true;
 	}
-
-
 }
 
-void CharacterBase::Draw()
+void CharacterBase::Draw(Vec2 cameraPos)
 {
-	// 画像描画用の座標
+	// キャラクターの中心座標
 	float drawX = m_Pos.m_x - static_cast<float>(m_HandleWidth / 2);
 	float drawY = m_Pos.m_y - static_cast<float>(m_HandleHeight / 2);
+
+	// キャラクターの描画位置の計算
+	float screenX = drawX - cameraPos.m_x + 960.0f;
+	float screenY = drawY - cameraPos.m_y + 540.0f;
 
 	// キャラクターの向きによって画像を反転
 	if (m_IsRight)
 	{
-		DrawGraphF(drawX, drawY, m_Handle, true);
+		DrawGraphF(screenX, screenY, m_Handle, true);
 	}
 	else
 	{
-		DrawTurnGraphF(drawX, drawY, m_Handle, true);
+		DrawTurnGraphF(screenX, screenY, m_Handle, true);
 	}
 
 #ifdef _DEBUG

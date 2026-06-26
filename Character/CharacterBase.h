@@ -22,7 +22,7 @@ public:
 	virtual void Update();
 
 	// 描画
-	virtual void Draw();
+	virtual void Draw(Vec2 cameraPos);
 
 	// ステージのポインタをセット
 	void SetStage(std::shared_ptr<Stage> stage) { m_pStage = stage; }

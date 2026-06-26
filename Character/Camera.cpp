@@ -24,6 +24,7 @@ void Camera::Update()
 
 void Camera::UpdateCameraPos()
 {
-	// プレイヤーの座標を元にカメラの座標を決定
-	m_Pos = m_pPlayer->GetPlayerPos();
+	m_Pos.m_x = 960.0f;
+	// プレイヤーのy座標を元にカメラのy座標を決定
+	m_Pos.m_y = m_pPlayer->GetPlayerPos().m_y;
 }
