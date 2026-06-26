@@ -78,7 +78,7 @@ void CharacterBase::CheckHitMap(Rect& chipRect)
 	m_Pos.m_x += m_Move.m_x;
 
 	// 矩形の端をセット
-	m_Rect.SetEdges(m_Pos.m_x, m_Pos.m_y, static_cast<float>(m_HandleWidth), static_cast<float>(m_HandleHeight));
+	m_Rect.SetEdges(m_Pos.m_x - 1.0f, m_Pos.m_y - 1.0f, static_cast<float>(m_HandleWidth), static_cast<float>(m_HandleHeight));
 
 	if (m_pStage->IsCollision(m_Rect, chipRect))
 	{
@@ -98,7 +98,7 @@ void CharacterBase::CheckHitMap(Rect& chipRect)
 	m_Pos.m_y += m_Move.m_y;
 
 	// 矩形の端をセット
-	m_Rect.SetEdges(m_Pos.m_x, m_Pos.m_y, static_cast<float>(m_HandleWidth), static_cast<float>(m_HandleHeight));
+	m_Rect.SetEdges(m_Pos.m_x - 1.0f, m_Pos.m_y - 1.0f, static_cast<float>(m_HandleWidth), static_cast<float>(m_HandleHeight));
 
 	if (m_pStage->IsCollision(m_Rect, chipRect))
 	{
