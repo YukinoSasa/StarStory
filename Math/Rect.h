@@ -12,7 +12,7 @@ public:
 	~Rect();
 
 	// 確認用の矩形を描画
-	void Draw();
+	void Draw(Vec2 cameraPos);
 
 	// 矩形が接しているかどうか
 	bool IsCollision(const Rect& object);

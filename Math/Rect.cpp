@@ -12,10 +12,10 @@ Rect::~Rect()
 
 }
 
-void Rect::Draw()
+void Rect::Draw(Vec2 cameraPos)
 {
-	DrawBox(static_cast<int>(m_LeftEdge), static_cast<int>(m_TopEdge),
-		static_cast<int>(m_RightEdge), static_cast<int>(m_BottomEdge), GetColor(255, 0, 0), false);
+	DrawBox(static_cast<int>(m_LeftEdge - cameraPos.m_x + 960.0f), static_cast<int>(m_TopEdge - cameraPos.m_y + 540.0f),
+		static_cast<int>(m_RightEdge - cameraPos.m_x + 960.0f), static_cast<int>(m_BottomEdge - cameraPos.m_y + 540.0f), GetColor(255, 0, 0), false);
 }
 
 bool Rect::IsCollision(const Rect& object)

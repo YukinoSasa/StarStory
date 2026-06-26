@@ -43,14 +43,15 @@ void Stage::Draw()
 				break;
 
 			case 1:
-				// マップチップのワールド座標を求める
+				// マップチップのワールド座標(マップチップの中心座標)を求める
 				float worldX = (x * K_SIZE) + (K_SIZE / 2);
 				float worldY = (y * K_SIZE) + (K_SIZE / 2);
 
 				// 描画するスクリーン座標を求める
 				Vec2 screenPos = m_pCamera->GetCameraPos();
-				float screenX = worldX - screenPos.m_x + 960.0f;
-				float screenY = worldY - screenPos.m_y + 540.0f;
+				// DrawGraphは左上基準なので中心基準から左上にずらす
+				float screenX = worldX - screenPos.m_x + 960.0f - (K_SIZE / 2);
+				float screenY = worldY - screenPos.m_y + 540.0f - (K_SIZE / 2);
 				//DrawGraph(x * K_SIZE, y * K_SIZE + 100, m_Handle1, true);
 				DrawGraph(screenX, screenY, m_Handle1, true);
 			}
@@ -72,10 +73,12 @@ bool Stage::IsCollision(const Rect& rect, Rect& chipRect)
 			
 			// マップチップ1の時当たり判定の矩形を持つ
 			Rect ChipRect;
-			// 矩形の端をセット
+			// 矩形の中心座標を計算
 			float chipX = (x * K_SIZE) + (K_SIZE / 2);
-			float chipY = (y * K_SIZE) + (K_SIZE / 2) + 100;
+			float chipY = (y * K_SIZE) + (K_SIZE / 2);
+			//float chipY = (y * K_SIZE) + (K_SIZE / 2) + 100;
 
+			// 矩形の端をセット
 			ChipRect.SetEdges(chipX, chipY, K_SIZE, K_SIZE);
 			// 対象の矩形とマップチップの矩形の当たりを調べる
 			if (ChipRect.IsCollision(rect))

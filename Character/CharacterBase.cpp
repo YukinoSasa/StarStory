@@ -39,19 +39,19 @@ void CharacterBase::Update()
 	Rect chipRect;
 	CheckHitMap(chipRect);
 
-	// 床に接地した場合、キャラクターのy座標を床に固定
-	if (m_Pos.m_y > K_GROUND)
-	{
-		m_Pos.m_y = K_GROUND;
-		m_Move.m_y = 0.0f;
+	//// 床に接地した場合、キャラクターのy座標を床に固定
+	//if (m_Pos.m_y > K_GROUND)
+	//{
+	//	m_Pos.m_y = K_GROUND;
+	//	m_Move.m_y = 0.0f;
 
-		m_IsGround = true;
-	}
+	//	m_IsGround = true;
+	//}
 }
 
 void CharacterBase::Draw(Vec2 cameraPos)
 {
-	// キャラクターの中心座標
+	// キャラクターの左上の座標
 	float drawX = m_Pos.m_x - static_cast<float>(m_HandleWidth / 2);
 	float drawY = m_Pos.m_y - static_cast<float>(m_HandleHeight / 2);
 
@@ -71,7 +71,7 @@ void CharacterBase::Draw(Vec2 cameraPos)
 
 #ifdef _DEBUG
 	// デバック時のみ矩形を描画
-	m_Rect.Draw();
+	m_Rect.Draw(cameraPos);
 #endif
 }
 
