@@ -3,13 +3,17 @@
 #include "../Character/Player.h"
 #include "BackGround/BackGround.h"
 #include "../Stage/Stage.h"
+#include "../Character/Camera.h"
 
 SceneMain::SceneMain()
 {
 	m_pPlayer = std::make_shared<Player>();
 	m_pBackGround = std::make_shared<BackGround>();
 	m_pStage = std::make_shared<Stage>();
+	m_pCamera = std::make_shared<Camera>();
 	m_pPlayer->SetStage(m_pStage);
+	m_pCamera->SetPlayer(m_pPlayer);
+	
 }
 
 SceneMain::~SceneMain()

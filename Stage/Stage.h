@@ -25,6 +25,9 @@ public:
 	bool IsCollision(const Rect& rect, Rect& chipRect);
 
 private:
+	// ステージの描画位置を更新
+	void UpdateStagePos();
+
 	// マップのデータ
 	MapData m_MapData;
 

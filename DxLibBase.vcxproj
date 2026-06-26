@@ -135,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Character\Camera.cpp" />
     <ClCompile Include="Character\CharacterBase.cpp" />
     <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="csv\LoadCsv.cpp" />
@@ -147,6 +148,7 @@
     <ClCompile Include="Stage\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Character\Camera.h" />
     <ClInclude Include="Character\CharacterBase.h" />
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="csv\LoadCsv.h" />

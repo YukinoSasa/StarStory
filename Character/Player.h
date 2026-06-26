@@ -20,6 +20,9 @@ public:
 	// 描画
 	void Draw() override;
 
+	// プレイヤー座標のゲッタ
+	Vec2 GetPlayerPos() const { return m_Pos; }
+
 private:
 	// 左右の移動量を計算
 	void Move();

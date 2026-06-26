@@ -80,3 +80,8 @@ bool Stage::IsCollision(const Rect& rect, Rect& chipRect)
 
 	return false;
 }
+
+void Stage::UpdateStagePos()
+{
+	// マップの世界座標 - カメラ座標 + 画面中心
+}

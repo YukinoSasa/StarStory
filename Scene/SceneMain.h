@@ -6,6 +6,7 @@
 class Player;
 class BackGround;
 class Stage;
+class Camera;
 
 /// <summary>
 /// メインシーンクラス
@@ -35,4 +36,7 @@ private:
 
 	// ステージのポインタ
 	std::shared_ptr<Stage> m_pStage = nullptr;
+
+	// カメラのポインタ
+	std::shared_ptr<Camera> m_pCamera = nullptr;
 };
