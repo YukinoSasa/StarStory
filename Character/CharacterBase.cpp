@@ -13,7 +13,7 @@ namespace
 }
 
 CharacterBase::CharacterBase() :
-	m_Handle(-1), m_HandleWidth(-1), m_HandleHeight(-1), m_IsRight(true), m_Pos(0, 0), m_Move(0, 0), m_IsGround(false), m_Rect()
+	m_Handle(-1), m_HandleWidth(-1), m_HandleHeight(-1), m_IsRight(true), m_Pos(20, 0), m_Move(0, 0), m_IsGround(false), m_Rect()
 {
 
 }
@@ -79,6 +79,15 @@ void CharacterBase::CheckHitMap(Rect& chipRect)
 {
 	// 横から当たったかチェック
 	m_Pos.m_x += m_Move.m_x;
+	// 横画面外に行けないようにする
+	if (m_Pos.m_x < 0.0f - static_cast<float>(m_HandleWidth / 2))
+	{
+		m_Pos.m_x = 0;
+	}
+	else if (m_Pos.m_x + static_cast<float>(m_HandleWidth / 2) > 1920.0f)
+	{
+		m_Pos.m_x = 1920.0f;
+	}
 
 	// 矩形の端をセット
 	m_Rect.SetEdges(m_Pos.m_x - 1.0f, m_Pos.m_y - 1.0f, static_cast<float>(m_HandleWidth), static_cast<float>(m_HandleHeight));

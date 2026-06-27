@@ -25,6 +25,7 @@ SceneMain::~SceneMain()
 void SceneMain::Init()
 {
 	m_pPlayer->Init();
+	m_pBackGround->Init();
 }
 
 void SceneMain::Update()
