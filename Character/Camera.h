@@ -12,27 +12,22 @@ class Camera
 public:
 	Camera();
 
-	~Camera();
-
-	// 初期化
-	void Init();
-
 	// 更新
 	void Update();
 
-	// プレイヤーのポインタをセット
-	void SetPlayer(std::shared_ptr<Player> pPlayer) { m_pPlayer = pPlayer; }
+	// カメラ座標のゲッタ
+	Vec2 GetCameraPos() const { return m_pos; }
 
-	// カメラ座標を取得
-	Vec2 GetCameraPos() const { return m_Pos; }
+	// プレイヤーポインタのセッタ
+	void SetPlayer(std::shared_ptr<Player> p_player) { m_p_player = p_player; }
 
 private:
 	// カメラ座標をプレイヤー座標に更新
 	void UpdateCameraPos();
 
-	// プレイヤーのポインタ
-	std::shared_ptr<Player> m_pPlayer = nullptr;
+	// カメラ座標
+	Vec2 m_pos;
 
-	// カメラの位置
-	Vec2 m_Pos;
+	// プレイヤーポインタ
+	std::shared_ptr<Player> m_p_player = nullptr;
 };

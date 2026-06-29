@@ -1,18 +1,9 @@
+#include "../GameConst.h"
 #include "Camera.h"
 #include "Player.h"
 
 Camera::Camera() :
-	m_Pos(0.0f, 0.0f)
-{
-
-}
-
-Camera::~Camera()
-{
-
-}
-
-void Camera::Init()
+	m_pos(Game::SCREEN_HALF_WIDTH, 0.0f)
 {
 
 }
@@ -24,7 +15,6 @@ void Camera::Update()
 
 void Camera::UpdateCameraPos()
 {
-	m_Pos.m_x = 960.0f;
 	// プレイヤーのy座標を元にカメラのy座標を決定
-	m_Pos.m_y = m_pPlayer->GetPlayerPos().m_y;
+	m_pos.m_y = m_p_player->GetPlayerPos().m_y;
 }

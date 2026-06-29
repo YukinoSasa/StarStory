@@ -19,12 +19,12 @@ namespace
 
 Player::Player()
 {
-	m_Handle = LoadGraph("Data/pl_kari.png");
+	m_handle = LoadGraph("Data/pl_kari.png");
 }
 
 Player::~Player()
 {
-	DeleteGraph(m_Handle);
+	DeleteGraph(m_handle);
 }
 
 void Player::Init()
@@ -57,35 +57,35 @@ void Player::Move()
 	if (Pad::IsPress(PAD_INPUT_LEFT))
 	{
 		// プレイヤーの向きを変更
-		m_IsRight = false;
+		m_is_right = false;
 
-		m_Move.m_x -= K_SPEED;
+		m_move.m_x -= K_SPEED;
 	}
 	else if (Pad::IsPress(PAD_INPUT_RIGHT))
 	{
 		// プレイヤーの向きを変更
-		m_IsRight = true;
+		m_is_right = true;
 
-		m_Move.m_x += K_SPEED;
+		m_move.m_x += K_SPEED;
 	}
 	else
 	{
-		m_Move.m_x = 0.0f;
+		m_move.m_x = 0.0f;
 	}
 }
 
 void Player::Jump()
 {
 	// 空中の場合以降の処理を行わない
-	if (!m_IsGround)
+	if (!m_is_ground)
 	{
 		return;
 	}
 
 	if (Pad::IsTrigger(PAD_INPUT_1))
 	{
-		m_Move.m_y -= K_JUMP_POWER;
+		m_move.m_y -= K_JUMP_POWER;
 
-		m_IsGround = false;
+		m_is_ground = false;
 	}
 }

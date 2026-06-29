@@ -6,7 +6,7 @@
 class Stage;
 
 /// <summary>
-/// キャラクターのベースクラス
+/// キャラクターの基底クラス
 /// </summary>
 class CharacterBase
 {
@@ -22,43 +22,43 @@ public:
 	virtual void Update();
 
 	// 描画
-	virtual void Draw(Vec2 cameraPos);
+	virtual void Draw(Vec2 camera_pos);
 
-	// ステージのポインタをセット
-	void SetStage(std::shared_ptr<Stage> stage) { m_pStage = stage; }
+	// ステージポインタのセッタ
+	void SetStage(std::shared_ptr<Stage> stage) { m_p_stage = stage; }
 
 protected:
-	// マップとの当たり判定
-	void CheckHitMap(Rect& chipRect);
+	// ステージとの当たり判定
+	void CheckHitStage(Rect& chip_rect);
 
 private:
-	// 重力を受ける計算
+	// 重力を受ける
 	void Gravity();
 
 protected:
 	// 画像を読み込む変数
-	int m_Handle;
+	int m_handle;
 
-	// 画像の幅を保存するポインタ変数
-	int m_HandleWidth;
+	// 画像の幅を保存する変数
+	int m_handle_width;
 
-	// 画像の高さを保存するポインタ変数
-	int m_HandleHeight;
+	// 画像の高さを保存する変数
+	int m_handle_height;
 
 	// キャラクターが右向きかどうか
-	bool m_IsRight;
+	bool m_is_right;
 
 	// キャラクターの中心座標
-	Vec2 m_Pos;
+	Vec2 m_pos;
 	// キャラクターの移動量
-	Vec2 m_Move;
+	Vec2 m_move;
 
 	// 接地しているかどうか
-	bool m_IsGround;
+	bool m_is_ground;
 
 	// 当たり判定用矩形
-	Rect m_Rect;
+	Rect m_rect;
 
-	// ステージクラスのポインタ変数
-	std::shared_ptr<Stage> m_pStage = nullptr;
+	// ステージポインタ
+	std::shared_ptr<Stage> m_p_stage = nullptr;
 };

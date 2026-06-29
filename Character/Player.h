@@ -21,7 +21,7 @@ public:
 	void Draw(Vec2 cameraPos) override;
 
 	// プレイヤー座標のゲッタ
-	Vec2 GetPlayerPos() const { return m_Pos; }
+	Vec2 GetPlayerPos() const { return m_pos; }
 
 private:
 	// 左右の移動量を計算

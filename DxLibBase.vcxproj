@@ -152,6 +152,7 @@
     <ClInclude Include="Character\CharacterBase.h" />
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="csv\LoadCsv.h" />
+    <ClInclude Include="GameConst.h" />
     <ClInclude Include="Input\Pad.h" />
     <ClInclude Include="Math\Rect.h" />
     <ClInclude Include="Math\Vec2.h" />
