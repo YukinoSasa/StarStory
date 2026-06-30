@@ -2,7 +2,7 @@
 #include "CharacterBase.h"
 
 /// <summary>
-/// プレイヤークラス
+/// キャラクタークラスを継承したプレイヤークラス
 /// </summary>
 class Player : public CharacterBase
 {
@@ -18,7 +18,7 @@ public:
 	void Update() override;
 
 	// 描画
-	void Draw(Vec2 cameraPos) override;
+	void Draw(Vec2 camera_pos) override;
 
 	// プレイヤー座標のゲッタ
 	Vec2 GetPlayerPos() const { return m_pos; }

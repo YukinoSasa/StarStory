@@ -5,16 +5,10 @@
 namespace
 {
 	// プレイヤーの速度
-	constexpr float K_SPEED = 1.0f;
+	constexpr float PLAYER_SPEED = 1.0f;
 
 	// ジャンプ力
-	constexpr float K_JUMP_POWER = 15.0f;
-
-	//// プレイヤーの幅
-	//constexpr float K_PLAYER_WIDTH = 32.0f;
-
-	//// プレイヤーの高さ
-	//constexpr float K_PLAYER_HEIGHT = 32.0f;
+	constexpr float PLAYER_JUMP_POWER = 15.0f;
 }
 
 Player::Player()
@@ -38,17 +32,11 @@ void Player::Update()
 
 	Move();
 	Jump();
-
-	//// プレイヤー座標を更新
-	//m_Pos += m_Move;
-
-	//// 矩形の端をセット
-	//m_Rect.SetEdges(m_Pos.m_x, m_Pos.m_y, K_PLAYER_WIDTH, K_PLAYER_HEIGHT);
 }
 
-void Player::Draw(Vec2 cameraPos)
+void Player::Draw(Vec2 camera_pos)
 {
-	CharacterBase::Draw(cameraPos);
+	CharacterBase::Draw(camera_pos);
 }
 
 void Player::Move()
@@ -59,18 +47,18 @@ void Player::Move()
 		// プレイヤーの向きを変更
 		m_is_right = false;
 
-		m_move.m_x -= K_SPEED;
+		m_move.x -= PLAYER_SPEED;
 	}
 	else if (Pad::IsPress(PAD_INPUT_RIGHT))
 	{
 		// プレイヤーの向きを変更
 		m_is_right = true;
 
-		m_move.m_x += K_SPEED;
+		m_move.x += PLAYER_SPEED;
 	}
 	else
 	{
-		m_move.m_x = 0.0f;
+		m_move.x = 0.0f;
 	}
 }
 
@@ -84,7 +72,7 @@ void Player::Jump()
 
 	if (Pad::IsTrigger(PAD_INPUT_1))
 	{
-		m_move.m_y -= K_JUMP_POWER;
+		m_move.y -= PLAYER_JUMP_POWER;
 
 		m_is_ground = false;
 	}

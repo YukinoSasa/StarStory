@@ -1,4 +1,3 @@
-
 #include "SceneMain.h"
 #include "../Character/Player.h"
 #include "BackGround/BackGround.h"
@@ -7,13 +6,13 @@
 
 SceneMain::SceneMain()
 {
-	m_pPlayer = std::make_shared<Player>();
-	m_pBackGround = std::make_shared<BackGround>();
-	m_pStage = std::make_shared<Stage>();
-	m_pCamera = std::make_shared<Camera>();
-	m_pPlayer->SetStage(m_pStage);
-	m_pCamera->SetPlayer(m_pPlayer);
-	m_pStage->SetCamera(m_pCamera);
+	m_p_player = std::make_shared<Player>();
+	m_p_background = std::make_shared<BackGround>();
+	m_p_stage = std::make_shared<Stage>();
+	m_p_camera = std::make_shared<Camera>();
+	m_p_player->SetStage(m_p_stage);
+	m_p_camera->SetPlayer(m_p_player);
+	m_p_stage->SetCamera(m_p_camera);
 	
 }
 
@@ -24,19 +23,19 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
-	m_pPlayer->Init();
-	m_pBackGround->Init();
+	m_p_player->Init();
+	m_p_background->Init();
 }
 
 void SceneMain::Update()
 {
-	m_pPlayer->Update();
-	m_pCamera->Update();
+	m_p_player->Update();
+	m_p_camera->Update();
 }
 
 void SceneMain::Draw()
 {
-	m_pBackGround->Draw(m_pCamera->GetCameraPos());
-	m_pPlayer->Draw(m_pCamera->GetCameraPos());
-	m_pStage->Draw();
+	m_p_background->Draw(m_p_camera->GetCameraPos());
+	m_p_player->Draw(m_p_camera->GetCameraPos());
+	m_p_stage->Draw(m_p_camera->GetCameraPos());
 }

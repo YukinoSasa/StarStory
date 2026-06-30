@@ -22,24 +22,24 @@ public:
 	void Update();
 
 	// 描画
-	void Draw();
+	void Draw(Vec2 camera_pos);
 
 	// 指定した矩形がマップチップと当たっているかどうか
-	bool IsCollision(const Rect& rect, Rect& chipRect);
+	bool IsCollision(const Rect& rect, Rect& chip_rect);
 
 	// カメラのポインタをセット
-	void SetCamera(std::shared_ptr<Camera> pCamera) { m_pCamera = pCamera; }
+	void SetCamera(std::shared_ptr<Camera> p_camera) { m_p_camera = p_camera; }
 
 private:
 	// ステージの描画位置を更新
 	void UpdateStagePos();
 
 	// マップのデータ
-	MapData m_MapData;
+	MapData m_map_data;
 
 	// 地面(csvの1)の画像データ
-	int m_Handle1;
+	int m_handle1;
 
 	// カメラのポインタ
-	std::shared_ptr<Camera> m_pCamera;
+	std::shared_ptr<Camera> m_p_camera;
 };

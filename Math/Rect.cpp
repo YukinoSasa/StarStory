@@ -1,42 +1,41 @@
 #include <DxLib.h>
+#include "../GameConst.h"
 #include "Rect.h"
 
 Rect::Rect() :
-	m_LeftEdge(0.0f), m_RightEdge(0.0f), m_TopEdge(0.0f), m_BottomEdge(0.0f)
+	m_left_edge(0.0f), m_right_edge(0.0f), m_top_edge(0.0f), m_bottom_edge(0.0f)
 {
 
 }
 
-Rect::~Rect()
+void Rect::Draw(Vec2 camera_pos)
 {
-
-}
-
-void Rect::Draw(Vec2 cameraPos)
-{
-	DrawBox(static_cast<int>(m_LeftEdge - cameraPos.m_x + 960.0f), static_cast<int>(m_TopEdge - cameraPos.m_y + 540.0f),
-		static_cast<int>(m_RightEdge - cameraPos.m_x + 960.0f), static_cast<int>(m_BottomEdge - cameraPos.m_y + 540.0f), GetColor(255, 0, 0), false);
+	DrawBox(static_cast<int>(m_left_edge - camera_pos.x + Game::SCREEN_HALF_WIDTH),
+		static_cast<int>(m_top_edge - camera_pos.y + Game::SCREEN_HALF_HEIGHT),
+		static_cast<int>(m_right_edge - camera_pos.x + Game::SCREEN_HALF_WIDTH),
+		static_cast<int>(m_bottom_edge - camera_pos.y + Game::SCREEN_HALF_HEIGHT),
+		GetColor(255, 0, 0), false);
 }
 
 bool Rect::IsCollision(const Rect& object)
 {
 	// 自身の左端xより対象の右端xが小さいときは衝突していない
-	if (m_LeftEdge > object.m_RightEdge)
+	if (m_left_edge > object.m_right_edge)
 	{
 		return false;
 	}
 	// 自身の右端xより対象の左端xが大きいときは衝突していない
-	else if (m_RightEdge < object.m_LeftEdge)
+	else if (m_right_edge < object.m_left_edge)
 	{
 		return false;
 	}
 	// 自身の上端yより対象の下端yが小さいときは衝突していない
-	else if (m_TopEdge > object.m_BottomEdge)
+	else if (m_top_edge > object.m_bottom_edge)
 	{
 		return false;
 	}
 	// 自身の下端yより対象の上端yが大きいときは衝突していない
-	else if (m_BottomEdge < object.m_TopEdge)
+	else if (m_bottom_edge < object.m_top_edge)
 	{
 		return false;
 	}
@@ -47,10 +46,10 @@ bool Rect::IsCollision(const Rect& object)
 	}
 }
 
-void Rect::SetEdges(float x, float y, float width, float height)
+void Rect::CalculateEdges(float x, float y, float width, float height)
 {
-	m_LeftEdge = x - width / 2;
-	m_RightEdge = x + width / 2;
-	m_TopEdge = y - height / 2;
-	m_BottomEdge = y + height / 2;
+	m_left_edge = x - width * 0.5f;
+	m_right_edge = x + width * 0.5f;
+	m_top_edge = y - height * 0.5f;
+	m_bottom_edge = y + height * 0.5f;
 }

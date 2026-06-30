@@ -1,14 +1,14 @@
 #include "LoadCsv.h"
 
-MapData LoadMap(const std::string& filePath)
+MapData LoadMap(const std::string& file_path)
 {
-	MapData mapData;
-	std::ifstream file(filePath);
+	MapData map_data;
+	std::ifstream file(file_path);
 
 	// ファイルが読み込めない場合、以降の処理を行わない
 	if (!file)
 	{
-		return mapData;
+		return map_data;
 	}
 
 	std::string line;
@@ -36,8 +36,8 @@ MapData LoadMap(const std::string& filePath)
 			row.push_back(std::stoi(cell));
 		}
 
-		mapData.push_back(row);
+		map_data.push_back(row);
 	}
 
-	return mapData;
+	return map_data;
 }

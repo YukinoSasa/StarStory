@@ -9,40 +9,38 @@ class Rect
 public:
 	Rect();
 
-	~Rect();
-
 	// 確認用の矩形を描画
-	void Draw(Vec2 cameraPos);
+	void Draw(Vec2 camera_pos);
 
 	// 矩形が接しているかどうか
 	bool IsCollision(const Rect& object);
 
-	// 各オブジェクトの中心座標(x, y)をもとに端の値をセット
-	void SetEdges(float x, float y, float width, float height);
+	// 各オブジェクトの中心座標(x, y)をもとに端の値を計算
+	void CalculateEdges(float x, float y, float width, float height);
 
 	// 矩形の左端xを取得
-	float GetLeftEdge() const { return m_LeftEdge; }
+	float GetLeftEdge() const { return m_left_edge; }
 
 	// 矩形の右端xを取得
-	float GetRightEdge() const { return m_RightEdge; }
+	float GetRightEdge() const { return m_right_edge; }
 
 	// 矩形の上端yを取得
-	float GetTopEdge() const { return m_TopEdge; }
+	float GetTopEdge() const { return m_top_edge; }
 
 	// 矩形の下端yを取得
-	float GetBottomEdge() const { return m_BottomEdge; }
+	float GetBottomEdge() const { return m_bottom_edge; }
 
 
 private:
 	// 矩形の左端x
-	float m_LeftEdge;
+	float m_left_edge;
 
 	// 矩形の右端x
-	float m_RightEdge;
+	float m_right_edge;
 
 	// 矩形の上端y
-	float m_TopEdge;
+	float m_top_edge;
 
 	// 矩形の下端y
-	float m_BottomEdge;
+	float m_bottom_edge;
 };

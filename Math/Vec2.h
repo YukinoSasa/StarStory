@@ -1,15 +1,18 @@
 #pragma once
 #include <cmath>
 
+/// <summary>
+/// 2次元ベクトルを表すクラス
+/// </summary>
 class Vec2
 {
 public:
-	Vec2() : m_x(0.0f), m_y(0.0f)
+	Vec2() : x(0.0f), y(0.0f)
 	{
 
 	}
 
-	Vec2(float posX, float posY) : m_x(posX), m_y(posY)
+	Vec2(float pos_x, float pos_y) : x(pos_x), y(pos_y)
 	{
 
 	}
@@ -23,19 +26,19 @@ public:
 	// 単項演算子- Vec2 = -Vec2
 	Vec2 operator-() const
 	{
-		return Vec2{ -m_x, -m_y };
+		return Vec2{ -x, -y };
 	}
 
 	// 足し算
 	Vec2 operator+(Vec2 vec) const
 	{
-		return Vec2{ m_x + vec.m_x, m_y + vec.m_y };
+		return Vec2{ x + vec.x, y + vec.y };
 	}
 	// Vec2 += Vec2
 	Vec2 operator+=(Vec2 vec)
 	{
-		m_x += vec.m_x;
-		m_y += vec.m_y;
+		x += vec.x;
+		y += vec.y;
 
 		return *this;
 	}
@@ -43,13 +46,13 @@ public:
 	// 引き算
 	Vec2 operator-(Vec2 vec) const
 	{
-		return Vec2{ m_x - vec.m_x, m_y - vec.m_y };
+		return Vec2{ x - vec.x, y - vec.y };
 	}
 	// Vec2 -= Vec2
 	Vec2 operator-=(Vec2 vec)
 	{
-		m_x -= vec.m_x;
-		m_y -= vec.m_y;
+		x -= vec.x;
+		y -= vec.y;
 
 		return *this;
 	}
@@ -57,14 +60,14 @@ public:
 	// 掛け算
 	Vec2 operator*(float scale) const
 	{
-		return Vec2{ m_x * scale, m_y * scale };
+		return Vec2{ x * scale, y * scale };
 	}
 
 	// Vec2 *= float
 	Vec2 operator*=(float scale)
 	{
-		m_x *= scale;
-		m_y *= scale;
+		x *= scale;
+		y *= scale;
 
 		return *this;
 	}
@@ -72,14 +75,14 @@ public:
 	// 割り算
 	Vec2 operator/(float scale) const
 	{
-		return Vec2{ m_x / scale, m_y / scale };
+		return Vec2{ x / scale, y / scale };
 	}
 
 	// Vec2 /= float
 	Vec2 operator/=(float scale)
 	{
-		m_x /= scale;
-		m_y /= scale;
+		x /= scale;
+		y /= scale;
 
 		return *this;
 	}
@@ -87,7 +90,7 @@ public:
 	// ベクトルの長さの2乗
 	float SqLength() const
 	{
-		return m_x * m_x + m_y * m_y;
+		return x * x + y * y;
 	}
 
 	// ベクトルの長さ
@@ -103,8 +106,8 @@ public:
 
 		if (len > 0.0f)
 		{
-			m_x /= len;
-			m_y /= len;
+			x /= len;
+			y /= len;
 		}
 
 		// 長さ0の場合は何もしない
@@ -117,7 +120,7 @@ public:
 
 		if (len > 0.0f)
 		{
-			return Vec2{ m_x / len, m_y / len };
+			return Vec2{ x / len, y / len };
 		}
 
 		// 長さが0の場合
@@ -125,6 +128,6 @@ public:
 	}
 
 public:
-	float m_x;
-	float m_y;
+	float x;
+	float y;
 };

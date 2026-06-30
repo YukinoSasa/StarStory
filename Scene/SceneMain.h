@@ -9,7 +9,7 @@ class Stage;
 class Camera;
 
 /// <summary>
-/// メインシーンクラス
+/// シーンクラスを継承したメインシーンクラス
 /// </summary>
 class SceneMain : public SceneBase
 {
@@ -29,14 +29,14 @@ public:
 
 private:
 	// プレイヤーのポインタ
-	std::shared_ptr<Player> m_pPlayer = nullptr;
+	std::shared_ptr<Player> m_p_player = nullptr;
 
 	// 背景のポインタ
-	std::shared_ptr<BackGround> m_pBackGround = nullptr;
+	std::shared_ptr<BackGround> m_p_background = nullptr;
 
 	// ステージのポインタ
-	std::shared_ptr<Stage> m_pStage = nullptr;
+	std::shared_ptr<Stage> m_p_stage = nullptr;
 
 	// カメラのポインタ
-	std::shared_ptr<Camera> m_pCamera = nullptr;
+	std::shared_ptr<Camera> m_p_camera = nullptr;
 };

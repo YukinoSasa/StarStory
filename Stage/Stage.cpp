@@ -1,22 +1,23 @@
 #include <DxLib.h>
+#include "../GameConst.h"
 #include "Stage.h"
 #include "../Character/Camera.h"
 
 namespace
 {
 	// 地面ブロックの画像サイズ
-	float K_SIZE = 64.0f;
+	float BLOCK_SIZE = 64.0f;
 }
 
 Stage::Stage()
 {
-	m_MapData = LoadMap("csv/Stage1.csv");
-	m_Handle1 = LoadGraph("Data/ground_kari.png");
+	m_map_data = LoadMap("csv/Stage1.csv");
+	m_handle1 = LoadGraph("Data/ground_kari.png");
 }
 
 Stage::~Stage()
 {
-	DeleteGraph(m_Handle1);
+	DeleteGraph(m_handle1);
 }
 
 void Stage::Init()
@@ -29,62 +30,59 @@ void Stage::Update()
 
 }
 
-void Stage::Draw()
+void Stage::Draw(Vec2 camera_pos)
 {
-	for (int y = 0; y < (int)m_MapData.size(); y++)
+	for (int y = 0; y < (int)m_map_data.size(); y++)
 	{
-		for (int x = 0; x < (int)m_MapData[y].size(); x++)
+		for (int x = 0; x < (int)m_map_data[y].size(); x++)
 		{
-			int Tile = m_MapData[y][x];
+			int tile = m_map_data[y][x];
 
-			switch (Tile)
+			switch (tile)
 			{
 			case 0:
 				break;
 
 			case 1:
 				// マップチップのワールド座標(マップチップの中心座標)を求める
-				float worldX = (x * K_SIZE) + (K_SIZE / 2);
-				float worldY = (y * K_SIZE) + (K_SIZE / 2);
+				float world_x = (x * BLOCK_SIZE) + (BLOCK_SIZE * 0.5f);
+				float world_y = (y * BLOCK_SIZE) + (BLOCK_SIZE * 0.5f);
 
-				// 描画するスクリーン座標を求める
-				Vec2 screenPos = m_pCamera->GetCameraPos();
 				// DrawGraphは左上基準なので中心基準から左上にずらす
-				float screenX = worldX - screenPos.m_x + 960.0f - (K_SIZE / 2);
-				float screenY = worldY - screenPos.m_y + 540.0f - (K_SIZE / 2);
-				//DrawGraph(x * K_SIZE, y * K_SIZE + 100, m_Handle1, true);
-				DrawGraph(screenX, screenY, m_Handle1, true);
+				float screen_x = world_x - camera_pos.x + Game::SCREEN_HALF_WIDTH - (BLOCK_SIZE * 0.5f);
+				float screen_y = world_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT - (BLOCK_SIZE * 0.5f);
+
+				DrawGraphF(screen_x, screen_y, m_handle1, true);
 			}
 		}
 	}
 }
 
-bool Stage::IsCollision(const Rect& rect, Rect& chipRect)
+bool Stage::IsCollision(const Rect& rect, Rect& chip_rect)
 {
-	for (int y = 0; y < (int)m_MapData.size(); y++)
+	for (int y = 0; y < (int)m_map_data.size(); y++)
 	{
-		for (int x = 0; x < (int)m_MapData[y].size(); x++)
+		for (int x = 0; x < (int)m_map_data[y].size(); x++)
 		{
 			// マップチップ0は当たり判定がないので飛ばす
-			if (m_MapData[y][x] == 0)
+			if (m_map_data[y][x] == 0)
 			{
 				continue;
 			}
 			
 			// マップチップ1の時当たり判定の矩形を持つ
-			Rect ChipRect;
+			Rect check_chip_rect;
 			// 矩形の中心座標を計算
-			float chipX = (x * K_SIZE) + (K_SIZE / 2);
-			float chipY = (y * K_SIZE) + (K_SIZE / 2);
-			//float chipY = (y * K_SIZE) + (K_SIZE / 2) + 100;
+			float chip_x = (x * BLOCK_SIZE) + (BLOCK_SIZE * 0.5f);
+			float chip_y = (y * BLOCK_SIZE) + (BLOCK_SIZE * 0.5f);
 
 			// 矩形の端をセット
-			ChipRect.SetEdges(chipX, chipY, K_SIZE, K_SIZE);
+			check_chip_rect.CalculateEdges(chip_x, chip_y, BLOCK_SIZE, BLOCK_SIZE);
 			// 対象の矩形とマップチップの矩形の当たりを調べる
-			if (ChipRect.IsCollision(rect))
+			if (check_chip_rect.IsCollision(rect))
 			{
 				// ぶつかったマップチップの矩形を設定
-				chipRect.SetEdges(chipX, chipY, K_SIZE, K_SIZE);
+				chip_rect.CalculateEdges(chip_x, chip_y, BLOCK_SIZE, BLOCK_SIZE);
 				return true;
 			}
 

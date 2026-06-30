@@ -1,4 +1,5 @@
 #include <Dxlib.h>
+#include "GameConst.h"
 #include "Scene/SceneMain.h"
 #include "Input/Pad.h"
 
@@ -9,7 +10,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	SetOutApplicationLogValidFlag(false);
 #endif
 	// 画面サイズの変更
-	SetGraphMode(1920, 1080, 32);
+	SetGraphMode(Game::SCREEN_WIDTH, Game::SCREEN_HEIGHT, 32);
 
 	// ダブルバッファモード
 	SetDrawScreen(DX_SCREEN_BACK);
@@ -22,10 +23,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		return -1;
 
 	// メインシーンのポインタ
-	SceneMain* pSceneMain = new SceneMain;
+	SceneMain* p_scene_main = new SceneMain;
 
 	// メインシーンの初期化
-	pSceneMain->Init();
+	p_scene_main->Init();
 
 	while (ProcessMessage() == 0)
 	{
@@ -37,8 +38,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		// パッドの入力を更新
 		Pad::Update();
 
-		pSceneMain->Update();
-		pSceneMain->Draw();
+		p_scene_main->Update();
+		p_scene_main->Draw();
 
 		// 表画面と裏画面の入れ替え
 		ScreenFlip();
@@ -55,7 +56,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 	}
 
-	delete pSceneMain;
+	delete p_scene_main;
 
 	DxLib_End();
 	return 0;

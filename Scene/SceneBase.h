@@ -1,7 +1,7 @@
 #pragma once
 
 /// <summary>
-/// シーンのベースクラス
+/// シーンの基底クラス
 /// </summary>
 class SceneBase
 {

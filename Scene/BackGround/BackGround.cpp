@@ -1,38 +1,34 @@
 #include <DxLib.h>
+#include "../../GameConst.h"
 #include "BackGround.h"
 
 BackGround::BackGround() :
-	m_Pos(0.0f, 0.0f), m_HandleWidth(0), m_HandleHeight(0)
+	m_pos(0.0f, 0.0f), m_handle_width(0), m_handle_height(0)
 {
-	m_HandleGround = LoadGraph("Data/BG_01.png");
-	m_HandleSky1 = LoadGraph("Data/BG_02.png");
+	m_handle_ground = LoadGraph("Data/BG_01.png");
+	m_handle_sky1 = LoadGraph("Data/BG_02.png");
 }
 
 BackGround::~BackGround()
 {
-	DeleteGraph(m_HandleGround);
-	DeleteGraph(m_HandleSky1);
+	DeleteGraph(m_handle_ground);
+	DeleteGraph(m_handle_sky1);
 }
 
 void BackGround::Init()
 {
-	GetGraphSize(m_HandleGround, &m_HandleWidth, &m_HandleHeight);
+	GetGraphSize(m_handle_ground, &m_handle_width, &m_handle_height);
 }
 
-void BackGround::Update()
-{
-
-}
-
-void BackGround::Draw(Vec2 cameraPos)
+void BackGround::Draw(Vec2 camera_pos)
 {
 	// 背景ループ
 
 
 	// スクリーン座標の計算
-	float screenX = m_Pos.m_x - cameraPos.m_x + 960;
-	float screenY = m_Pos.m_y - cameraPos.m_y + 540;
-	DrawGraph(screenX, screenY, m_HandleGround, true);
+	float screen_x = m_pos.x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
+	float screen_y = m_pos.y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
+	DrawGraph(screen_x, screen_y, m_handle_ground, true);
 
 	//int w, h;
 	//GetDrawScreenSize(&w, &h);
