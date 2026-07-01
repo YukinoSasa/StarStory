@@ -27,7 +27,10 @@ public:
 	// 指定した矩形がマップチップと当たっているかどうか
 	bool IsCollision(const Rect& rect, Rect& chip_rect);
 
-	// カメラのポインタをセット
+	// ステージ高さのゲッタ
+	float GetStageHeight() const { return m_stage_height; }
+
+	// カメラポインタのセッタ
 	void SetCamera(std::shared_ptr<Camera> p_camera) { m_p_camera = p_camera; }
 
 private:
@@ -42,4 +45,7 @@ private:
 
 	// カメラのポインタ
 	std::shared_ptr<Camera> m_p_camera;
+
+	// ステージの高さ
+	float m_stage_height;
 };

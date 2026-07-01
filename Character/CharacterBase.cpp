@@ -7,7 +7,7 @@
 namespace
 {
 	// キャラクターが受ける重力
-	constexpr float GRAVITY = 1.0f;
+	constexpr float GRAVITY = 0.3f;
 }
 
 CharacterBase::CharacterBase() :

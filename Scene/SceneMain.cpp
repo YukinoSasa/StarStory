@@ -25,6 +25,7 @@ void SceneMain::Init()
 {
 	m_p_player->Init();
 	m_p_background->Init();
+	m_p_stage->Init();
 }
 
 void SceneMain::Update()
@@ -35,7 +36,7 @@ void SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	m_p_background->Draw(m_p_camera->GetCameraPos());
+	m_p_background->Draw(m_p_camera->GetCameraPos(), m_p_stage->GetStageHeight());
 	m_p_player->Draw(m_p_camera->GetCameraPos());
 	m_p_stage->Draw(m_p_camera->GetCameraPos());
 }

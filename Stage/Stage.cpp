@@ -9,7 +9,8 @@ namespace
 	float BLOCK_SIZE = 64.0f;
 }
 
-Stage::Stage()
+Stage::Stage() :
+	m_stage_height(0.0f)
 {
 	m_map_data = LoadMap("csv/Stage1.csv");
 	m_handle1 = LoadGraph("Data/ground_kari.png");
@@ -22,7 +23,7 @@ Stage::~Stage()
 
 void Stage::Init()
 {
-
+	m_stage_height = m_map_data.size() * BLOCK_SIZE;
 }
 
 void Stage::Update()

@@ -15,9 +15,12 @@ public:
 	void Init();
 
 	// •`‰æ
-	void Draw(Vec2 camera_pos);
+	void Draw(Vec2 camera_pos, float stage_height);
 
 private:
+	// ƒJƒƒ‰‚ÌˆÊ’u‚ğ‚à‚Æ‚É•`‰æ‚Ìfor•¶‚Ìi‚Ì’l‚ğŒvZ‚·‚é
+	int CalculateBackgroundIndex(float camera_pos_y);
+
 	// ‰æ‘œ‚ğ“Ç‚İ‚Ş•Ï”
 	// ’nã”wŒi
 	int m_handle_ground;
