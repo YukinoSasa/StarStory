@@ -29,4 +29,7 @@ private:
 
 	// ƒWƒƒƒ“ƒv
 	void Jump();
+
+	// ƒS[ƒ‹‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
+	bool IsGoal();
 };

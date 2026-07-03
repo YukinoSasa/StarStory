@@ -81,6 +81,11 @@ void CharacterBase::CheckHitStage(Rect& chip_rect)
 
 	if (m_p_stage->IsCollision(m_rect, chip_rect))
 	{
+		if (!chip_rect.GetIsObject())
+		{
+			return;
+		}
+
 		if (m_move.x > 0.0f)
 		{
 			m_pos.x = chip_rect.GetLeftEdge() - m_handle_width * 0.5f;
@@ -101,6 +106,11 @@ void CharacterBase::CheckHitStage(Rect& chip_rect)
 
 	if (m_p_stage->IsCollision(m_rect, chip_rect))
 	{
+		if (!chip_rect.GetIsObject())
+		{
+			return;
+		}
+
 		if (m_move.y > 0.0f)
 		{
 			m_pos.y = chip_rect.GetTopEdge() - m_handle_height * 0.5f;

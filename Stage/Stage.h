@@ -43,9 +43,15 @@ private:
 	// 地面(csvの1)の画像データ
 	int m_handle1;
 
+	// 足場(csvの2)の画像データ
+	int m_handle2;
+
 	// カメラのポインタ
 	std::shared_ptr<Camera> m_p_camera;
 
 	// ステージの高さ
 	float m_stage_height;
+
+	// ゴールしたかどうか
+	bool m_is_goal;
 };

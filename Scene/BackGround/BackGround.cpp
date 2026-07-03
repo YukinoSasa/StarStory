@@ -25,7 +25,7 @@ void BackGround::Draw(Vec2 camera_pos, float stage_height)
 	// 地面背景のワールドy座標
 	float world_ground_y = stage_height - m_handle_height;
 	float screen_y = world_ground_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
-	DrawGraphF(m_pos.x - camera_pos.x + Game::SCREEN_HALF_WIDTH, screen_y, m_handle_ground, true);
+	//DrawGraphF(m_pos.x - camera_pos.x + Game::SCREEN_HALF_WIDTH, screen_y, m_handle_ground, true);
 
 	// 背景ループ
 	for (int i = CalculateBackgroundIndex(camera_pos.y) - 1; i < CalculateBackgroundIndex(camera_pos.y) + 2; i++)
@@ -37,15 +37,15 @@ void BackGround::Draw(Vec2 camera_pos, float stage_height)
 		float screen_y = world_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
 		
 
-		//DrawGraphF(screen_x, screen_y, m_handle_sky1, true);
-		// 
+		DrawGraphF(screen_x, screen_y, m_handle_sky1, true);
+		 
 		//if (world_y == world_ground_y)
 		//{
-		//	DrawGraphF(screen_x, screen_y, m_handle_sky1, true);
+		//	DrawGraphF(screen_x, screen_y, m_handle_ground, true);
 		//}
 		//else
 		//{
-		//	DrawGraphF(screen_x, screen_y, m_handle_ground, true);
+		//	DrawGraphF(screen_x, screen_y, m_handle_sky1, true);
 		//}
 	}
 	 
@@ -57,7 +57,7 @@ void BackGround::Draw(Vec2 camera_pos, float stage_height)
 	//int w, h;
 	//GetDrawScreenSize(&w, &h);
 
-	DrawFormatString(0, 30, GetColor(255, 255, 255), "stage_height : %d", stage_height);
+	//DrawFormatString(0, 30, GetColor(255, 255, 255), "stage_height : %f", stage_height);
 }
 
 int BackGround::CalculateBackgroundIndex(float camera_pos_y)

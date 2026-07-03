@@ -77,3 +77,8 @@ void Player::Jump()
 		m_is_ground = false;
 	}
 }
+
+//bool Player::IsGoal()
+//{
+//
+//}
