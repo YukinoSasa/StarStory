@@ -30,6 +30,6 @@ private:
 	// ジャンプ
 	void Jump();
 
-	// ゴールしているかどうか
-	bool IsGoal();
+	//// ゴールしているかどうか
+	//bool IsGoal();
 };

@@ -1,12 +1,15 @@
 #include "SceneMain.h"
 #include "../Character/Player.h"
+#include "../Character/Enemy.h"
 #include "BackGround/BackGround.h"
 #include "../Stage/Stage.h"
 #include "../Character/Camera.h"
+#include <DxLib.h>
 
 SceneMain::SceneMain()
 {
 	m_p_player = std::make_shared<Player>();
+	m_p_enemy = std::make_shared<Enemy>();
 	m_p_background = std::make_shared<BackGround>();
 	m_p_stage = std::make_shared<Stage>();
 	m_p_camera = std::make_shared<Camera>();
@@ -24,6 +27,7 @@ SceneMain::~SceneMain()
 void SceneMain::Init()
 {
 	m_p_player->Init();
+	m_p_enemy->Init();
 	m_p_background->Init();
 	m_p_stage->Init();
 }
@@ -31,6 +35,7 @@ void SceneMain::Init()
 void SceneMain::Update()
 {
 	m_p_player->Update();
+	m_p_enemy->Update();
 	m_p_camera->Update();
 }
 
@@ -38,5 +43,8 @@ void SceneMain::Draw()
 {
 	m_p_background->Draw(m_p_camera->GetCameraPos(), m_p_stage->GetStageHeight());
 	m_p_player->Draw(m_p_camera->GetCameraPos());
+	//m_p_enemy->Draw(m_p_camera->GetCameraPos());
 	m_p_stage->Draw(m_p_camera->GetCameraPos());
+
+	DrawFormatString(0, 30, GetColor(255, 255, 255), "enemy = %d", m_p_enemy);
 }

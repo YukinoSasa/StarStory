@@ -4,6 +4,7 @@
 #include "../csv/LoadCsv.h"
 
 class Player;
+class Enemy;
 class BackGround;
 class Stage;
 class Camera;
@@ -30,6 +31,9 @@ public:
 private:
 	// プレイヤーのポインタ
 	std::shared_ptr<Player> m_p_player = nullptr;
+
+	// エネミーのポインタ
+	std::shared_ptr<Enemy> m_p_enemy = nullptr;
 
 	// 背景のポインタ
 	std::shared_ptr<BackGround> m_p_background = nullptr;
