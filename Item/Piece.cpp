@@ -1,0 +1,34 @@
+#include <DxLib.h>
+#include "../GameConst.h"
+#include "Piece.h"
+
+Piece::Piece() : 
+	m_pos(500.0f, 500.0f), m_handle_width(0), m_handle_height(0), m_rect()
+{
+	m_handle = LoadGraph("Data/piece_kari.png");
+}
+
+Piece::~Piece()
+{
+	DeleteGraph(m_handle);
+}
+
+void Piece::Init()
+{
+	GetGraphSize(m_handle, &m_handle_width, &m_handle_height);
+
+	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_handle_width, m_handle_height);
+}
+
+void Piece::Draw(Vec2 camera_pos)
+{
+	// 画像の左上の座標
+	float draw_x = m_pos.x - m_handle_width * 0.5f;
+	float draw_y = m_pos.y - m_handle_height * 0.5f;
+
+	// 描画のスクリーン座標
+	float screen_x = draw_x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
+	float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
+
+	DrawGraphF(screen_x, screen_y, m_handle, true);
+}

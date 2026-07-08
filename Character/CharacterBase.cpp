@@ -36,15 +36,15 @@ void CharacterBase::Update()
 	CheckHitStage(chip_rect);
 }
 
-void CharacterBase::Draw(Vec2 cameraPos)
+void CharacterBase::Draw(Vec2 camera_pos)
 {
 	// キャラクター画像の左上の座標
-	float draw_x = m_pos.x - static_cast<float>(m_handle_width / 2);
-	float draw_y = m_pos.y - static_cast<float>(m_handle_height / 2);
+	float draw_x = m_pos.x - m_handle_width * 0.5f;
+	float draw_y = m_pos.y - m_handle_height * 0.5f;
 
 	// キャラクター描画のスクリーン座標
-	float screen_x = draw_x - cameraPos.x + Game::SCREEN_HALF_WIDTH;
-	float screen_y = draw_y - cameraPos.y + Game::SCREEN_HALF_HEIGHT;
+	float screen_x = draw_x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
+	float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
 
 	// キャラクターの向きによって画像を反転
 	if (m_is_right)
@@ -58,7 +58,7 @@ void CharacterBase::Draw(Vec2 cameraPos)
 
 #ifdef _DEBUG
 	// デバック時のみ当たり判定の矩形を描画
-	m_rect.Draw(cameraPos);
+	m_rect.Draw(camera_pos);
 #endif
 }
 

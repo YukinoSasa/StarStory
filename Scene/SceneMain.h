@@ -5,6 +5,7 @@
 
 class Player;
 class Enemy;
+class Piece;
 class BackGround;
 class Stage;
 class Camera;
@@ -34,6 +35,9 @@ private:
 
 	// エネミーのポインタ
 	std::shared_ptr<Enemy> m_p_enemy = nullptr;
+
+	// アイテムのポインタ
+	std::shared_ptr<Piece> m_p_piece = nullptr;
 
 	// 背景のポインタ
 	std::shared_ptr<BackGround> m_p_background = nullptr;

@@ -1,6 +1,7 @@
 #include "SceneMain.h"
 #include "../Character/Player.h"
 #include "../Character/Enemy.h"
+#include "../Item/Piece.h"
 #include "BackGround/BackGround.h"
 #include "../Stage/Stage.h"
 #include "../Character/Camera.h"
@@ -10,10 +11,13 @@ SceneMain::SceneMain()
 {
 	m_p_player = std::make_shared<Player>();
 	m_p_enemy = std::make_shared<Enemy>();
+	m_p_piece = std::make_shared<Piece>();
 	m_p_background = std::make_shared<BackGround>();
 	m_p_stage = std::make_shared<Stage>();
 	m_p_camera = std::make_shared<Camera>();
 	m_p_player->SetStage(m_p_stage);
+	m_p_enemy->SetStage(m_p_stage);
+	m_p_piece->SetStage(m_p_stage);
 	m_p_camera->SetPlayer(m_p_player);
 	m_p_stage->SetCamera(m_p_camera);
 	
@@ -28,6 +32,7 @@ void SceneMain::Init()
 {
 	m_p_player->Init();
 	m_p_enemy->Init();
+	m_p_piece->Init();
 	m_p_background->Init();
 	m_p_stage->Init();
 }
@@ -43,8 +48,7 @@ void SceneMain::Draw()
 {
 	m_p_background->Draw(m_p_camera->GetCameraPos(), m_p_stage->GetStageHeight());
 	m_p_player->Draw(m_p_camera->GetCameraPos());
-	//m_p_enemy->Draw(m_p_camera->GetCameraPos());
+	m_p_enemy->Draw(m_p_camera->GetCameraPos());
+	m_p_piece->Draw(m_p_camera->GetCameraPos());
 	m_p_stage->Draw(m_p_camera->GetCameraPos());
-
-	DrawFormatString(0, 30, GetColor(255, 255, 255), "enemy = %d", m_p_enemy);
 }
