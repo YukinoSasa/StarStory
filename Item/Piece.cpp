@@ -3,7 +3,7 @@
 #include "Piece.h"
 
 Piece::Piece() : 
-	m_pos(500.0f, 500.0f), m_handle_width(0), m_handle_height(0), m_rect()
+	m_pos(.0f, .0f), m_handle_width(0), m_handle_height(0), m_rect()
 {
 	m_handle = LoadGraph("Data/piece_kari.png");
 }

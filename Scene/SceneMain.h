@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <vector>
 #include "SceneBase.h"
 #include "../csv/LoadCsv.h"
 
@@ -37,7 +38,9 @@ private:
 	std::shared_ptr<Enemy> m_p_enemy = nullptr;
 
 	// アイテムのポインタ
-	std::shared_ptr<Piece> m_p_piece = nullptr;
+	//std::shared_ptr<Piece> m_p_piece = nullptr;
+
+	std::vector<std::shared_ptr<Piece>> m_p_pieces;
 
 	// 背景のポインタ
 	std::shared_ptr<BackGround> m_p_background = nullptr;

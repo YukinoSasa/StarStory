@@ -21,8 +21,8 @@ public:
 	// 描画
 	void Draw(Vec2 camera_pos);
 
-	// ステージポインタのセッタ
-	void SetStage(std::shared_ptr<Stage> stage) { m_p_stage = stage; }
+	// 座標のセッタ
+	void SetPos(float pos_x, float pos_y) { m_pos.x = pos_x; m_pos.y = pos_y; }
 
 private:
 	// 画像を読み込む変数
@@ -39,8 +39,4 @@ private:
 
 	// 当たり判定用矩形
 	Rect m_rect;
-
-	// ステージポインタ
-	// いらない？
-	std::shared_ptr<Stage> m_p_stage = nullptr;
 };
