@@ -70,8 +70,8 @@ void SceneMain::Draw()
 	//m_p_piece->Draw(m_p_camera->GetCameraPos());
 	m_p_stage->Draw(m_p_camera->GetCameraPos());
 
-	for (auto& piece : m_p_pieces)
-	{
-		piece->Draw(m_p_camera->GetCameraPos());
-	}
+	//for (auto& piece : m_p_pieces)
+	//{
+	//	piece->Draw(m_p_camera->GetCameraPos());
+	//}
 }

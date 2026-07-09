@@ -24,8 +24,11 @@ public:
 	// 描画
 	void Draw(Vec2 camera_pos);
 
-	// 指定した矩形がマップチップと当たっているかどうか
+	// 指定した矩形がマップチップと衝突しているかどうか
 	bool IsCollision(const Rect& rect, Rect& chip_rect);
+
+	// 指定した矩形がマップチップに入っているかどうか
+	bool IsTrigger(const Rect& rect, Rect& chip_rect);
 
 	// ステージ高さのゲッタ
 	float GetStageHeight() const { return m_stage_height; }
@@ -34,9 +37,6 @@ public:
 	void SetCamera(std::shared_ptr<Camera> p_camera) { m_p_camera = p_camera; }
 
 private:
-	// ステージの描画位置を更新
-	void UpdateStagePos();
-
 	// マップのデータ
 	MapData m_map_data;
 
@@ -45,6 +45,9 @@ private:
 
 	// 足場(csvの2)の画像データ
 	int m_handle2;
+
+	// かけら(csvの4)の画像データ
+	int m_handle4;
 
 	// カメラのポインタ
 	std::shared_ptr<Camera> m_p_camera;

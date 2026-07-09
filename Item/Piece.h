@@ -25,8 +25,8 @@ public:
 	void SetPos(float pos_x, float pos_y) { m_pos.x = pos_x; m_pos.y = pos_y; }
 
 private:
-	// ‰æ‘œ‚ğ“Ç‚İ‚Ş•Ï”
-	int m_handle;
+	//// ‰æ‘œ‚ğ“Ç‚İ‚Ş•Ï”
+	//int m_handle;
 
 	// ‰æ‘œ‚Ì•‚ğ•Û‘¶‚·‚é•Ï”
 	int m_handle_width;
