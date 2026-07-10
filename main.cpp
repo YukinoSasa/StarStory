@@ -15,8 +15,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// ダブルバッファモード
 	SetDrawScreen(DX_SCREEN_BACK);
 	
-	// ウィンドウモードの変更
+	//	デバッグ中はウィンドウモード、リリース版はフルスクリーン
+#ifdef _DEBUG
 	ChangeWindowMode(TRUE);
+#else
+	ChangeWindowMode(FALSE);
+#endif
 	
 
 	if (DxLib_Init() == -1)

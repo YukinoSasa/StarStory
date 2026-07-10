@@ -2,11 +2,14 @@
 #include "../GameConst.h"
 #include "Stage.h"
 #include "../Character/Camera.h"
+#include "../Item/Piece.h"
 
 namespace
 {
 	// 地面ブロックの画像サイズ
 	float BLOCK_SIZE = 64.0f;
+	// アイテムの画像サイズ
+	float ITEM_SIZE = 16.0f;
 }
 
 Stage::Stage() :
@@ -28,6 +31,53 @@ Stage::~Stage()
 void Stage::Init()
 {
 	m_stage_height = (int)m_map_data.size() * BLOCK_SIZE;
+
+	for (int y = 0; y < (int)m_map_data.size(); y++)
+	{
+		for (int x = 0; x < (int)m_map_data[y].size(); x++)
+		{
+			int tile = m_map_data[y][x];
+
+			switch (tile)
+			{
+			case 0:
+			{
+				break;
+			}
+
+			case 1:
+			{
+				break;
+			}
+
+			case 2:
+			{
+				break;
+			}
+
+			case 3:
+				break;
+
+			case 4:
+			{
+				// 各アイテムをPieceクラスに格納
+				std::shared_ptr<Piece> piece = std::make_shared<Piece>();
+				piece->Init();
+
+				// マップチップのワールド座標(マップチップの中心座標)を求める
+				float world_x = (x * BLOCK_SIZE) + (ITEM_SIZE * 0.5f);
+				float world_y = (y * BLOCK_SIZE) + (ITEM_SIZE * 0.5f);
+
+				piece->SetPos(world_x, world_y);
+
+				// 配列に追加
+				m_p_pieces.push_back(piece);
+
+				break;
+			}
+			}
+		}
+	}
 }
 
 void Stage::Update()
@@ -87,19 +137,25 @@ void Stage::Draw(Vec2 camera_pos)
 
 			case 4:
 			{
-				// マップチップのワールド座標(マップチップの中心座標)を求める
-				float world_x = (x * BLOCK_SIZE) + (BLOCK_SIZE * 0.5f);
-				float world_y = (y * BLOCK_SIZE) + (BLOCK_SIZE * 0.5f);
+				//// マップチップのワールド座標(マップチップの中心座標)を求める
+				//float world_x = (x * BLOCK_SIZE) + (BLOCK_SIZE * 0.5f);
+				//float world_y = (y * BLOCK_SIZE) + (BLOCK_SIZE * 0.5f);
 
-				// DrawGraphは左上基準なので中心基準から左上にずらす
-				float screen_x = world_x - camera_pos.x + Game::SCREEN_HALF_WIDTH - (BLOCK_SIZE * 0.5f);
-				float screen_y = world_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT - (BLOCK_SIZE * 0.5f);
+				//// DrawGraphは左上基準なので中心基準から左上にずらす
+				//float screen_x = world_x - camera_pos.x + Game::SCREEN_HALF_WIDTH - (BLOCK_SIZE * 0.5f);
+				//float screen_y = world_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT - (BLOCK_SIZE * 0.5f);
 
-				DrawGraphF(screen_x, screen_y, m_handle4, true);
+				//DrawGraphF(screen_x, screen_y, m_handle4, true);
 				break;
 			}
 			}
 		}
+	}
+
+	// アイテムの描画
+	for (auto& piece : m_p_pieces)
+	{
+		piece->Draw(camera_pos);
 	}
 
 	//DrawFormatString(0, 30, GetColor(255, 255, 255), "cameraX : %f", camera_pos.x);
@@ -186,6 +242,7 @@ bool Stage::IsTrigger(const Rect& rect, Rect& chip_rect)
 				if (m_map_data[y][x] == 4)
 				{
 					chip_rect.SetIsObject(false);
+					m_p_pieces[18]->Collect();
 				}
 
 				return true;

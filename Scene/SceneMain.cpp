@@ -16,11 +16,11 @@ SceneMain::SceneMain()
 	m_p_stage = std::make_shared<Stage>();
 	m_p_camera = std::make_shared<Camera>();
 
-	m_p_pieces.resize(10);
-	for (auto& piece : m_p_pieces)
-	{
-		piece = std::make_shared<Piece>();
-	}
+	//m_p_pieces.resize(10);
+	//for (auto& piece : m_p_pieces)
+	//{
+	//	piece = std::make_shared<Piece>();
+	//}
 
 	m_p_player->SetStage(m_p_stage);
 	m_p_enemy->SetStage(m_p_stage);
@@ -45,13 +45,13 @@ void SceneMain::Init()
 
 	int index = 1;
 
-	for (auto& piece : m_p_pieces)
-	{
-		piece->Init();
-		piece->SetPos(10 * index * 10, 500.0f);
+	//for (auto& piece : m_p_pieces)
+	//{
+	//	piece->Init();
+	//	piece->SetPos(10 * index * 10, 500.0f);
 
-		index++;
-	}
+	//	index++;
+	//}
 
 }
 
@@ -67,7 +67,6 @@ void SceneMain::Draw()
 	m_p_background->Draw(m_p_camera->GetCameraPos(), m_p_stage->GetStageHeight());
 	m_p_player->Draw(m_p_camera->GetCameraPos());
 	m_p_enemy->Draw(m_p_camera->GetCameraPos());
-	//m_p_piece->Draw(m_p_camera->GetCameraPos());
 	m_p_stage->Draw(m_p_camera->GetCameraPos());
 
 	//for (auto& piece : m_p_pieces)

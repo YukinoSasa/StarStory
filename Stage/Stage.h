@@ -4,6 +4,7 @@
 #include "../Math/Rect.h"
 
 class Camera;
+class Piece;
 
 /// <summary>
 /// マップのデータを持つステージクラス
@@ -51,6 +52,9 @@ private:
 
 	// カメラのポインタ
 	std::shared_ptr<Camera> m_p_camera;
+
+	// アイテムのポインタ
+	std::vector<std::shared_ptr<Piece>> m_p_pieces;
 
 	// ステージの高さ
 	float m_stage_height;

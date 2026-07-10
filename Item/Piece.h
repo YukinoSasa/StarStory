@@ -24,9 +24,12 @@ public:
 	// 座標のセッタ
 	void SetPos(float pos_x, float pos_y) { m_pos.x = pos_x; m_pos.y = pos_y; }
 
+	// 自身が取得されたときに呼ばれる
+	void Collect();
+
 private:
-	//// 画像を読み込む変数
-	//int m_handle;
+	// 画像を読み込む変数
+	int m_handle;
 
 	// 画像の幅を保存する変数
 	int m_handle_width;
@@ -39,4 +42,7 @@ private:
 
 	// 当たり判定用矩形
 	Rect m_rect;
+
+	// 自身が取得されているかどうか
+	bool m_is_collect;
 };
