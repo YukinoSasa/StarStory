@@ -62,13 +62,13 @@ void Stage::Init()
 			{
 				// 各アイテムをPieceクラスに格納
 				std::shared_ptr<Piece> piece = std::make_shared<Piece>();
-				piece->Init();
 
 				// マップチップのワールド座標(マップチップの中心座標)を求める
 				float world_x = (x * BLOCK_SIZE) + (ITEM_SIZE * 0.5f);
 				float world_y = (y * BLOCK_SIZE) + (ITEM_SIZE * 0.5f);
 
 				piece->SetPos(world_x, world_y);
+				piece->Init();
 
 				// 配列に追加
 				m_p_pieces.push_back(piece);
@@ -239,16 +239,42 @@ bool Stage::IsTrigger(const Rect& rect, Rect& chip_rect)
 				}
 
 				// アイテムと接触時は当たり判定処理を行わない
-				if (m_map_data[y][x] == 4)
-				{
-					chip_rect.SetIsObject(false);
-					m_p_pieces[18]->Collect();
-				}
+				//if (m_map_data[y][x] == 4)
+				//{
+				//	chip_rect.SetIsObject(false);
 
-				return true;
+				//	for (auto& piece : m_p_pieces)
+				//	{
+				//		if (piece->GetRect().IsCollision(rect))
+				//		{
+				//			piece->Collect();
+				//		}
+				//	}
+				//}
+
+
+				//for (auto& piece : m_p_pieces)
+				//{
+				//	if (piece->GetRect().IsCollision(rect))
+				//	{
+				//		piece->Collect();
+				//	}
+				//}
+				//return true;
 			}
 		}
 	}
+
+	for (auto& piece : m_p_pieces)
+	{
+		if (piece->GetRect().IsCollision(rect))
+		{
+			piece->Collect();
+			return true;
+		}
+	}
+	
+
 
 	return false;
 }

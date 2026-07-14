@@ -21,6 +21,9 @@ public:
 	// 描画
 	void Draw(Vec2 camera_pos);
 
+	// 矩形のゲッタ
+	Rect GetRect() const { return m_rect; }
+
 	// 座標のセッタ
 	void SetPos(float pos_x, float pos_y) { m_pos.x = pos_x; m_pos.y = pos_y; }
 
