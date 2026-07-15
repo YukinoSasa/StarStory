@@ -1,7 +1,10 @@
 #include <Dxlib.h>
+#include <memory>
 #include "GameConst.h"
+#include "Scene/SceneManager.h"
 #include "Scene/SceneMain.h"
 #include "Input/Pad.h"
+
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	PSTR lpCmdLine, int nCmdShow)
@@ -26,11 +29,16 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	if (DxLib_Init() == -1)
 		return -1;
 
-	// メインシーンのポインタ
-	SceneMain* p_scene_main = new SceneMain;
+	// シーンマネージャーのポインタ
+	std::unique_ptr<SceneManager> p_scene_manager = std::make_unique<SceneManager>();
 
-	// メインシーンの初期化
-	p_scene_main->Init();
+
+	//// メインシーンのポインタ
+	//SceneMain* p_scene_main = new SceneMain;
+
+	// シーンの初期化
+	//p_scene_main->Init();
+	p_scene_manager->Init();
 
 	while (ProcessMessage() == 0)
 	{
@@ -42,8 +50,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		// パッドの入力を更新
 		Pad::Update();
 
-		p_scene_main->Update();
-		p_scene_main->Draw();
+		p_scene_manager->Update();
+		p_scene_manager->Draw();
 
 		// 表画面と裏画面の入れ替え
 		ScreenFlip();
@@ -60,7 +68,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 	}
 
-	delete p_scene_main;
+	//delete p_scene_main;
 
 	DxLib_End();
 	return 0;

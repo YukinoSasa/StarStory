@@ -1,11 +1,7 @@
 #include "SceneBase.h"
 
-SceneBase::SceneBase()
-{
-
-}
-
-SceneBase::~SceneBase()
+SceneBase::SceneBase() :
+	m_is_scene_end(false)
 {
 
 }
