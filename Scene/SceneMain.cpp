@@ -1,3 +1,4 @@
+#include <DxLib.h>
 #include "SceneMain.h"
 #include "../Character/Player.h"
 #include "../Character/Enemy.h"
@@ -5,7 +6,6 @@
 #include "BackGround/BackGround.h"
 #include "../Stage/Stage.h"
 #include "../Character/Camera.h"
-#include <DxLib.h>
 
 SceneMain::SceneMain()
 {
@@ -60,6 +60,17 @@ void SceneMain::Update()
 	m_p_player->Update();
 	m_p_enemy->Update();
 	m_p_camera->Update();
+
+	if (m_p_stage->GetIsGoal())
+	{
+		//m_wait--;
+
+		//if (m_wait <= 0.0f)
+		//{
+		//	m_is_scene_end = true;
+		//}
+		m_is_scene_end = true;
+	}
 }
 
 void SceneMain::Draw()

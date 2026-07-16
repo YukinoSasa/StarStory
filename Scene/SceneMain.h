@@ -46,4 +46,7 @@ private:
 
 	// カメラのポインタ
 	std::shared_ptr<Camera> m_p_camera = nullptr;
+
+	//// ゴール後待機時間
+	//float m_wait;
 };

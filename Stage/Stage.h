@@ -34,6 +34,9 @@ public:
 	// ステージ高さのゲッタ
 	float GetStageHeight() const { return m_stage_height; }
 
+	// ゴールしたかどうかのゲッタ
+	bool GetIsGoal() const { return m_is_goal; }
+
 	// カメラポインタのセッタ
 	void SetCamera(std::shared_ptr<Camera> p_camera) { m_p_camera = p_camera; }
 
