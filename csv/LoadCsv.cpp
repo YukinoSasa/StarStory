@@ -1,4 +1,5 @@
 #include "LoadCsv.h"
+#include "../Math/Vec2.h"
 
 MapData LoadMap(const std::string& file_path)
 {
@@ -40,4 +41,55 @@ MapData LoadMap(const std::string& file_path)
 	}
 
 	return map_data;
+}
+
+EnemyDatas LoadEnemy(const std::string& file_path)
+{
+	EnemyDatas enemy_datas;
+	std::ifstream file(file_path);
+
+	// ファイルが読み込めない場合、以降の処理を行わない
+	if (!file)
+	{
+		return enemy_datas;
+	}
+
+	std::string line;
+
+	while (std::getline(file, line))
+	{
+		EnemyData enemy_data{ 0, Vec2(0.0f, 0.0f), 0.0f, "graph_data" };
+
+		// 空行を飛ばす
+		if (line.empty())
+		{
+			continue;
+		}
+
+		std::vector<std::string> row;
+		std::stringstream ss(line);
+		std::string cell;
+
+		while (std::getline(ss, cell, ','))
+		{
+			// Windows環境の'\r'を除去
+			if (!cell.empty() && cell.back() == '\r')
+			{
+				cell.pop_back();
+			}
+
+			row.push_back(cell);
+		}
+		
+		// データをエネミー構造体に変換
+		enemy_data.m_stage = std::stoi(row[0]);
+		enemy_data.m_spawn.x = std::stof(row[1]);
+		enemy_data.m_spawn.y = std::stof(row[2]);
+		enemy_data.m_size = std::stof(row[3]);
+		enemy_data.m_file_pass = row[4];
+
+		enemy_datas.push_back(enemy_data);
+	}
+
+	return enemy_datas;
 }

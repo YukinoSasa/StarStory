@@ -138,6 +138,7 @@
     <ClCompile Include="Character\Camera.cpp" />
     <ClCompile Include="Character\CharacterBase.cpp" />
     <ClCompile Include="Character\Enemy.cpp" />
+    <ClCompile Include="Character\EnemyManager.cpp" />
     <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="csv\LoadCsv.cpp" />
     <ClCompile Include="Input\Pad.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Character\Camera.h" />
     <ClInclude Include="Character\CharacterBase.h" />
     <ClInclude Include="Character\Enemy.h" />
+    <ClInclude Include="Character\EnemyManager.h" />
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="csv\LoadCsv.h" />
     <ClInclude Include="GameConst.h" />
