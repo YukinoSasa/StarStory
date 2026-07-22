@@ -40,6 +40,9 @@ public:
 	// カメラポインタのセッタ
 	void SetCamera(std::shared_ptr<Camera> p_camera) { m_p_camera = p_camera; }
 
+	// 前方に床があるかどうか
+	bool IsGroundFoward(Rect& rect);
+
 private:
 	// マップのデータ
 	MapData m_map_data;

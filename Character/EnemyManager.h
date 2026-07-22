@@ -2,7 +2,10 @@
 
 #include <string>
 #include <vector>
+#include <memory>
 #include "../Math/Vec2.h"
+
+class Enemy;
 
 // 敵1体の情報の構造体
 struct EnemyData
@@ -38,8 +41,17 @@ public:
 	void Update();
 
 	// 描画
-	void Draw();
+	void Draw(Vec2 camera_pos);
+
+	// エネミー配列のゲッタ
+	std::vector<std::shared_ptr<Enemy>> GetEnemies() const { return m_p_enemies; }
 
 private:
-	EnemyDatas m_enemies;
+	// エネミーデータをまとめた配列
+	EnemyDatas m_enemy_datas;
+
+	// エネミー自体をまとめた配列
+	std::vector<std::shared_ptr<Enemy>> m_p_enemies;
+
+	// アクティブ状態のエネミーをまとめた配列？
 };

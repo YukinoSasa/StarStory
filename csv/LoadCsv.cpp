@@ -56,6 +56,10 @@ EnemyDatas LoadEnemy(const std::string& file_path)
 
 	std::string line;
 
+	// 1行目ヘッダ部分を読み込む
+	std::getline(file, line);
+	
+	// 2行目以降をデータとして読み込む
 	while (std::getline(file, line))
 	{
 		EnemyData enemy_data{ 0, Vec2(0.0f, 0.0f), 0.0f, "graph_data" };

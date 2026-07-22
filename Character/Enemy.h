@@ -1,5 +1,6 @@
 #pragma once
 #include "CharacterBase.h"
+#include "EnemyManager.h"
 
 /// <summary>
 /// キャラクタークラスを継承したエネミークラス
@@ -7,7 +8,7 @@
 class Enemy : public CharacterBase
 {
 public:
-	Enemy();
+	Enemy(EnemyData enemy_data);
 
 	~Enemy() override;
 
