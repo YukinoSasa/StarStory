@@ -67,6 +67,11 @@ void SceneMain::Update()
 	m_p_enemy_manager->Update();
 	m_p_camera->Update();
 
+	for (auto& enemy : m_p_enemy_manager->GetEnemies())
+	{
+		CheckHitPlayerEnemy(m_p_player->GetRect(), enemy->GetRect());
+	}
+
 	if (m_p_stage->GetIsGoal())
 	{
 		//m_wait--;
@@ -90,4 +95,13 @@ void SceneMain::Draw()
 	//{
 	//	piece->Draw(m_p_camera->GetCameraPos());
 	//}
+}
+
+void SceneMain::CheckHitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect)
+{
+	// プレイヤーが敵に接している場合プレイヤー死亡
+	if (player_rect.IsCollision(enemy_rect))
+	{
+		m_p_player->SetIsAlive(false);
+	}
 }

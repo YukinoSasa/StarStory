@@ -24,8 +24,14 @@ public:
 	// 描画
 	virtual void Draw(Vec2 camera_pos);
 
+	// Rectクラスのゲッタ
+	const Rect GetRect() const { return m_rect; }
+
 	// ステージポインタのセッタ
 	void SetStage(std::shared_ptr<Stage> stage) { m_p_stage = stage; }
+
+	// 生きているかどうかのセッタ
+	void SetIsAlive(bool is_alive) { m_is_alive = is_alive; }
 
 protected:
 	// ステージとの当たり判定
@@ -61,4 +67,7 @@ protected:
 
 	// ステージポインタ
 	std::shared_ptr<Stage> m_p_stage = nullptr;
+
+	// 生きているかどうか
+	bool m_is_alive;
 };

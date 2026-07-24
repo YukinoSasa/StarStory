@@ -11,7 +11,7 @@ namespace
 }
 
 CharacterBase::CharacterBase() :
-	m_handle(-1), m_handle_width(-1), m_handle_height(-1), m_is_right(true), m_pos(20, 0), m_move(0, 0), m_is_ground(false), m_rect()
+	m_handle(-1), m_handle_width(-1), m_handle_height(-1), m_is_right(true), m_pos(20, 0), m_move(0, 0), m_is_ground(false), m_rect(), m_is_alive(true)
 {
 
 }

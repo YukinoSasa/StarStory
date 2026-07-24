@@ -13,7 +13,7 @@ public:
 	void Draw(Vec2 camera_pos);
 
 	// 矩形が接しているかどうか
-	bool IsCollision(const Rect& object);
+	bool IsCollision(const Rect& object) const;
 
 	// 各オブジェクトの中心座標(x, y)をもとに端の値を計算
 	void CalculateEdges(float x, float y, float width, float height);

@@ -30,6 +30,6 @@ private:
 	// ƒWƒƒƒ“ƒv
 	void Jump();
 
-	//// ƒS[ƒ‹‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
-	//bool IsGoal();
+	//// “G‚Æ‚Ì“–‚½‚è”»’è
+	//void CheckHitEnemy(Rect& enemy_rect);
 };

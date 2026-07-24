@@ -3,6 +3,7 @@
 #include <vector>
 #include "SceneBase.h"
 #include "../csv/LoadCsv.h"
+#include "../Math/Rect.h"
 
 class Player;
 class EnemyManager;
@@ -31,6 +32,9 @@ public:
 	void Draw() override;
 
 private:
+	// プレイヤーと敵の衝突をチェック
+	void CheckHitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect);
+
 	// プレイヤーのポインタ
 	std::shared_ptr<Player> m_p_player = nullptr;
 

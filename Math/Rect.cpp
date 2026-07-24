@@ -17,7 +17,7 @@ void Rect::Draw(Vec2 camera_pos)
 		GetColor(255, 0, 0), false);
 }
 
-bool Rect::IsCollision(const Rect& object)
+bool Rect::IsCollision(const Rect& object) const
 {
 	// 自身の左端xより対象の右端xが小さいときは衝突していない
 	if (m_left_edge > object.m_right_edge)

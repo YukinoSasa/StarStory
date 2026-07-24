@@ -5,7 +5,7 @@
 namespace
 {
 	// プレイヤーの速度
-	constexpr float PLAYER_SPEED = 1.0f;
+	constexpr float PLAYER_SPEED = 5.0f;
 
 	// ジャンプ力
 	constexpr float PLAYER_JUMP_POWER = 15.0f;
@@ -28,14 +28,26 @@ void Player::Init()
 
 void Player::Update()
 {
-	CharacterBase::Update();
+	// プレイヤー死亡の場合以降の処理を行わない
+	if (!m_is_alive)
+	{
+		return;
+	}
 
 	Move();
 	Jump();
+
+	CharacterBase::Update();
 }
 
 void Player::Draw(Vec2 camera_pos)
 {
+	// プレイヤー死亡の場合以降の処理を行わない
+	if (!m_is_alive)
+	{
+		return;
+	}
+
 	CharacterBase::Draw(camera_pos);
 }
 
@@ -47,14 +59,14 @@ void Player::Move()
 		// プレイヤーの向きを変更
 		m_is_right = false;
 
-		m_move.x -= PLAYER_SPEED;
+		m_move.x = -PLAYER_SPEED;
 	}
 	else if (Pad::IsPress(PAD_INPUT_RIGHT))
 	{
 		// プレイヤーの向きを変更
 		m_is_right = true;
 
-		m_move.x += PLAYER_SPEED;
+		m_move.x = +PLAYER_SPEED;
 	}
 	else
 	{
@@ -77,8 +89,3 @@ void Player::Jump()
 		m_is_ground = false;
 	}
 }
-
-//bool Player::IsGoal()
-//{
-//
-//}
