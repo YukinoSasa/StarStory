@@ -4,6 +4,7 @@
 #include "SceneTitle.h"
 #include "SceneMain.h"
 #include "SceneClear.h"
+#include "SceneGameover.h"
 
 namespace
 {
@@ -46,16 +47,41 @@ void SceneManager::Update()
 			}
 			case SceneState::Play:
 			{
-				// 現在のSceneStateがPlayの場合、Clearへ遷移
-				std::unique_ptr<SceneClear> p_scene_clear = std::make_unique<SceneClear>();
-				ChangeScene(std::move(p_scene_clear));
-				m_scene_state = SceneState::Clear;
-				m_wait_count = 0.0f;
+				// 現在のSceneStateがPlayの場合、シーン終了結果がClearの場合、Clearへ遷移
+				switch (m_p_current_scene->GetSceneResult())
+				{
+				case SceneBase::SceneResult::Clear:
+				{
+					std::unique_ptr<SceneClear> p_scene_clear = std::make_unique<SceneClear>();
+					ChangeScene(std::move(p_scene_clear));
+					m_scene_state = SceneState::Clear;
+					m_wait_count = 0.0f;
+					break;
+				}
+				// 現在のSceneStateがPlayの場合、シーン終了結果がGameoverの場合、Gameoverへ遷移
+				case SceneBase::SceneResult::Gameover:
+				{
+					std::unique_ptr<SceneGameover> p_scene_gameover = std::make_unique<SceneGameover>();
+					ChangeScene(std::move(p_scene_gameover));
+					m_scene_state = SceneState::Gameover;
+					m_wait_count = 0.0f;
+					break;
+				}
+				}
 				break;
 			}
 			case SceneState::Clear:
 			{
 				// 現在のSceneStateがClearの場合、Titleへ遷移
+				std::unique_ptr<SceneTitle> p_scene_title = std::make_unique<SceneTitle>();
+				ChangeScene(std::move(p_scene_title));
+				m_scene_state = SceneState::Title;
+				m_wait_count = 0.0f;
+				break;
+			}
+			case SceneState::Gameover:
+			{
+				// 現在のSceneStateがGameoverの場合、Titleへ遷移
 				std::unique_ptr<SceneTitle> p_scene_title = std::make_unique<SceneTitle>();
 				ChangeScene(std::move(p_scene_title));
 				m_scene_state = SceneState::Title;

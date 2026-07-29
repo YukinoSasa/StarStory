@@ -27,6 +27,9 @@ public:
 	// Rectクラスのゲッタ
 	const Rect GetRect() const { return m_rect; }
 
+	// 生きているかどうかのゲッタ
+	bool GetIsAlive() const { return m_is_alive; }
+
 	// ステージポインタのセッタ
 	void SetStage(std::shared_ptr<Stage> stage) { m_p_stage = stage; }
 

@@ -33,6 +33,7 @@ private:
 		Title,
 		Play,
 		Clear,
+		Gameover,
 	};
 
 	// Œ»İ‚ÌƒV[ƒ“‚ğ•Û‘¶‚·‚é•Ï”

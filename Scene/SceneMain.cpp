@@ -8,7 +8,8 @@
 #include "../Stage/Stage.h"
 #include "../Character/Camera.h"
 
-SceneMain::SceneMain()
+SceneMain::SceneMain() :
+	m_is_goal(false)
 {
 	m_p_player = std::make_shared<Player>();
 	m_p_enemy_manager = std::make_shared<EnemyManager>();
@@ -48,17 +49,6 @@ void SceneMain::Init()
 	//m_p_piece->Init();
 	m_p_background->Init();
 	m_p_stage->Init();
-
-	//int index = 1;
-
-	//for (auto& piece : m_p_pieces)
-	//{
-	//	piece->Init();
-	//	piece->SetPos(10 * index * 10, 500.0f);
-
-	//	index++;
-	//}
-
 }
 
 void SceneMain::Update()
@@ -66,20 +56,25 @@ void SceneMain::Update()
 	m_p_player->Update();
 	m_p_enemy_manager->Update();
 	m_p_camera->Update();
-
+	
+	// €–S”»’è(“GÚG)
 	for (auto& enemy : m_p_enemy_manager->GetEnemies())
 	{
-		CheckHitPlayerEnemy(m_p_player->GetRect(), enemy->GetRect());
+		HitPlayerEnemy(m_p_player->GetRect(), enemy->GetRect());
 	}
 
+	// €–SŒãƒV[ƒ“‘JˆÚ‚ÌƒgƒŠƒK[ƒIƒ“
+	if (!m_p_player->GetIsAlive())
+	{
+		m_scene_result = SceneResult::Gameover;
+		m_is_scene_end = true;
+	}
+
+	// ƒNƒŠƒA”»’èŒãƒV[ƒ“‘JˆÚ‚ÌƒgƒŠƒK[ƒIƒ“
 	if (m_p_stage->GetIsGoal())
 	{
-		//m_wait--;
-
-		//if (m_wait <= 0.0f)
-		//{
-		//	m_is_scene_end = true;
-		//}
+		m_is_goal = true;
+		m_scene_result = SceneResult::Clear;
 		m_is_scene_end = true;
 	}
 }
@@ -97,7 +92,7 @@ void SceneMain::Draw()
 	//}
 }
 
-void SceneMain::CheckHitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect)
+void SceneMain::HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect)
 {
 	// ƒvƒŒƒCƒ„[‚ª“G‚ÉÚ‚µ‚Ä‚¢‚éê‡ƒvƒŒƒCƒ„[€–S
 	if (player_rect.IsCollision(enemy_rect))

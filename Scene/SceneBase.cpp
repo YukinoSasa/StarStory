@@ -1,7 +1,7 @@
 #include "SceneBase.h"
 
 SceneBase::SceneBase() :
-	m_is_scene_end(false)
+	m_is_scene_end(false), m_scene_result(SceneResult::None)
 {
 
 }

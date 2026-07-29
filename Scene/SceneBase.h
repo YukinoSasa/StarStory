@@ -22,7 +22,31 @@ public:
 	// シーン状態のゲッタ
 	bool GetIsSceneEnd() { return m_is_scene_end; }
 
+	// シーン終了時の結果
+	enum class SceneResult
+	{
+		None,
+		Clear,
+		Gameover,
+	};
+
 protected:
+	//// シーン終了時の結果
+	//enum class SceneResult
+	//{
+	//	None,
+	//	Clear,
+	//	Gameover,
+	//};
+
 	// シーンが終了したかどうか
 	bool m_is_scene_end;
+
+	// シーンの終了結果を保存する変数
+	SceneResult m_scene_result;
+
+public:
+	// シーンの終了状態のゲッタ
+	SceneResult GetSceneResult() { return m_scene_result; }
+
 };

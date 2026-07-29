@@ -31,9 +31,12 @@ public:
 	// 描画
 	void Draw() override;
 
+	// ゴールしたかどうかのゲッタ
+	bool GetIsGoal() const { return m_is_goal; }
+
 private:
 	// プレイヤーと敵の衝突をチェック
-	void CheckHitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect);
+	void HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect);
 
 	// プレイヤーのポインタ
 	std::shared_ptr<Player> m_p_player = nullptr;
@@ -52,6 +55,6 @@ private:
 	// カメラのポインタ
 	std::shared_ptr<Camera> m_p_camera = nullptr;
 
-	//// ゴール後待機時間
-	//float m_wait;
+	// ゴールしたかどうか
+	bool m_is_goal;
 };
