@@ -41,18 +41,18 @@ protected:
 	void CheckHitStage(Rect& chip_rect);
 
 private:
-	// 重力を受ける
-	void Gravity();
+	//// 重力を受ける
+	//void Gravity();
 
 protected:
 	// 画像を読み込む変数
 	int m_handle;
 
 	// 画像の幅を保存する変数
-	int m_handle_width;
+	float m_handle_width;
 
 	// 画像の高さを保存する変数
-	int m_handle_height;
+	float m_handle_height;
 
 	// キャラクターが右向きかどうか
 	bool m_is_right;
@@ -61,6 +61,8 @@ protected:
 	Vec2 m_pos;
 	// キャラクターの移動量
 	Vec2 m_move;
+	// キャラクターの移動量を保存しておく変数
+	Vec2 m_last_move;
 
 	// 接地しているかどうか
 	bool m_is_ground;

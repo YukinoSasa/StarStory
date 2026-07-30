@@ -35,10 +35,10 @@ private:
 	int m_handle;
 
 	// 画像の幅を保存する変数
-	int m_handle_width;
+	float m_handle_width;
 
 	// 画像の高さを保存する変数
-	int m_handle_height;
+	float m_handle_height;
 
 	// アイテムの中心座標
 	Vec2 m_pos;

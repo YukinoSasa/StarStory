@@ -17,7 +17,7 @@ BackGround::~BackGround()
 
 void BackGround::Init()
 {
-	GetGraphSize(m_handle_ground, &m_handle_width, &m_handle_height);
+	GetGraphSizeF(m_handle_ground, &m_handle_width, &m_handle_height);
 }
 
 void BackGround::Draw(Vec2 camera_pos, float stage_height)

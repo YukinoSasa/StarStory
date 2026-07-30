@@ -23,6 +23,20 @@ public:
 	// プレイヤー座標のゲッタ
 	Vec2 GetPlayerPos() const { return m_pos; }
 
+	// プレイヤー幅のゲッタ
+	float GetPlayerWidth() const { return m_handle_width; }
+
+	// プレイヤー高さのゲッタ
+	float GetPlayerHeight() const { return m_handle_height; }
+
+	// プレイヤーの移動量のゲッタ
+	Vec2 GetPlayerLastMove() const { return m_last_move; }
+
+	// プレイヤー座標のセッタ
+	void SetPlayerPos(float player_pos_x, float player_pos_y) {
+		m_pos.x = player_pos_x; m_pos.y = player_pos_y;
+	}
+
 private:
 	// 左右の移動量を計算
 	void Move();

@@ -11,6 +11,7 @@ class EnemyManager;
 class BackGround;
 class Stage;
 class Camera;
+class GimmickManager;
 
 /// <summary>
 /// シーンクラスを継承したメインシーンクラス
@@ -38,6 +39,9 @@ private:
 	// プレイヤーと敵の衝突をチェック
 	void HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect);
 
+	// プレイヤーとギミックの衝突をチェック
+	void HitPlayerGimmick(const Rect& player_rect, const Rect& gimmick_rect);
+
 	// プレイヤーのポインタ
 	std::shared_ptr<Player> m_p_player = nullptr;
 
@@ -54,6 +58,9 @@ private:
 
 	// カメラのポインタ
 	std::shared_ptr<Camera> m_p_camera = nullptr;
+
+	// ギミックマネージャーのポインタ
+	std::shared_ptr<GimmickManager> m_p_gimmick_manager = nullptr;
 
 	// ゴールしたかどうか
 	bool m_is_goal;

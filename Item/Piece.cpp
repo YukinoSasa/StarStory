@@ -15,7 +15,7 @@ Piece::~Piece()
 
 void Piece::Init()
 {
-	GetGraphSize(m_handle, &m_handle_width, &m_handle_height);
+	GetGraphSizeF(m_handle, &m_handle_width, &m_handle_height);
 
 	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_handle_width, m_handle_height);
 }

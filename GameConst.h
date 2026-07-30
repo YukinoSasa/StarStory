@@ -12,4 +12,13 @@ namespace Game
 
 	// マップチップサイズ
 	constexpr float MAPCHIP_SIZE = 64.0f;
+
+	// 重力パラメーター
+	constexpr float GRAVITY = 0.3f;
+
+	// 重力を受ける関数
+	inline void Gravity(float& move_y)
+	{
+		move_y += GRAVITY;
+	}
 }

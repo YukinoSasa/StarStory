@@ -4,6 +4,7 @@
 #include <string>
 #include <sstream>
 #include "../Character/EnemyManager.h"
+#include "../Gimmick/GimmickManager.h"
 
 // マップデータのvector配列
 using MapData = std::vector<std::vector<int>>;
@@ -16,3 +17,6 @@ MapData LoadMap(const std::string& file_path);
 
 // csvファイルを読み込みエネミーデータを返す
 EnemyDatas LoadEnemy(const std::string& file_path);
+
+// csvファイルを読み込みギミックデータを返す
+GimmickDatas LoadGimmick(const std::string& file_path);

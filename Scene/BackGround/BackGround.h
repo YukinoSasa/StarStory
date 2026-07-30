@@ -31,7 +31,7 @@ private:
 	Vec2 m_pos;
 
 	// ‰æ‘œ‚Ì•
-	int m_handle_width;
+	float m_handle_width;
 	// ‰æ‘œ‚Ì‚‚³
-	int m_handle_height;
+	float m_handle_height;
 };

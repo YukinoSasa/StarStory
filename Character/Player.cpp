@@ -49,6 +49,7 @@ void Player::Draw(Vec2 camera_pos)
 	}
 
 	CharacterBase::Draw(camera_pos);
+	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
 }
 
 void Player::Move()

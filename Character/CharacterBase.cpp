@@ -6,8 +6,8 @@
 
 namespace
 {
-	// キャラクターが受ける重力
-	constexpr float GRAVITY = 0.3f;
+	//// キャラクターが受ける重力
+	//constexpr float GRAVITY = 0.3f;
 }
 
 CharacterBase::CharacterBase() :
@@ -24,12 +24,12 @@ CharacterBase::~CharacterBase()
 void CharacterBase::Init()
 {
 	// 画像サイズを取得し、値を保存
-	GetGraphSize(m_handle, &m_handle_width, &m_handle_height);
+	GetGraphSizeF(m_handle, &m_handle_width, &m_handle_height);
 }
 
 void CharacterBase::Update()
 {
-	Gravity();
+	Game::Gravity(m_move.y);
 
 	// 当たったマップチップの矩形
 	Rect chip_rect;
@@ -66,18 +66,21 @@ void CharacterBase::CheckHitStage(Rect& chip_rect)
 {
 	// 横から当たったかチェック
 	m_pos.x += m_move.x;
+	// 移動量を保存
+	m_last_move.x = m_move.x;
+
 	// 横画面外に行けないようにする
-	if (m_pos.x < 0.0f - static_cast<float>(m_handle_width / 2))
+	if (m_pos.x < 0.0f - (m_handle_width * 0.5f))
 	{
 		m_pos.x = 0;
 	}
-	else if (m_pos.x + static_cast<float>(m_handle_width / 2) > static_cast<float>(Game::SCREEN_WIDTH))
+	else if (m_pos.x + (m_handle_width * 0.5f) > static_cast<float>(Game::SCREEN_WIDTH))
 	{
 		m_pos.x = static_cast<float>(Game::SCREEN_WIDTH);
 	}
 
 	// 矩形の端をセット
-	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, static_cast<float>(m_handle_width), static_cast<float>(m_handle_height));
+	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_handle_width, m_handle_height);
 
 	if (m_p_stage->IsCollision(m_rect, chip_rect))
 	{
@@ -97,9 +100,11 @@ void CharacterBase::CheckHitStage(Rect& chip_rect)
 
 	// 縦から当たったかチェック
 	m_pos.y += m_move.y;
+	// 移動量を保存
+	m_last_move.y = m_move.y;
 
 	// 矩形の端をセット
-	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, static_cast<float>(m_handle_width), static_cast<float>(m_handle_height));
+	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_handle_width, m_handle_height);
 
 	if (m_p_stage->IsCollision(m_rect, chip_rect))
 	{
@@ -119,7 +124,7 @@ void CharacterBase::CheckHitStage(Rect& chip_rect)
 	m_p_stage->IsTrigger(m_rect, chip_rect);
 }
 
-void CharacterBase::Gravity()
-{
-	m_move.y += GRAVITY;
-}
+//void CharacterBase::Gravity()
+//{
+//	m_move.y += Game::GRAVITY;
+//}

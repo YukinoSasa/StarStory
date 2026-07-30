@@ -141,6 +141,9 @@
     <ClCompile Include="Character\EnemyManager.cpp" />
     <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="csv\LoadCsv.cpp" />
+    <ClCompile Include="Gimmick\Box.cpp" />
+    <ClCompile Include="Gimmick\GimmickBase.cpp" />
+    <ClCompile Include="Gimmick\GimmickManager.cpp" />
     <ClCompile Include="Input\Pad.cpp" />
     <ClCompile Include="Item\Piece.cpp" />
     <ClCompile Include="main.cpp" />
@@ -162,6 +165,9 @@
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="csv\LoadCsv.h" />
     <ClInclude Include="GameConst.h" />
+    <ClInclude Include="Gimmick\Box.h" />
+    <ClInclude Include="Gimmick\GimmickBase.h" />
+    <ClInclude Include="Gimmick\GimmickManager.h" />
     <ClInclude Include="Input\Pad.h" />
     <ClInclude Include="Item\Piece.h" />
     <ClInclude Include="Math\Rect.h" />
