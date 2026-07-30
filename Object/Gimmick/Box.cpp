@@ -24,7 +24,7 @@ void Box::Update(Rect player_rect, Vec2 player_last_move)
 
 	Game::Gravity(m_move.y);
 
-	m_pos.y += m_move.y;
+	//m_pos.y += m_move.y;
 
 	// ƒvƒŒƒCƒ„[‚ÆÚG‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
 	if (m_rect.IsCollision(player_rect))

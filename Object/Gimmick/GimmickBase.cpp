@@ -2,8 +2,7 @@
 #include "../../GameConst.h"
 #include "GimmickBase.h"
 
-GimmickBase::GimmickBase(GimmickData gimmick_data) :
-	m_move(0.0f, 0.0f)
+GimmickBase::GimmickBase(GimmickData gimmick_data)
 {
 	m_handle = LoadGraph(gimmick_data.m_file_pass.c_str());
 	m_pos = gimmick_data.m_spawn;

@@ -3,7 +3,7 @@
 #include "../Object/Character/Player.h"
 #include "../Object/Character/EnemyManager.h"
 #include "../Object/Character/Enemy.h"
-#include "../Item/Piece.h"
+#include "../Object/Item/Piece.h"
 #include "BackGround/BackGround.h"
 #include "../Stage/Stage.h"
 #include "../Object/Character/Camera.h"

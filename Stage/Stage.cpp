@@ -2,12 +2,10 @@
 #include "../GameConst.h"
 #include "Stage.h"
 #include "../Object/Character/Camera.h"
-#include "../Item/Piece.h"
+#include "../Object/Item/Piece.h"
 
 namespace
 {
-	//// 地面ブロックの画像サイズ
-	//float BLOCK_SIZE = 64.0f;
 	// アイテムの画像サイズ
 	float ITEM_SIZE = 16.0f;
 }

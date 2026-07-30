@@ -1,9 +1,9 @@
 #include <DxLib.h>
-#include "../GameConst.h"
+#include "../../GameConst.h"
 #include "Piece.h"
 
-Piece::Piece() : 
-	m_pos(.0f, .0f), m_handle_width(0), m_handle_height(0), m_rect(), m_is_collect(false)
+Piece::Piece()
+	:m_is_collect(false)
 {
 	m_handle = LoadGraph("Data/piece_kari.png");
 }
