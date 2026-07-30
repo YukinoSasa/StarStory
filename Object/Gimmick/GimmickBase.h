@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Math/Rect.h"
-#include "../Math/Vec2.h"
+#include "../../Math/Rect.h"
+#include "../../Math/Vec2.h"
 #include "GimmickManager.h"
 
 /// <summary>

@@ -1,5 +1,5 @@
 #include <DxLib.h>
-#include "../GameConst.h"
+#include "../../GameConst.h"
 #include "GimmickBase.h"
 
 GimmickBase::GimmickBase(GimmickData gimmick_data) :

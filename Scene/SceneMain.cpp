@@ -7,8 +7,8 @@
 #include "BackGround/BackGround.h"
 #include "../Stage/Stage.h"
 #include "../Object/Character/Camera.h"
-#include "../Gimmick/GimmickManager.h"
-#include "../Gimmick/GimmickBase.h"
+#include "../Object/Gimmick/GimmickManager.h"
+#include "../Object/Gimmick/GimmickBase.h"
 
 SceneMain::SceneMain() :
 	m_is_goal(false)

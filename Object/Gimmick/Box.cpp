@@ -1,6 +1,6 @@
 #include "Box.h"
 #include "../Character/Player.h"
-#include "../GameConst.h"
+#include "../../GameConst.h"
 
 Box::Box(GimmickData gimmick_data) :
 	GimmickBase(gimmick_data)

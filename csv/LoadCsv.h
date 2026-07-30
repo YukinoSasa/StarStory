@@ -4,7 +4,7 @@
 #include <string>
 #include <sstream>
 #include "../Object/Character/EnemyManager.h"
-#include "../Gimmick/GimmickManager.h"
+#include "../Object/Gimmick/GimmickManager.h"
 
 // マップデータのvector配列
 using MapData = std::vector<std::vector<int>>;

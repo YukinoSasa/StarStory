@@ -3,8 +3,8 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "../Math/Rect.h"
-#include "../Math/Vec2.h"
+#include "../../Math/Rect.h"
+#include "../../Math/Vec2.h"
 
 class GimmickBase;
 

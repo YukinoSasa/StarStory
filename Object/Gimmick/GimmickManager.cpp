@@ -1,5 +1,5 @@
 #include "GimmickManager.h"
-#include "../csv/LoadCsv.h"
+#include "../../csv/LoadCsv.h"
 #include "GimmickBase.h"
 #include "Box.h"
 
