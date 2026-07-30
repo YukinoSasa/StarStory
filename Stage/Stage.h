@@ -53,14 +53,8 @@ private:
 	// 足場(csvの2)の画像データ
 	int m_handle2;
 
-	// かけら(csvの4)の画像データ
-	int m_handle4;
-
 	// カメラのポインタ
 	std::shared_ptr<Camera> m_p_camera;
-
-	// アイテムのポインタ
-	std::vector<std::shared_ptr<Piece>> m_p_pieces;
 
 	// ステージの高さ
 	float m_stage_height;

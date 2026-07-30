@@ -1,8 +1,8 @@
 #pragma once
 
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 #include "../../Math/Vec2.h"
 
 class Enemy;
@@ -32,7 +32,7 @@ class EnemyManager
 public:
 	EnemyManager();
 
-	~EnemyManager();
+	~EnemyManager() = default;
 
 	// ‰Šú‰»
 	void Init();

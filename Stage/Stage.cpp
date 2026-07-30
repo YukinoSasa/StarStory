@@ -1,14 +1,7 @@
 #include <DxLib.h>
 #include "../GameConst.h"
-#include "Stage.h"
 #include "../Object/Character/Camera.h"
-#include "../Object/Item/Piece.h"
-
-namespace
-{
-	// アイテムの画像サイズ
-	float ITEM_SIZE = 16.0f;
-}
+#include "Stage.h"
 
 Stage::Stage() :
 	m_stage_height(0.0f), m_is_goal(false)
@@ -16,14 +9,12 @@ Stage::Stage() :
 	m_map_data = LoadMap("csv/Stage1.csv");
 	m_handle1 = LoadGraph("Data/ground_kari.png");
 	m_handle2 = LoadGraph("Data/ashiba.png");
-	m_handle4 = LoadGraph("Data/piece_kari.png");
 }
 
 Stage::~Stage()
 {
 	DeleteGraph(m_handle1);
 	DeleteGraph(m_handle2);
-	DeleteGraph(m_handle4);
 }
 
 void Stage::Init()
@@ -54,23 +45,7 @@ void Stage::Init()
 			}
 
 			case 3:
-				break;
-
-			case 4:
 			{
-				// 各アイテムをPieceクラスに格納
-				std::shared_ptr<Piece> piece = std::make_shared<Piece>();
-
-				// マップチップのワールド座標(マップチップの中心座標)を求める
-				float world_x = (x * Game::MAPCHIP_SIZE) + (ITEM_SIZE * 0.5f);
-				float world_y = (y * Game::MAPCHIP_SIZE) + (ITEM_SIZE * 0.5f);
-
-				piece->SetPos(world_x, world_y);
-				piece->Init();
-
-				// 配列に追加
-				m_p_pieces.push_back(piece);
-
 				break;
 			}
 			}
@@ -131,29 +106,11 @@ void Stage::Draw(Vec2 camera_pos)
 			}
 
 			case 3:
-				break;
-
-			case 4:
 			{
-				//// マップチップのワールド座標(マップチップの中心座標)を求める
-				//float world_x = (x * BLOCK_SIZE) + (BLOCK_SIZE * 0.5f);
-				//float world_y = (y * BLOCK_SIZE) + (BLOCK_SIZE * 0.5f);
-
-				//// DrawGraphは左上基準なので中心基準から左上にずらす
-				//float screen_x = world_x - camera_pos.x + Game::SCREEN_HALF_WIDTH - (BLOCK_SIZE * 0.5f);
-				//float screen_y = world_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT - (BLOCK_SIZE * 0.5f);
-
-				//DrawGraphF(screen_x, screen_y, m_handle4, true);
 				break;
 			}
 			}
 		}
-	}
-
-	// アイテムの描画
-	for (auto& piece : m_p_pieces)
-	{
-		piece->Draw(camera_pos);
 	}
 
 	//DrawFormatString(0, 30, GetColor(255, 255, 255), "cameraX : %f", camera_pos.x);
@@ -235,45 +192,10 @@ bool Stage::IsTrigger(const Rect& rect, Rect& chip_rect)
 					chip_rect.SetIsObject(false);
 					m_is_goal = true;
 				}
-
-				// アイテムと接触時は当たり判定処理を行わない
-				//if (m_map_data[y][x] == 4)
-				//{
-				//	chip_rect.SetIsObject(false);
-
-				//	for (auto& piece : m_p_pieces)
-				//	{
-				//		if (piece->GetRect().IsCollision(rect))
-				//		{
-				//			piece->Collect();
-				//		}
-				//	}
-				//}
-
-
-				//for (auto& piece : m_p_pieces)
-				//{
-				//	if (piece->GetRect().IsCollision(rect))
-				//	{
-				//		piece->Collect();
-				//	}
-				//}
-				//return true;
 			}
 		}
 	}
-
-	for (auto& piece : m_p_pieces)
-	{
-		if (piece->GetRect().IsCollision(rect))
-		{
-			piece->Collect();
-			return true;
-		}
-	}
 	
-
-
 	return false;
 }
 
@@ -305,7 +227,6 @@ bool Stage::IsGroundFoward(Rect& rect)
 			{
 				return true;
 			}
-
 		}
 	}
 

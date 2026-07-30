@@ -1,6 +1,8 @@
 #pragma once
 #include <memory>
+#include <vector>
 #include "../ObjectBase.h"
+#include "ItemManager.h"
 
 /// <summary>
 /// アイテムのピース(かけら)クラス
@@ -8,7 +10,7 @@
 class Piece : public ObjectBase
 {
 public:
-	Piece();
+	Piece(ItemData item_data);
 
 	~Piece();
 

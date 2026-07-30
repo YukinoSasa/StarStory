@@ -1,7 +1,7 @@
 #include <DxLib.h>
+#include "../../csv/LoadCsv.h"
 #include "EnemyManager.h"
 #include "Enemy.h"
-#include "../../csv/LoadCsv.h"
 
 EnemyManager::EnemyManager()
 {
@@ -14,11 +14,6 @@ EnemyManager::EnemyManager()
 		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(enemy_data);
 		m_p_enemies.push_back(enemy);
 	}
-}
-
-EnemyManager::~EnemyManager()
-{
-
 }
 
 void EnemyManager::Init()

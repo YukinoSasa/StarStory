@@ -12,6 +12,7 @@ class BackGround;
 class Stage;
 class Camera;
 class GimmickManager;
+class ItemManager;
 
 /// <summary>
 /// シーンクラスを継承したメインシーンクラス
@@ -42,6 +43,9 @@ private:
 	// プレイヤーとギミックの衝突をチェック
 	void HitPlayerGimmick(const Rect& player_rect, const Rect& gimmick_rect);
 
+	// プレイヤーとアイテムの衝突をチェック
+	void HitPlayerItem(const Rect& player_rect, const Rect& item_rect, std::shared_ptr<Piece> item);
+
 	// プレイヤーのポインタ
 	std::shared_ptr<Player> m_p_player = nullptr;
 
@@ -61,6 +65,9 @@ private:
 
 	// ギミックマネージャーのポインタ
 	std::shared_ptr<GimmickManager> m_p_gimmick_manager = nullptr;
+
+	// アイテムマネージャーのポインタ
+	std::shared_ptr<ItemManager> m_p_item_manager = nullptr;
 
 	// ゴールしたかどうか
 	bool m_is_goal;

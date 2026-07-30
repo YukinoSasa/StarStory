@@ -147,6 +147,7 @@
     <ClCompile Include="Object\Gimmick\Box.cpp" />
     <ClCompile Include="Object\Gimmick\GimmickBase.cpp" />
     <ClCompile Include="Object\Gimmick\GimmickManager.cpp" />
+    <ClCompile Include="Object\Item\ItemManager.cpp" />
     <ClCompile Include="Object\Item\Piece.cpp" />
     <ClCompile Include="Object\ObjectBase.cpp" />
     <ClCompile Include="Scene\BackGround\BackGround.cpp" />
@@ -177,6 +178,7 @@
     <ClInclude Include="Object\Gimmick\Box.h" />
     <ClInclude Include="Object\Gimmick\GimmickBase.h" />
     <ClInclude Include="Object\Gimmick\GimmickManager.h" />
+    <ClInclude Include="Object\Item\ItemManager.h" />
     <ClInclude Include="Object\Item\Piece.h" />
     <ClInclude Include="Object\ObjectBase.h" />
     <ClInclude Include="Scene\BackGround\BackGround.h" />

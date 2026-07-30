@@ -2,10 +2,13 @@
 #include "../../GameConst.h"
 #include "Piece.h"
 
-Piece::Piece()
+Piece::Piece(ItemData item_data)
 	:m_is_collect(false)
 {
-	m_handle = LoadGraph("Data/piece_kari.png");
+	m_handle = LoadGraph(item_data.m_file_pass.c_str());
+	m_pos = item_data.m_spawn;
+	m_handle_width = item_data.m_size;
+	m_handle_height = item_data.m_size;
 }
 
 Piece::~Piece()

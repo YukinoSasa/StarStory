@@ -9,6 +9,8 @@
 #include "../Object/Character/Camera.h"
 #include "../Object/Gimmick/GimmickManager.h"
 #include "../Object/Gimmick/GimmickBase.h"
+#include "../Object/Item/ItemManager.h"
+#include "../Object/Item/Piece.h"
 
 SceneMain::SceneMain() :
 	m_is_goal(false)
@@ -20,6 +22,7 @@ SceneMain::SceneMain() :
 	m_p_stage = std::make_shared<Stage>();
 	m_p_camera = std::make_shared<Camera>();
 	m_p_gimmick_manager = std::make_shared<GimmickManager>();
+	m_p_item_manager = std::make_shared<ItemManager>();
 
 	//m_p_pieces.resize(10);
 	//for (auto& piece : m_p_pieces)
@@ -52,6 +55,7 @@ void SceneMain::Init()
 	//m_p_piece->Init();
 	m_p_background->Init();
 	m_p_stage->Init();
+	m_p_item_manager->Init();
 }
 
 void SceneMain::Update()
@@ -65,6 +69,12 @@ void SceneMain::Update()
 	for (auto& gimmick : m_p_gimmick_manager->GetGimmicks())
 	{
 		HitPlayerGimmick(m_p_player->GetRect(), gimmick->GetRect());
+	}
+
+	// ƒAƒCƒeƒ€ÚG”»’è
+	for (auto& item : m_p_item_manager->GetItems())
+	{
+		HitPlayerItem(m_p_player->GetRect(), item->GetRect(), item);
 	}
 
 	// Ž€–S”»’è(“GÚG)
@@ -96,6 +106,7 @@ void SceneMain::Draw()
 	m_p_enemy_manager->Draw(m_p_camera->GetCameraPos());
 	m_p_stage->Draw(m_p_camera->GetCameraPos());
 	m_p_gimmick_manager->Draw(m_p_camera->GetCameraPos());
+	m_p_item_manager->Draw(m_p_camera->GetCameraPos());
 
 	
 
@@ -144,5 +155,14 @@ void SceneMain::HitPlayerGimmick(const Rect& player_rect, const Rect& gimmick_re
 				m_p_player->GetPlayerPos().x,
 				gimmick_rect.GetTopEdge() - m_p_player->GetPlayerHeight() * 0.5f);
 		}
+	}
+}
+
+void SceneMain::HitPlayerItem(const Rect& player_rect, const Rect& item_rect, std::shared_ptr<Piece> item)
+{
+	// ƒvƒŒƒCƒ„[‚ªƒAƒCƒeƒ€‚ÉÚG‚µ‚½ê‡Žæ“¾
+	if (player_rect.IsCollision(item_rect))
+	{
+		item->Collect();
 	}
 }
