@@ -1,7 +1,7 @@
 #include <DxLib.h>
 #include "Enemy.h"
-#include "../GameConst.h"
-#include "../Stage/Stage.h"
+#include "../../GameConst.h"
+#include "../../Stage/Stage.h"
 
 namespace
 {

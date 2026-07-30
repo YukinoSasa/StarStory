@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "../Character/EnemyManager.h"
+#include "../Object/Character/EnemyManager.h"
 #include "../Gimmick/GimmickManager.h"
 
 // マップデータのvector配列

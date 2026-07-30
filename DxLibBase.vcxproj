@@ -135,11 +135,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Character\Camera.cpp" />
-    <ClCompile Include="Character\CharacterBase.cpp" />
-    <ClCompile Include="Character\Enemy.cpp" />
-    <ClCompile Include="Character\EnemyManager.cpp" />
-    <ClCompile Include="Character\Player.cpp" />
     <ClCompile Include="csv\LoadCsv.cpp" />
     <ClCompile Include="Gimmick\Box.cpp" />
     <ClCompile Include="Gimmick\GimmickBase.cpp" />
@@ -148,6 +143,12 @@
     <ClCompile Include="Item\Piece.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Rect.cpp" />
+    <ClCompile Include="Object\Character\Camera.cpp" />
+    <ClCompile Include="Object\Character\CharacterBase.cpp" />
+    <ClCompile Include="Object\Character\Enemy.cpp" />
+    <ClCompile Include="Object\Character\EnemyManager.cpp" />
+    <ClCompile Include="Object\Character\Player.cpp" />
+    <ClCompile Include="Object\ObjectBase.cpp" />
     <ClCompile Include="Scene\BackGround\BackGround.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneClear.cpp" />
@@ -172,6 +173,11 @@
     <ClInclude Include="Item\Piece.h" />
     <ClInclude Include="Math\Rect.h" />
     <ClInclude Include="Math\Vec2.h" />
+    <ClInclude Include="Object\Character\Camera.h" />
+    <ClInclude Include="Object\Character\CharacterBase.h" />
+    <ClInclude Include="Object\Character\Enemy.h" />
+    <ClInclude Include="Object\Character\EnemyManager.h" />
+    <ClInclude Include="Object\Character\Player.h" />
     <ClInclude Include="Object\ObjectBase.h" />
     <ClInclude Include="Scene\BackGround\BackGround.h" />
     <ClInclude Include="Scene\SceneBase.h" />

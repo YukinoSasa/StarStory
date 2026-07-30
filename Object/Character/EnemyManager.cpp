@@ -1,7 +1,7 @@
 #include <DxLib.h>
 #include "EnemyManager.h"
 #include "Enemy.h"
-#include "../csv/LoadCsv.h"
+#include "../../csv/LoadCsv.h"
 
 EnemyManager::EnemyManager()
 {

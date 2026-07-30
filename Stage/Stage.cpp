@@ -1,7 +1,7 @@
 #include <DxLib.h>
 #include "../GameConst.h"
 #include "Stage.h"
-#include "../Character/Camera.h"
+#include "../Object/Character/Camera.h"
 #include "../Item/Piece.h"
 
 namespace

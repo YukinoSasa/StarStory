@@ -1,6 +1,6 @@
 #include <DxLib.h>
 #include "Player.h"
-#include "../Input/Pad.h"
+#include "../../Input/Pad.h"
 
 namespace
 {

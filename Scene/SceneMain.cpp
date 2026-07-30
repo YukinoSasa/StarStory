@@ -1,12 +1,12 @@
 #include <DxLib.h>
 #include "SceneMain.h"
-#include "../Character/Player.h"
-#include "../Character/EnemyManager.h"
-#include "../Character/Enemy.h"
+#include "../Object/Character/Player.h"
+#include "../Object/Character/EnemyManager.h"
+#include "../Object/Character/Enemy.h"
 #include "../Item/Piece.h"
 #include "BackGround/BackGround.h"
 #include "../Stage/Stage.h"
-#include "../Character/Camera.h"
+#include "../Object/Character/Camera.h"
 #include "../Gimmick/GimmickManager.h"
 #include "../Gimmick/GimmickBase.h"
 

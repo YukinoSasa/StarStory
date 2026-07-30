@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
-#include "../Math/Vec2.h"
-#include "../Math/Rect.h"
+#include "../../Math/Vec2.h"
+#include "../../Math/Rect.h"
 
 class Stage;
 

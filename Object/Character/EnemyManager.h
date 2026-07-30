@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "../Math/Vec2.h"
+#include "../../Math/Vec2.h"
 
 class Enemy;
 
