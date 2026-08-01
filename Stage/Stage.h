@@ -44,14 +44,17 @@ public:
 	bool IsGroundFoward(Rect& rect);
 
 private:
-	// マップのデータ
+	// コリジョンチップかどうか
+	bool IsCollisionChip(int chip_num);
+
+	// マップデータ
 	MapData m_map_data;
 
-	// 地面(csvの1)の画像データ
-	int m_handle1;
+	// コリジョンデータ
+	CollisionData m_collision_data;
 
-	// 足場(csvの2)の画像データ
-	int m_handle2;
+	// マップチップの画像データ配列
+	int m_handle_array[190];
 
 	// カメラのポインタ
 	std::shared_ptr<Camera> m_p_camera;

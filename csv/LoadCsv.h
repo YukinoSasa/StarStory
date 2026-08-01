@@ -13,6 +13,12 @@ using MapData = std::vector<std::vector<int>>;
 // csvファイルを読み込みマップデータを返す
 MapData LoadMap(const std::string& file_path);
 
+// コリジョンデータのvector配列
+using CollisionData = std::vector<int>;
+
+// csvファイルを読み込みマップチップのコリジョンデータを返す
+CollisionData LoadCollision(const std::string& file_path);
+
 // csvファイルを読み込みエネミーデータを返す
 EnemyDatas LoadEnemy(const std::string& file_path);
 

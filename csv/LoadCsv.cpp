@@ -43,6 +43,49 @@ MapData LoadMap(const std::string& file_path)
 	return map_data;
 }
 
+CollisionData LoadCollision(const std::string& file_path)
+{
+	CollisionData collision_data;
+	std::ifstream file(file_path);
+
+	// ファイルが読み込めない場合、以降の処理を行わない
+	if (!file)
+	{
+		return collision_data;
+	}
+
+	std::string line;
+
+	// 1行目ヘッダ部分を読み込む
+	std::getline(file, line);
+
+
+	while (std::getline(file, line))
+	{
+		// 空行を飛ばす
+		if (line.empty())
+		{
+			continue;
+		}
+
+		std::stringstream ss(line);
+		std::string cell;
+
+		while (std::getline(ss, cell, ','))
+		{
+			// Windows環境の'\r'を除去
+			if (!cell.empty() && cell.back() == '\r')
+			{
+				cell.pop_back();
+			}
+
+			collision_data.push_back(std::stoi(cell));
+		}
+	}
+
+	return collision_data;
+}
+
 EnemyDatas LoadEnemy(const std::string& file_path)
 {
 	EnemyDatas enemy_datas;
