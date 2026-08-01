@@ -25,40 +25,6 @@ Stage::~Stage()
 void Stage::Init()
 {
 	m_stage_height = (int)m_map_data.size() * Game::MAPCHIP_SIZE;
-
-	for (int y = 0; y < (int)m_map_data.size(); y++)
-	{
-		for (int x = 0; x < (int)m_map_data[y].size(); x++)
-		{
-			int tile = m_map_data[y][x];
-
-			switch (tile)
-			{
-			case 0:
-			{
-				break;
-			}
-
-			case 1:
-			{
-				break;
-			}
-
-			case 2:
-			{
-				break;
-			}
-
-			case 3:
-			{
-				break;
-			}
-			}
-		}
-	}
-
-	// マップチップとcsvファイル番号の対応
-
 }
 
 void Stage::Update()
@@ -82,61 +48,9 @@ void Stage::Draw(Vec2 camera_pos)
 			float screen_x = world_x - camera_pos.x + Game::SCREEN_HALF_WIDTH - (Game::MAPCHIP_SIZE * 0.5f);
 			float screen_y = world_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT - (Game::MAPCHIP_SIZE * 0.5f);
 
-			DrawExtendGraphF(screen_x, screen_y, screen_x + 64, screen_y + 64, m_handle_array[tile], true);
+			DrawExtendGraphF(screen_x, screen_y, screen_x + Game::MAPCHIP_SIZE, screen_y + Game::MAPCHIP_SIZE, m_handle_array[tile], true);
 		}
 	}
-	//for (int y = 0; y < (int)m_map_data.size(); y++)
-	//{
-	//	for (int x = 0; x < (int)m_map_data[y].size(); x++)
-	//	{
-	//		int tile = m_map_data[y][x];
-
-	//		switch (tile)
-	//		{
-	//		case 0:
-	//		{
-	//			break;
-	//		}
-
-	//		case 1:
-	//		{
-	//			// マップチップのワールド座標(マップチップの中心座標)を求める
-	//			float world_x = (x * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
-	//			float world_y = (y * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
-
-	//			// DrawGraphは左上基準なので中心基準から左上にずらす
-	//			float screen_x = world_x - camera_pos.x + Game::SCREEN_HALF_WIDTH - (Game::MAPCHIP_SIZE * 0.5f);
-	//			float screen_y = world_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT - (Game::MAPCHIP_SIZE * 0.5f);
-
-	//			DrawGraphF(screen_x, screen_y, m_handle_array[180], true);
-	//			break;
-	//		}
-
-	//		case 2:
-	//		{
-	//			float width = 0.0f;
-	//			float height = 0.0f;
-	//			GetGraphSizeF(m_handle2, &width, &height);
-
-	//			// マップチップのワールド座標(マップチップの中心座標)を求める
-	//			float world_x = (x * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
-	//			float world_y = (y * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
-
-	//			// DrawGraphは左上基準なので中心基準から左上にずらす
-	//			float screen_x = world_x - camera_pos.x + Game::SCREEN_HALF_WIDTH - (Game::MAPCHIP_SIZE * 0.5f);
-	//			float screen_y = world_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT - (Game::MAPCHIP_SIZE * 0.5f);
-
-	//			DrawGraphF(screen_x, screen_y, m_handle2, true);
-	//			break;
-	//		}
-
-	//		case 3:
-	//		{
-	//			break;
-	//		}
-	//		}
-	//	}
-	//}
 
 
 	//DrawFormatString(0, 30, GetColor(255, 255, 255), "cameraX : %f", camera_pos.x);
@@ -163,14 +77,8 @@ bool Stage::IsCollision(const Rect& rect, Rect& chip_rect)
 			{
 				continue;
 			}
-
-			//if (m_map_data[y][x] == 190 || m_map_data[y][x] == 7)
-			//{
-			//	continue;
-			//}
-
 			
-			// マップチップ1(床),2(足場)の時当たり判定の矩形を持つ
+			// 当たり判定の矩形を持つ
 			Rect check_chip_rect;
 			// 矩形の中心座標を計算
 			float chip_x = (x * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
@@ -234,19 +142,19 @@ bool Stage::IsTrigger(const Rect& rect, Rect& chip_rect)
 bool Stage::IsGroundFoward(Rect& rect)
 {
 	// rectの位置に床があるかどうかを確認
-	// チップが1(床),2(足場)だったらtrueを返す
+	// 当たり判定のあるチップだったらtrueを返す
 	// それ以外だったらfalseを返す
 	for (int y = 0; y < (int)m_map_data.size(); y++)
 	{
 		for (int x = 0; x < (int)m_map_data[y].size(); x++)
 		{
-			// マップチップ0,3(ゴール),4(かけら)は当たり判定がないので飛ばす
-			if (m_map_data[y][x] == 0 || m_map_data[y][x] == 3 || m_map_data[y][x] == 4)
+			// 当たり判定がないマップチップは飛ばす
+			if (!IsCollisionChip(m_map_data[y][x]))
 			{
 				continue;
 			}
 
-			// マップチップ1(床),2(足場)の時当たり判定の矩形を持つ
+			// 当たり判定ありのチップの場合矩形をもつ
 			Rect check_chip_rect;
 			// 矩形の中心座標を計算
 			float chip_x = (x * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
@@ -255,7 +163,7 @@ bool Stage::IsGroundFoward(Rect& rect)
 			// 矩形の端をセット
 			check_chip_rect.CalculateEdges(chip_x, chip_y, Game::MAPCHIP_SIZE, Game::MAPCHIP_SIZE);
 			
-			if (IsCollision(rect, check_chip_rect))
+			if (check_chip_rect.IsCollision(rect))
 			{
 				return true;
 			}
