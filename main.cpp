@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	
 	//	デバッグ中はウィンドウモード、リリース版はフルスクリーン
 #ifdef _DEBUG
-	ChangeWindowMode(FALSE);
+	ChangeWindowMode(TRUE);
 #else
 	ChangeWindowMode(FALSE);
 #endif

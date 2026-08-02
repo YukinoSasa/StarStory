@@ -102,11 +102,11 @@ void SceneMain::Update()
 void SceneMain::Draw()
 {
 	m_p_background->Draw(m_p_camera->GetCameraPos(), m_p_stage->GetStageHeight());
-	m_p_player->Draw(m_p_camera->GetCameraPos());
-	m_p_enemy_manager->Draw(m_p_camera->GetCameraPos());
 	m_p_stage->Draw(m_p_camera->GetCameraPos());
 	m_p_gimmick_manager->Draw(m_p_camera->GetCameraPos());
 	m_p_item_manager->Draw(m_p_camera->GetCameraPos());
+	m_p_enemy_manager->Draw(m_p_camera->GetCameraPos());
+	m_p_player->Draw(m_p_camera->GetCameraPos());
 
 	
 

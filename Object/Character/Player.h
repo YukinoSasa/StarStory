@@ -44,6 +44,31 @@ private:
 	// ジャンプ
 	void Jump();
 
+	// 画像データ配列
+	int m_handle_array[42];
+
 	//// 敵との当たり判定
 	//void CheckHitEnemy(Rect& enemy_rect);
+
+	// アニメーションの状態
+	enum class Animation
+	{
+		Idle,
+		Walk,
+		Jamp,
+		Fall,
+		Dead,
+	};
+
+	// アニメーションの状態を保存する変数
+	Animation m_animation_state;
+
+	// アニメーションのタイマー
+	int m_animation_timer;
+
+	// アニメーションのフレーム
+	int m_animation_frame;
+
+	// アニメーション画像の更新
+	void UpdateAnimation();
 };
