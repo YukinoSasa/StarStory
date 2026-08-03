@@ -9,7 +9,7 @@ namespace
 	constexpr float PLAYER_SPEED = 5.0f;
 
 	// ƒWƒƒƒ“ƒv—Í
-	constexpr float PLAYER_JUMP_POWER = 15.0f;
+	constexpr float PLAYER_JUMP_POWER = 12.0f;
 }
 
 Player::Player()

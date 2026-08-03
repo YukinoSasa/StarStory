@@ -10,7 +10,7 @@ Stage::Stage() :
 	m_map_data = LoadMap("csv/Stage1.csv");
 	m_collision_data = LoadCollision("csv/MapCollision.csv");
 
-	LoadDivGraph("Data/tileset.png", 190, 18, 11, 16, 16, m_handle_array);
+	LoadDivGraph("Data/newtileset.png", 190, 18, 11, 16, 16, m_handle_array);
 
 }
 
