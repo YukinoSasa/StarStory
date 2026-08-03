@@ -50,6 +50,9 @@ void Player::Update()
 		return;
 	}
 
+	// ê⁄ínîªíËÇÃçXêV
+	m_is_ground = false;
+
 	Move();
 	Jump();
 
@@ -154,6 +157,21 @@ void Player::Jump()
 
 		m_is_ground = false;
 	}
+}
+
+void Player::MovePlayerX()
+{
+	m_pos.x += m_move.x;
+}
+
+void Player::MovePlayerY()
+{
+	m_pos.y += m_move.y;
+}
+
+void Player::UpdateRect()
+{
+	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
 }
 
 void Player::UpdateAnimation()

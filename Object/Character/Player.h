@@ -29,16 +29,30 @@ public:
 	// プレイヤー高さのゲッタ
 	float GetPlayerHeight() const { return m_handle_height; }
 
+	// コリジョン幅のゲッタ
+	float GetCollisionWidth() const { return m_collision_width; }
+
+	// コリジョン高さのゲッタ
+	float GetCollisionHeight() const { return m_collision_height; }
+
 	// プレイヤーの移動量のゲッタ
-	Vec2 GetPlayerLastMove() const { return m_last_move; }
+	Vec2 GetPlayerMove() const { return m_move; }
 
 	// プレイヤー座標のセッタ
-	void SetPlayerPos(float player_pos_x, float player_pos_y) {
-		m_pos.x = player_pos_x; m_pos.y = player_pos_y;
-	}
+	void SetPlayerPosX(float pos_x) { m_pos.x = pos_x; }
+	void SetPlayerPosY(float pos_y) { m_pos.y = pos_y; }
 
 	// プレイヤーの移動量のセッタ
-	void SetPlayerLastMove(float last_move) { m_last_move.y = last_move; }
+	void SetPlayerMoveX(float move_x) { m_move.x = move_x; }
+	void SetPlayerMoveY(float move_y) { m_move.y = move_y; }
+
+	// 横移動処理
+	void MovePlayerX();
+	// 縦移動処理
+	void MovePlayerY();
+
+	// コリジョンの更新
+	void UpdateRect();
 
 private:
 	// 左右の移動量を計算
