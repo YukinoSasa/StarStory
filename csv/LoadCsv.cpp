@@ -160,7 +160,7 @@ GimmickDatas LoadGimmick(const std::string& file_path)
 	// 2行目以降をデータとして読み込む
 	while (std::getline(file, line))
 	{
-		GimmickData gimmick_data{ 0, 0, Vec2(0.0f, 0.0f), 0.0f, "graph_data" };
+		GimmickData gimmick_data{ 0, 0, Vec2(0.0f, 0.0f), 0.0f, 0.0f, "graph_data" };
 
 		// 空行を飛ばす
 		if (line.empty())
@@ -188,8 +188,9 @@ GimmickDatas LoadGimmick(const std::string& file_path)
 		gimmick_data.m_gimmick_type = std::stoi(row[1]);
 		gimmick_data.m_spawn.x = std::stof(row[2]);
 		gimmick_data.m_spawn.y = std::stof(row[3]);
-		gimmick_data.m_size = std::stof(row[4]);
-		gimmick_data.m_file_pass = row[5];
+		gimmick_data.m_width = std::stof(row[4]);
+		gimmick_data.m_height = std::stof(row[5]);
+		gimmick_data.m_file_pass = row[6];
 
 		gimmick_datas.push_back(gimmick_data);
 	}

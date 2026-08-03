@@ -2,6 +2,7 @@
 #include "../../csv/LoadCsv.h"
 #include "GimmickBase.h"
 #include "Box.h"
+#include "MovingPlatform.h"
 
 GimmickManager::GimmickManager()
 {
@@ -15,10 +16,16 @@ GimmickManager::GimmickManager()
 		// 各ギミックのポインタを生成する
 		switch (gimmick_data.m_gimmick_type)
 		{
-		// 箱ギミック
+		// 箱
 		case 1:
 		{
 			gimmick = std::make_shared<Box>(gimmick_data);
+			break;
+		}
+		// 動く床
+		case 2:
+		{
+			gimmick = std::make_shared<MovingPlatform>(gimmick_data);
 			break;
 		}
 		}
@@ -29,7 +36,10 @@ GimmickManager::GimmickManager()
 
 void GimmickManager::Init()
 {
-
+	for (auto& gimmick : m_p_gimmicks)
+	{
+		gimmick->Init();
+	}
 }
 
 void GimmickManager::Update(Rect player_rect, Vec2 player_last_move)

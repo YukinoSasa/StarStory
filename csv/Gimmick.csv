@@ -1,3 +1,4 @@
-﻿ステージ,タイプ,スポーンx座標,スポーンy座標,サイズ,素材データ
-1,1,1000,3188,18,Data/hako_kari.png
-1,1,445,2868,18,Data/hako_kari.png
+﻿ステージ,タイプ,スポーンx座標,スポーンy座標,サイズx,サイズy,素材データ
+1,1,1000,3188,18,18,Data/hako_kari.png
+1,1,445,2868,18,18,Data/hako_kari.png
+1,2,1000,2800,320,64,Data/movingplatform.png

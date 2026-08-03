@@ -17,8 +17,10 @@ struct GimmickData
 	int m_gimmick_type;
 	// スポーン座標
 	Vec2 m_spawn;
-	// サイズ
-	float m_size;
+	// サイズ幅
+	float m_width;
+	// サイズ高さ
+	float m_height;
 	// 素材データ
 	std::string m_file_pass;
 };

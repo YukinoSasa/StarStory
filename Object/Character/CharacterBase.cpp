@@ -73,7 +73,7 @@ void CharacterBase::CheckHitStage(Rect& chip_rect)
 	}
 
 	// 矩形の端をセット
-	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_collision_width, m_collision_height);
+	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y- 1.0f, m_collision_width, m_collision_height);
 
 	if (m_p_stage->IsCollision(m_rect, chip_rect))
 	{

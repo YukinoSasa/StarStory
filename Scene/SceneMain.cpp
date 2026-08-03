@@ -56,6 +56,7 @@ void SceneMain::Init()
 	m_p_background->Init();
 	m_p_stage->Init();
 	m_p_item_manager->Init();
+	m_p_gimmick_manager->Init();
 }
 
 void SceneMain::Update()
@@ -154,6 +155,9 @@ void SceneMain::HitPlayerGimmick(const Rect& player_rect, const Rect& gimmick_re
 			m_p_player->SetPlayerPos(
 				m_p_player->GetPlayerPos().x,
 				gimmick_rect.GetTopEdge() - m_p_player->GetPlayerHeight() * 0.5f);
+
+			m_p_player->SetPlayerLastMove(0.0f);
+			m_p_player->SetIsGround(true);
 		}
 	}
 }

@@ -37,6 +37,9 @@ public:
 		m_pos.x = player_pos_x; m_pos.y = player_pos_y;
 	}
 
+	// プレイヤーの移動量のセッタ
+	void SetPlayerLastMove(float last_move) { m_last_move.y = last_move; }
+
 private:
 	// 左右の移動量を計算
 	void Move();

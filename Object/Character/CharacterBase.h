@@ -32,6 +32,9 @@ public:
 	// 生きているかどうかのセッタ
 	void SetIsAlive(bool is_alive) { m_is_alive = is_alive; }
 
+	// 接地しているかどうかのセッタ
+	void SetIsGround(bool is_ground) { m_is_ground = is_ground; }
+
 protected:
 	// ステージとの当たり判定
 	void CheckHitStage(Rect& chip_rect);

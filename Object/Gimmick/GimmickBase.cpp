@@ -6,8 +6,8 @@ GimmickBase::GimmickBase(GimmickData gimmick_data)
 {
 	m_handle = LoadGraph(gimmick_data.m_file_pass.c_str());
 	m_pos = gimmick_data.m_spawn;
-	m_handle_width = gimmick_data.m_size;
-	m_handle_height = gimmick_data.m_size;
+	m_handle_width = gimmick_data.m_width;
+	m_handle_height = gimmick_data.m_height;
 }
 
 GimmickBase::~GimmickBase()
@@ -22,7 +22,7 @@ void GimmickBase::Init()
 
 void GimmickBase::Update(Rect player_rect, Vec2 player_last_move)
 {
-	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_handle_width, m_handle_height);
+	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
 }
 
 void GimmickBase::Draw(Vec2 camera_pos)
@@ -35,5 +35,9 @@ void GimmickBase::Draw(Vec2 camera_pos)
 	float screen_x = draw_x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
 	float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
 
-	DrawGraphF(screen_x, screen_y, m_handle, true);
+	DrawGraphF(screen_x, screen_y + m_collision_height, m_handle, true);
+
+#ifdef _DEBUG
+	m_rect.Draw(camera_pos);
+#endif
 }
