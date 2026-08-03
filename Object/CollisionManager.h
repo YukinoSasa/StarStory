@@ -22,12 +22,17 @@ public:
 	void Update();
 
 	// プレイヤーとオブジェクトの衝突判定
-	void CheckPlayerCollision(std::shared_ptr<Player> p_player);
+	void CheckPlayerCollision(
+		std::shared_ptr<Player> p_player,
+		std::shared_ptr<Stage> p_stage,
+		std::shared_ptr<GimmickManager> p_gimmick_manager);
 
 private:
-	// プレイヤーポインタ
-	std::shared_ptr<Player> m_p_stage = nullptr;
+	// ギミックの横方向の衝突判定
+	void CheckGimmickX(
+		std::shared_ptr<Player> p_player, std::shared_ptr<GimmickBase> p_gimmick);
 
-	// ステージポインタ
-	std::shared_ptr<Stage> m_p_stage = nullptr;
+	// ギミックの縦方向の衝突判定
+	void CheckGimmickY(
+		std::shared_ptr<Player> p_player, std::shared_ptr<GimmickBase> p_gimmick);
 };

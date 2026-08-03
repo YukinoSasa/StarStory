@@ -144,6 +144,7 @@
     <ClCompile Include="Object\Character\Enemy.cpp" />
     <ClCompile Include="Object\Character\EnemyManager.cpp" />
     <ClCompile Include="Object\Character\Player.cpp" />
+    <ClCompile Include="Object\CollisionManager.cpp" />
     <ClCompile Include="Object\Gimmick\Box.cpp" />
     <ClCompile Include="Object\Gimmick\GimmickBase.cpp" />
     <ClCompile Include="Object\Gimmick\GimmickManager.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="Object\Character\Enemy.h" />
     <ClInclude Include="Object\Character\EnemyManager.h" />
     <ClInclude Include="Object\Character\Player.h" />
+    <ClInclude Include="Object\CollisionManager.h" />
     <ClInclude Include="Object\Gimmick\Box.h" />
     <ClInclude Include="Object\Gimmick\GimmickBase.h" />
     <ClInclude Include="Object\Gimmick\GimmickManager.h" />

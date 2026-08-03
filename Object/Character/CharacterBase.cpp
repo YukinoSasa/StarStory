@@ -24,9 +24,9 @@ void CharacterBase::Update()
 {
 	Game::Gravity(m_move.y);
 
-	// 当たったマップチップの矩形
-	Rect chip_rect;
-	CheckHitStage(chip_rect);
+	//// 当たったマップチップの矩形
+	//Rect chip_rect;
+	//CheckHitStage(chip_rect);
 }
 
 void CharacterBase::Draw(Vec2 camera_pos)

@@ -5,12 +5,12 @@
 #include "../Object/Character/Enemy.h"
 #include "../Object/Item/Piece.h"
 #include "BackGround/BackGround.h"
+#include "../Object/CollisionManager.h"
 #include "../Stage/Stage.h"
 #include "../Object/Character/Camera.h"
 #include "../Object/Gimmick/GimmickManager.h"
 #include "../Object/Gimmick/GimmickBase.h"
 #include "../Object/Item/ItemManager.h"
-#include "../Object/Item/Piece.h"
 
 SceneMain::SceneMain() :
 	m_is_goal(false)
@@ -19,6 +19,7 @@ SceneMain::SceneMain() :
 	m_p_enemy_manager = std::make_shared<EnemyManager>();
 	//m_p_piece = std::make_shared<Piece>();
 	m_p_background = std::make_shared<BackGround>();
+	m_p_collision_manager = std::make_shared<CollisionManager>();
 	m_p_stage = std::make_shared<Stage>();
 	m_p_camera = std::make_shared<Camera>();
 	m_p_gimmick_manager = std::make_shared<GimmickManager>();
@@ -62,15 +63,16 @@ void SceneMain::Init()
 void SceneMain::Update()
 {
 	m_p_player->Update();
+	m_p_collision_manager->CheckPlayerCollision(m_p_player, m_p_stage, m_p_gimmick_manager);
 	m_p_enemy_manager->Update();
 	m_p_camera->Update();
-	m_p_gimmick_manager->Update(m_p_player->GetRect(), m_p_player->GetPlayerLastMove());
+	m_p_gimmick_manager->Update(m_p_player->GetRect(), m_p_player->GetPlayerMove());
 	
 	// ギミック接触判定
-	for (auto& gimmick : m_p_gimmick_manager->GetGimmicks())
-	{
-		HitPlayerGimmick(m_p_player->GetRect(), gimmick->GetRect());
-	}
+	//for (auto& gimmick : m_p_gimmick_manager->GetGimmicks())
+	//{
+	//	HitPlayerGimmick(m_p_player->GetRect(), gimmick->GetRect());
+	//}
 
 	// アイテム接触判定
 	for (auto& item : m_p_item_manager->GetItems())
@@ -126,41 +128,41 @@ void SceneMain::HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect)
 	}
 }
 
-void SceneMain::HitPlayerGimmick(const Rect& player_rect, const Rect& gimmick_rect)
-{
-	// プレイヤーがギミックに接している場合プレイヤー座標をセット
-	if (player_rect.IsCollision(gimmick_rect))
-	{
-		// プレイヤーが右から接した場合
-		if (m_p_player->GetPlayerLastMove().x < 0.0f)
-		{
-			m_p_player->SetPlayerPos(
-				gimmick_rect.GetRightEdge() + m_p_player->GetPlayerWidth() * 0.5f,
-				m_p_player->GetPlayerPos().y);
-		}
-		// プレイヤーが左から接した場合
-		else if (m_p_player->GetPlayerLastMove().x > 0.0f)
-		{
-			m_p_player->SetPlayerPos(
-				gimmick_rect.GetLeftEdge() - m_p_player->GetPlayerWidth() * 0.5f,
-				m_p_player->GetPlayerPos().y);
-		}
-	}
-
-	if (player_rect.IsCollision(gimmick_rect))
-	{
-		// プレイヤーが上から接した場合
-		if (m_p_player->GetPlayerLastMove().y > 0.0f)
-		{
-			m_p_player->SetPlayerPos(
-				m_p_player->GetPlayerPos().x,
-				gimmick_rect.GetTopEdge() - m_p_player->GetPlayerHeight() * 0.5f);
-
-			m_p_player->SetPlayerLastMove(0.0f);
-			m_p_player->SetIsGround(true);
-		}
-	}
-}
+//void SceneMain::HitPlayerGimmick(const Rect& player_rect, const Rect& gimmick_rect)
+//{
+//	// プレイヤーがギミックに接している場合プレイヤー座標をセット
+//	if (player_rect.IsCollision(gimmick_rect))
+//	{
+//		// プレイヤーが右から接した場合
+//		if (m_p_player->GetPlayerMove().x < 0.0f)
+//		{
+//			m_p_player->SetPlayerPos(
+//				gimmick_rect.GetRightEdge() + m_p_player->GetPlayerWidth() * 0.5f,
+//				m_p_player->GetPlayerPos().y);
+//		}
+//		// プレイヤーが左から接した場合
+//		else if (m_p_player->GetPlayerMove().x > 0.0f)
+//		{
+//			m_p_player->SetPlayerPos(
+//				gimmick_rect.GetLeftEdge() - m_p_player->GetPlayerWidth() * 0.5f,
+//				m_p_player->GetPlayerPos().y);
+//		}
+//	}
+//
+//	if (player_rect.IsCollision(gimmick_rect))
+//	{
+//		// プレイヤーが上から接した場合
+//		if (m_p_player->GetPlayerMove().y > 0.0f)
+//		{
+//			m_p_player->SetPlayerPos(
+//				m_p_player->GetPlayerPos().x,
+//				gimmick_rect.GetTopEdge() - m_p_player->GetPlayerHeight() * 0.5f);
+//
+//			m_p_player->SetPlayerMoveY(0.0f);
+//			m_p_player->SetIsGround(true);
+//		}
+//	}
+//}
 
 void SceneMain::HitPlayerItem(const Rect& player_rect, const Rect& item_rect, std::shared_ptr<Piece> item)
 {

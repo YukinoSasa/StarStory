@@ -13,6 +13,7 @@ class Stage;
 class Camera;
 class GimmickManager;
 class ItemManager;
+class CollisionManager;
 
 /// <summary>
 /// シーンクラスを継承したメインシーンクラス
@@ -40,9 +41,6 @@ private:
 	// プレイヤーと敵の衝突をチェック
 	void HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect);
 
-	// プレイヤーとギミックの衝突をチェック
-	void HitPlayerGimmick(const Rect& player_rect, const Rect& gimmick_rect);
-
 	// プレイヤーとアイテムの衝突をチェック
 	void HitPlayerItem(const Rect& player_rect, const Rect& item_rect, std::shared_ptr<Piece> item);
 
@@ -56,6 +54,9 @@ private:
 
 	// 背景のポインタ
 	std::shared_ptr<BackGround> m_p_background = nullptr;
+
+	// コリジョンマネージャーのポインタ
+	std::shared_ptr<CollisionManager> m_p_collision_manager = nullptr;
 
 	// ステージのポインタ
 	std::shared_ptr<Stage> m_p_stage = nullptr;

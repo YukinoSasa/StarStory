@@ -50,9 +50,6 @@ void Player::Update()
 		return;
 	}
 
-	// ê⁄ínîªíËÇÃçXêV
-	m_is_ground = false;
-
 	Move();
 	Jump();
 
@@ -113,7 +110,7 @@ void Player::Draw(Vec2 camera_pos)
 #endif
 
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
-	DrawFormatString(0, 60, GetColor(255, 255, 255), "m_animation_frame : %d", m_animation_frame);
+	DrawFormatString(0, 60, GetColor(255, 255, 255), "m_is_ground : %d", m_is_ground);
 }
 
 void Player::Move()
@@ -162,16 +159,18 @@ void Player::Jump()
 void Player::MovePlayerX()
 {
 	m_pos.x += m_move.x;
+	UpdateRect();
 }
 
 void Player::MovePlayerY()
 {
 	m_pos.y += m_move.y;
+	UpdateRect();
 }
 
 void Player::UpdateRect()
 {
-	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
+	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_collision_width, m_collision_height);
 }
 
 void Player::UpdateAnimation()
