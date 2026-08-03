@@ -15,5 +15,9 @@ public:
 	void Init() override;
 
 	// XV
-	void Update();
+	void Update(Rect player_rect, Vec2 player_last_move) override;
+
+private:
+	// °‚Ì‰ŠúˆÊ’u‚ğ•Û‘¶‚·‚é•Ï”
+	Vec2 m_init_pos;
 };
