@@ -1,6 +1,7 @@
 #include <DxLib.h>
-#include "Player.h"
+#include "../../GameConst.h"
 #include "../../Input/Pad.h"
+#include "Player.h"
 
 namespace
 {
@@ -33,6 +34,12 @@ Player::~Player()
 void Player::Init()
 {
 	CharacterBase::Init();
+
+	m_handle_width *= 3.0f;
+	m_handle_height *= 3.0f;
+
+	m_collision_width = 26.0f;
+	m_collision_height = 48.0f;
 }
 
 void Player::Update()
@@ -66,7 +73,42 @@ void Player::Draw(Vec2 camera_pos)
 		return;
 	}
 
-	CharacterBase::Draw(camera_pos);
+	//CharacterBase::Draw(camera_pos);
+
+	//	// 画像サイズ * 拡大率
+	//float graph_width = m_handle_width * 3.0f;
+	//float graph_height = m_handle_height * 3.0f;
+
+	// キャラクター画像の左上の座標
+	float draw_x = m_pos.x - m_handle_width * 0.5f;
+	float draw_y = m_pos.y - m_handle_height * 0.5f;
+
+	// キャラクター描画のスクリーン座標
+	float screen_x = draw_x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
+	float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
+
+	// キャラクターの向きによって画像を反転
+	// 当たり判定矩形に合うように高さ調整
+	if (m_is_right)
+	{
+		DrawExtendGraphF(
+			screen_x , screen_y - 12.0f,
+			screen_x + m_handle_width, screen_y + m_handle_height - 12.0f,
+			m_handle, true);
+	}
+	else
+	{
+		DrawExtendGraphF(
+			screen_x + m_handle_width, screen_y - 12.0f,
+			screen_x , screen_y + m_handle_height - 12.0f,
+			m_handle, true);
+	}
+
+#ifdef _DEBUG
+	// デバック時のみ当たり判定の矩形を描画
+	m_rect.Draw(camera_pos);
+#endif
+
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
 	DrawFormatString(0, 60, GetColor(255, 255, 255), "m_animation_frame : %d", m_animation_frame);
 }

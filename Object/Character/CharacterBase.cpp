@@ -73,17 +73,17 @@ void CharacterBase::CheckHitStage(Rect& chip_rect)
 	}
 
 	// 矩形の端をセット
-	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_handle_width, m_handle_height);
+	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_collision_width, m_collision_height);
 
 	if (m_p_stage->IsCollision(m_rect, chip_rect))
 	{
 		if (m_move.x > 0.0f)
 		{
-			m_pos.x = chip_rect.GetLeftEdge() - m_handle_width * 0.5f;
+			m_pos.x = chip_rect.GetLeftEdge() - m_collision_width * 0.5f;
 		}
 		else if (m_move.x < 0.0f)
 		{
-			m_pos.x = chip_rect.GetRightEdge() + m_handle_width * 0.5f;
+			m_pos.x = chip_rect.GetRightEdge() + m_collision_width * 0.5f;
 		}
 
 		m_move.x = 0.0f;
@@ -97,19 +97,19 @@ void CharacterBase::CheckHitStage(Rect& chip_rect)
 	m_last_move.y = m_move.y;
 
 	// 矩形の端をセット
-	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_handle_width, m_handle_height);
+	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_collision_width, m_collision_height);
 
 	if (m_p_stage->IsCollision(m_rect, chip_rect))
 	{
 		if (m_move.y > 0.0f)
 		{
-			m_pos.y = chip_rect.GetTopEdge() - m_handle_height * 0.5f;
+			m_pos.y = chip_rect.GetTopEdge() - m_collision_height * 0.5f;
 			m_move.y = 0.0f;
 			m_is_ground = true;
 		}
 		else if (m_move.y < 0.0f)
 		{
-			m_pos.y = chip_rect.GetBottomEdge() + m_handle_height * 0.5f;
+			m_pos.y = chip_rect.GetBottomEdge() + m_collision_height * 0.5f;
 			m_move.y *= -1.0f;
 		}
 	}

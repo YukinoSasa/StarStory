@@ -25,6 +25,12 @@ protected:
 	// 画像の高さを保存する変数
 	float m_handle_height;
 
+	// 当たり判定の幅を保存する変数
+	float m_collision_width;
+
+	// 当たり判定の高さを保存する変数
+	float m_collision_height;
+
 	// オブジェクトの中心座標
 	Vec2 m_pos;
 	// オブジェクトの移動量
