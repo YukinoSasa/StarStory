@@ -12,6 +12,7 @@ MovingPlatform::MovingPlatform(GimmickData gimmick_data)
 	// èâä˙à íuÇï€ë∂
 	m_init_pos = m_pos;
 
+	m_move.x = +MOVE_SPEED;
 	m_move.y = +MOVE_SPEED;
 }
 
@@ -28,16 +29,41 @@ void MovingPlatform::Init()
 
 void MovingPlatform::Update(Rect player_rect, Vec2 player_last_move)
 {
-	if (m_pos.y <= m_init_pos.y - 50.0f)
+	switch (m_gimmick_type)
 	{
-		m_move.y = +MOVE_SPEED;
-	}
-	else if (m_pos.y >= m_init_pos.y + 50.0f)
+	// ècà⁄ìÆÇÃè∞
+	case 2:
 	{
-		m_move.y = -MOVE_SPEED;
-	}
+		if (m_pos.y <= m_init_pos.y - 100.0f)
+		{
+			m_move.y = +MOVE_SPEED;
+		}
+		else if (m_pos.y >= m_init_pos.y + 100.0f)
+		{
+			m_move.y = -MOVE_SPEED;
+		}
 
-	m_pos.y += m_move.y;
+		m_pos.y += m_move.y;
+
+		break;
+	}
+	// â°à⁄ìÆÇÃè∞
+	case 3:
+	{
+		if (m_pos.x <= m_init_pos.x - 200.0f)
+		{
+			m_move.x = +MOVE_SPEED;
+		}
+		else if (m_pos.x >= m_init_pos.x + 200.0f)
+		{
+			m_move.x = -MOVE_SPEED;
+		}
+
+		m_pos.x += m_move.x;
+
+		break;
+	}
+	}
 
 	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
 }

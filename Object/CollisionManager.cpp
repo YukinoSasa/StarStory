@@ -116,16 +116,35 @@ void CollisionManager::CheckGimmickX(
 	// プレイヤーがギミックに接している場合プレイヤー座標をセット
 	if (p_player->GetRect().IsCollision(p_gimmick->GetRect()))
 	{
-		// 横からの衝突をチェック
-		if (p_player->GetPlayerMove().x > 0.0f)
+		switch (p_gimmick->GetGimmickType())
 		{
-			p_player->SetPlayerPosX(
-				p_gimmick->GetRect().GetLeftEdge() - p_player->GetCollisionWidth() * 0.5f);
+		// 箱
+		case 1:
+		{
+			// 横からの衝突をチェック
+			if (p_player->GetPlayerMove().x > 0.0f)
+			{
+				p_player->SetPlayerPosX(
+					p_gimmick->GetRect().GetLeftEdge() - p_player->GetCollisionWidth() * 0.5f);
+			}
+			else if (p_player->GetPlayerMove().x < 0.0f)
+			{
+				p_player->SetPlayerPosX(
+					p_gimmick->GetRect().GetRightEdge() + p_player->GetCollisionWidth() * 0.5f);
+			}
+
+			break;
 		}
-		else if (p_player->GetPlayerMove().x < 0.0f)
+		// 動く床(縦) 横移動時コリジョンが床にめり込むため、処理を横衝突をしない
+		case 2:
 		{
-			p_player->SetPlayerPosX(
-				p_gimmick->GetRect().GetRightEdge() + p_player->GetCollisionWidth() * 0.5f);
+			break;
+		}
+		// 動く床(横) 処理スキップ
+		case 3:
+		{
+			break;
+		}
 		}
 	}
 }
@@ -144,6 +163,11 @@ void CollisionManager::CheckGimmickY(
 
 			p_player->SetPlayerMoveY(0.0f);
 			p_player->SetIsGround(true);
+
+			if (p_gimmick->GetGimmickType() == 3)
+			{
+				p_player->MoveWithPratform(p_gimmick->GetGimmickMove().x);
+			}
 		}
 		// プレイヤーが下から接した場合
 		else if (p_player->GetPlayerMove().y < 0.0f)

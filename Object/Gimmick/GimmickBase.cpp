@@ -5,6 +5,7 @@
 GimmickBase::GimmickBase(GimmickData gimmick_data)
 {
 	m_handle = LoadGraph(gimmick_data.m_file_pass.c_str());
+	m_gimmick_type = gimmick_data.m_gimmick_type;
 	m_pos = gimmick_data.m_spawn;
 	m_handle_width = gimmick_data.m_width;
 	m_handle_height = gimmick_data.m_height;

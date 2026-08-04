@@ -196,3 +196,9 @@ void Player::UpdateAnimation()
 	}
 	}
 }
+
+void Player::MoveWithPratform(float move)
+{
+	m_pos.x += move;
+	UpdateRect();
+}

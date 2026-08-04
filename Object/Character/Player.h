@@ -54,6 +54,9 @@ public:
 	// コリジョンの更新
 	void UpdateRect();
 
+	// 床と一緒に移動する
+	void MoveWithPratform(float move);
+
 private:
 	// 左右の移動量を計算
 	void Move();

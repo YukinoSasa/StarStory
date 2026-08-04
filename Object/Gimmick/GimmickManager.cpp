@@ -22,8 +22,14 @@ GimmickManager::GimmickManager()
 			gimmick = std::make_shared<Box>(gimmick_data);
 			break;
 		}
-		// “®‚­°
+		// “®‚­°(c)
 		case 2:
+		{
+			gimmick = std::make_shared<MovingPlatform>(gimmick_data);
+			break;
+		}
+		// “®‚­°(‰¡)
+		case 3:
 		{
 			gimmick = std::make_shared<MovingPlatform>(gimmick_data);
 			break;

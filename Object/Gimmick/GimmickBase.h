@@ -20,4 +20,14 @@ public:
 
 	// 描画
 	virtual void Draw(Vec2 camera_pos);
+
+	// ギミックタイプのゲッタ
+	int GetGimmickType() const { return m_gimmick_type; }
+
+	// ギミックの移動量のゲッタ
+	Vec2 GetGimmickMove() { return m_move; }
+
+protected:
+	// ギミックタイプ(1:箱、2:動く床(縦)、3:動く床(横))
+	int m_gimmick_type;
 };
