@@ -62,11 +62,11 @@ void SceneMain::Init()
 
 void SceneMain::Update()
 {
+	m_p_gimmick_manager->Update(m_p_player->GetRect(), m_p_player->GetPlayerMove());
 	m_p_player->Update();
 	m_p_collision_manager->CheckPlayerCollision(m_p_player, m_p_stage, m_p_gimmick_manager);
 	m_p_enemy_manager->Update();
 	m_p_camera->Update();
-	m_p_gimmick_manager->Update(m_p_player->GetRect(), m_p_player->GetPlayerMove());
 	
 	// ƒMƒ~ƒbƒNÚG”»’è
 	//for (auto& gimmick : m_p_gimmick_manager->GetGimmicks())

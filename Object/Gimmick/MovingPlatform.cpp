@@ -12,8 +12,18 @@ MovingPlatform::MovingPlatform(GimmickData gimmick_data)
 	// èâä˙à íuÇï€ë∂
 	m_init_pos = m_pos;
 
-	m_move.x = +MOVE_SPEED;
-	m_move.y = +MOVE_SPEED;
+	// ècÇ…ìÆÇ≠è∞
+	if (m_gimmick_type == 2)
+	{
+		m_move.x = 0.0f;
+		m_move.y = +MOVE_SPEED;
+	}
+	// â°Ç…ìÆÇ≠è∞
+	else if (m_gimmick_type == 3)
+	{
+		m_move.x = +MOVE_SPEED;
+		m_move.y = 0.0f;
+	}
 }
 
 MovingPlatform::~MovingPlatform()

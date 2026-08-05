@@ -35,4 +35,7 @@ private:
 	// ƒMƒ~ƒbƒN‚Ìc•ûŒü‚ÌÕ“Ë”»’è
 	void CheckGimmickY(
 		std::shared_ptr<Player> p_player, std::shared_ptr<GimmickBase> p_gimmick);
+
+	// “®‚­°‚Éæ‚Á‚Ä‚¢‚é‚©‚Ç‚¤‚©
+	bool m_is_ride_pratform;
 };

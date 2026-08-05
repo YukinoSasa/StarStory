@@ -3,6 +3,7 @@
 #include "GimmickBase.h"
 #include "Box.h"
 #include "MovingPlatform.h"
+#include <DxLib.h>
 
 GimmickManager::GimmickManager()
 {
@@ -48,11 +49,11 @@ void GimmickManager::Init()
 	}
 }
 
-void GimmickManager::Update(Rect player_rect, Vec2 player_last_move)
+void GimmickManager::Update(Rect player_rect, Vec2 player_move)
 {
 	for (auto& gimmick : m_p_gimmicks)
 	{
-		gimmick->Update(player_rect, player_last_move);
+		gimmick->Update(player_rect, player_move);
 	}
 }
 
@@ -62,4 +63,7 @@ void GimmickManager::Draw(Vec2 camera_pos)
 	{
 		gimmick->Draw(camera_pos);
 	}
+	DrawFormatString(0, 60, GetColor(255, 255, 255), "Platpos_x : %f", m_p_gimmicks[3]);
+	//DrawFormatString(0, 90, GetColor(255, 255, 255), "Platpos_x : %f", m_p_gimmicks[3]->GetGimmickMove().x);
+
 }

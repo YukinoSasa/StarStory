@@ -13,6 +13,7 @@ namespace
 }
 
 Player::Player()
+	:m_move_by_gimmick(0.0f,0.0f), m_is_on_moving_pratform(false)
 {
 	LoadDivGraph("Data/player.png", 42, 8, 6, 24, 24, m_handle_array);
 	m_handle = m_handle_array[0];
@@ -50,8 +51,16 @@ void Player::Update()
 		return;
 	}
 
+	m_animation_state = Animation::Idle;
+
+
 	Move();
 	Jump();
+
+	//if (!m_is_ground)
+	//{
+	//	m_animation_state = Animation::Jamp;
+	//}
 
 	CharacterBase::Update();
 
@@ -110,7 +119,8 @@ void Player::Draw(Vec2 camera_pos)
 #endif
 
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
-	DrawFormatString(0, 60, GetColor(255, 255, 255), "m_is_ground : %d", m_is_ground);
+	DrawFormatString(0, 120, GetColor(255, 255, 255), "m_is_ground : %d", m_is_ground);
+	//DrawFormatString(0, 90, GetColor(255, 255, 255), "m_move : %f", m_move.x);
 }
 
 void Player::Move()
@@ -137,6 +147,12 @@ void Player::Move()
 	{
 		m_move.x = 0.0f;
 	}
+
+	// “®‚­°(‰¡)‚Éæ‚Á‚Ä‚¢‚éŽžmove.x‚ð‰ÁŽZ
+	if (m_is_on_moving_pratform)
+	{
+		m_move.x += m_move_by_gimmick.x;
+	}
 }
 
 void Player::Jump()
@@ -149,7 +165,7 @@ void Player::Jump()
 
 	if (Pad::IsTrigger(PAD_INPUT_1))
 	{
-		m_animation_state = Animation::Jamp;
+		//m_animation_state = Animation::Jamp;
 		m_move.y -= PLAYER_JUMP_POWER;
 
 		m_is_ground = false;
@@ -179,6 +195,11 @@ void Player::UpdateAnimation()
 	{
 	case Animation::Idle:
 	{
+		//m_animation_frame++;
+		//if (m_animation_frame > 2)
+		//{
+		m_animation_frame = 0;
+		//}
 		break;
 	}
 	case Animation::Walk:
@@ -192,6 +213,7 @@ void Player::UpdateAnimation()
 	}
 	case Animation::Jamp:
 	{
+		//m_animation_frame = 28;
 		break;
 	}
 	}
@@ -199,6 +221,6 @@ void Player::UpdateAnimation()
 
 void Player::MoveWithPratform(float move)
 {
-	m_pos.x += move;
+	m_move_by_gimmick.x = move;
 	UpdateRect();
 }

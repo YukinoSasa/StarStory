@@ -38,6 +38,9 @@ public:
 	// プレイヤーの移動量のゲッタ
 	Vec2 GetPlayerMove() const { return m_move; }
 
+	// 動く床(横)に乗っているかどうかのゲッタ
+	bool GetIsOnMovingPratform() const { return m_is_on_moving_pratform; }
+
 	// プレイヤー座標のセッタ
 	void SetPlayerPosX(float pos_x) { m_pos.x = pos_x; }
 	void SetPlayerPosY(float pos_y) { m_pos.y = pos_y; }
@@ -45,6 +48,10 @@ public:
 	// プレイヤーの移動量のセッタ
 	void SetPlayerMoveX(float move_x) { m_move.x = move_x; }
 	void SetPlayerMoveY(float move_y) { m_move.y = move_y; }
+
+	// 動く床(横)に乗っているかどうかのセッタ
+	void SetIsOnMovingPratform(bool is_on_moveing_pratform) {
+		m_is_on_moving_pratform = is_on_moveing_pratform; }
 
 	// 横移動処理
 	void MovePlayerX();
@@ -66,6 +73,12 @@ private:
 
 	// 画像データ配列
 	int m_handle_array[42];
+
+	// ギミックによって動いた移動量
+	Vec2 m_move_by_gimmick;
+
+	// 動く床(横)に乗っているかどうか
+	bool m_is_on_moving_pratform;
 
 	//// 敵との当たり判定
 	//void CheckHitEnemy(Rect& enemy_rect);

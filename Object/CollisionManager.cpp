@@ -6,6 +6,7 @@
 #include "CollisionManager.h"
 
 CollisionManager::CollisionManager()
+	:m_is_ride_pratform(false)
 {
 
 }
@@ -24,6 +25,8 @@ void CollisionManager::CheckPlayerCollision(
 	std::shared_ptr<Player> p_player, std::shared_ptr<Stage> p_stage,
 	std::shared_ptr<GimmickManager> p_gimmick_manager)
 {
+	//m_is_ride_pratform = false;
+
 	// 衝突したチップの矩形
 	Rect chip_rect;
 
@@ -88,6 +91,7 @@ void CollisionManager::CheckPlayerCollision(
 			pos_y = chip_rect.GetTopEdge() - p_player->GetCollisionHeight() * 0.5f;
 			p_player->SetPlayerMoveY(0.0f);
 			p_player->SetIsGround(true);
+			p_player->SetIsOnMovingPratform(false);
 		}
 		else if (p_player->GetPlayerMove().y < 0.0f)
 		{
@@ -163,10 +167,15 @@ void CollisionManager::CheckGimmickY(
 
 			p_player->SetPlayerMoveY(0.0f);
 			p_player->SetIsGround(true);
+			p_player->SetIsOnMovingPratform(false);
 
+			 // 当たったギミックが横に動く床かどうか
 			if (p_gimmick->GetGimmickType() == 3)
 			{
-				p_player->MoveWithPratform(p_gimmick->GetGimmickMove().x);
+				//p_player->MoveWithPratform(p_gimmick->GetGimmickMove().x);
+				//m_is_ride_pratform = true;
+				p_player->SetIsOnMovingPratform(true);
+
 			}
 		}
 		// プレイヤーが下から接した場合
@@ -176,6 +185,11 @@ void CollisionManager::CheckGimmickY(
 				p_gimmick->GetRect().GetBottomEdge() + p_player->GetCollisionHeight() * 0.5f);
 
 			p_player->SetPlayerMoveY(p_player->GetPlayerMove().y * -1.0f);
+		}
+
+		if (p_player->GetIsOnMovingPratform())
+		{
+			p_player->MoveWithPratform(p_gimmick->GetGimmickMove().x);
 		}
 	}
 }
