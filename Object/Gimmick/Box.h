@@ -20,7 +20,6 @@ public:
 	// 更新
 	void Update(Rect player_rect, Vec2 player_last_move);
 
-private:
-	// ステージとの当たり判定
-	void CheckHitStage(Rect& chip_rect);
+	// 箱の移動
+	void MoveByPush(Vec2 move) override;
 };

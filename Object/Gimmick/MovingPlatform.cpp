@@ -35,6 +35,9 @@ void MovingPlatform::Init()
 {
 	m_collision_width = 320.0f;
 	m_collision_height = 24.0f;
+
+	// 画像の高さとコリジョンの高さが異なるためオフセットを設定
+	m_handle_offset.y = m_collision_height;
 }
 
 void MovingPlatform::Update(Rect player_rect, Vec2 player_last_move)

@@ -137,6 +137,8 @@ void CollisionManager::CheckGimmickX(
 					p_gimmick->GetRect().GetRightEdge() + p_player->GetCollisionWidth() * 0.5f);
 			}
 
+			p_gimmick->MoveByPush(p_player->GetPlayerMove());
+
 			break;
 		}
 		// “®‚­°(c) ‰¡ˆÚ“®ŽžƒRƒŠƒWƒ‡ƒ“‚ª°‚É‚ß‚èž‚Þ‚½‚ßAˆ—‚ð‰¡Õ“Ë‚ð‚µ‚È‚¢
