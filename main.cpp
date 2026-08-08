@@ -3,7 +3,7 @@
 #include "GameConst.h"
 #include "Scene/SceneManager.h"
 #include "Scene/SceneMain.h"
-#include "Input/Pad.h"
+#include "Input/Keyboard.h"
 
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
@@ -47,8 +47,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		// 画面クリア
 		ClearDrawScreen();
 
-		// パッドの入力を更新
-		Pad::Update();
+		// キーボードの入力を更新
+		Keyboard::Update();
 
 		p_scene_manager->Update();
 		p_scene_manager->Draw();

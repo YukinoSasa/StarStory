@@ -1,6 +1,6 @@
 #include <DxLib.h>
 #include "../../GameConst.h"
-#include "../../Input/Pad.h"
+#include "../../Input/Keyboard.h"
 #include "Player.h"
 
 namespace
@@ -126,7 +126,7 @@ void Player::Draw(Vec2 camera_pos)
 void Player::Move()
 {
 	// 移動量を計算
-	if (Pad::IsPress(PAD_INPUT_LEFT))
+	if (Keyboard::IsPress(KEY_INPUT_LEFT))
 	{
 		m_animation_state = Animation::Walk;
 
@@ -135,7 +135,7 @@ void Player::Move()
 
 		m_move.x = -PLAYER_SPEED;
 	}
-	else if (Pad::IsPress(PAD_INPUT_RIGHT))
+	else if (Keyboard::IsPress(KEY_INPUT_RIGHT))
 	{
 		m_animation_state = Animation::Walk;
 		// プレイヤーの向きを変更
@@ -163,7 +163,7 @@ void Player::Jump()
 		return;
 	}
 
-	if (Pad::IsTrigger(PAD_INPUT_1))
+	if (Keyboard::IsTrigger(KEY_INPUT_SPACE))
 	{
 		//m_animation_state = Animation::Jamp;
 		m_move.y -= PLAYER_JUMP_POWER;

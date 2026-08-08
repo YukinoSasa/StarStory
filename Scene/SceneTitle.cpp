@@ -1,10 +1,12 @@
 #include <DxLib.h>
-#include "SceneTitle.h"
+#include "../Sound/SoundManager.h"
 #include "Menu/MenuTitle.h"
+#include "SceneTitle.h"
 
 SceneTitle::SceneTitle()
 {
 	m_p_menu_title = std::make_shared<MenuTitle>();
+	m_p_sound_manager = std::make_shared<SoundManager>();
 }
 
 SceneTitle::~SceneTitle()
@@ -14,7 +16,7 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::Init()
 {
-
+	m_p_sound_manager->Init();
 }
 
 void SceneTitle::Update()

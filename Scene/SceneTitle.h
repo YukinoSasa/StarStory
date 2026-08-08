@@ -3,6 +3,7 @@
 #include "SceneBase.h"
 
 class MenuTitle;
+class SoundManager;
 
 /// <summary>
 /// シーンクラスを継承したタイトルシーンクラス
@@ -26,4 +27,7 @@ public:
 private:
 	// タイトルメニューのポインタ
 	std::shared_ptr<MenuTitle> m_p_menu_title = nullptr;
+
+	// サウンドマネージャーのポインタ
+	std::shared_ptr<SoundManager> m_p_sound_manager = nullptr;
 };
