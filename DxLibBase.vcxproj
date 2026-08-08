@@ -153,6 +153,8 @@
     <ClCompile Include="Object\Item\Piece.cpp" />
     <ClCompile Include="Object\ObjectBase.cpp" />
     <ClCompile Include="Scene\BackGround\BackGround.cpp" />
+    <ClCompile Include="Scene\Menu\MenuBase.cpp" />
+    <ClCompile Include="Scene\Menu\MenuTitle.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneClear.cpp" />
     <ClCompile Include="Scene\SceneGameover.cpp" />
@@ -186,6 +188,8 @@
     <ClInclude Include="Object\Item\Piece.h" />
     <ClInclude Include="Object\ObjectBase.h" />
     <ClInclude Include="Scene\BackGround\BackGround.h" />
+    <ClInclude Include="Scene\Menu\MenuBase.h" />
+    <ClInclude Include="Scene\Menu\MenuTitle.h" />
     <ClInclude Include="Scene\SceneBase.h" />
     <ClInclude Include="Scene\SceneClear.h" />
     <ClInclude Include="Scene\SceneGameover.h" />
