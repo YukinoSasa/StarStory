@@ -15,8 +15,8 @@ Box::~Box()
 
 void Box::Init()
 {
-	m_collision_width = 16.0f;
-	m_collision_height = 16.0f;
+	m_collision_width = 64.0f;
+	m_collision_height = 64.0f;
 }
 
 void Box::Update(Rect player_rect, Vec2 player_move)

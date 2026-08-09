@@ -7,11 +7,14 @@ SceneTitle::SceneTitle()
 {
 	m_p_menu_title = std::make_shared<MenuTitle>();
 	m_p_sound_manager = std::make_shared<SoundManager>();
+	m_font_handle = CreateFontToHandle("ƒNƒ‰ƒtƒg–¾’©", 32, -1);
+	m_bg_handle = LoadGraph("Data/title_bg.png");
 }
 
 SceneTitle::~SceneTitle()
 {
-
+	DeleteFontToHandle(m_font_handle);
+	DeleteGraph(m_bg_handle);
 }
 
 void SceneTitle::Init()
@@ -32,6 +35,7 @@ void SceneTitle::Update()
 
 void SceneTitle::Draw()
 {
-	DrawFormatString(200, 200, GetColor(255, 255, 255), "¯‚Ì‚à‚Ì‚ª‚½‚è");
+	DrawGraph(-96, -54, m_bg_handle, true);
+	DrawFormatStringToHandle(200, 200, GetColor(255, 255, 255), m_font_handle, "¯‚Ì‚à‚Ì‚ª‚½‚è");
 	m_p_menu_title->Draw();
 }

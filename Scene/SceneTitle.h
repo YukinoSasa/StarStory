@@ -30,4 +30,10 @@ private:
 
 	// サウンドマネージャーのポインタ
 	std::shared_ptr<SoundManager> m_p_sound_manager = nullptr;
+
+	// フォントのハンドル
+	int m_font_handle;
+
+	// 背景のハンドル
+	int m_bg_handle;
 };

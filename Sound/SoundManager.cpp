@@ -3,7 +3,7 @@
 
 SoundManager::SoundManager()
 {
-	m_title_bgm_handle = LoadSoundMem("Data/BGM/title.mp3");
+	m_title_bgm_handle = LoadSoundMem("Data/Sound/BGM/title.mp3");
 }
 
 SoundManager::~SoundManager()
