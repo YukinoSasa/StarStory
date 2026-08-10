@@ -88,7 +88,9 @@ void Player::Draw(Vec2 camera_pos)
 
 	// キャラクター画像の左上の座標
 	float draw_x = m_pos.x - m_handle_width * 0.5f;
-	float draw_y = m_pos.y - m_handle_height * 0.5f;
+	//float draw_y = m_pos.y - 48.0f;
+	// 画像の下端と当たり判定の下端を合わせる
+	float draw_y = m_pos.y - m_handle_height * 0.5f - (m_handle_height - m_collision_height) * 0.5f;
 
 	// キャラクター描画のスクリーン座標
 	float screen_x = draw_x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
@@ -98,7 +100,8 @@ void Player::Draw(Vec2 camera_pos)
 	// 当たり判定矩形に合うように高さ調整
 	if (m_is_right)
 	{
-		DrawGraphF(screen_x , screen_y - m_handle_offset.y, m_handle, true);
+		DrawGraphF(screen_x, screen_y, m_handle, true);
+		//DrawGraphF(screen_x , screen_y - m_handle_offset.y, m_handle, true);
 		//DrawExtendGraphF(
 		//	screen_x, screen_y - 12.0f,
 		//	screen_x + m_handle_width, screen_y + m_handle_height - 12.0f,
@@ -107,7 +110,8 @@ void Player::Draw(Vec2 camera_pos)
 	}
 	else
 	{
-		DrawTurnGraphF(screen_x , screen_y - m_handle_offset.y, m_handle, true);
+		DrawTurnGraphF(screen_x, screen_y, m_handle, true);
+		//DrawTurnGraphF(screen_x , screen_y - m_handle_offset.y, m_handle, true);
 		//DrawExtendGraphF(
 		//	screen_x + m_handle_width, screen_y - 12.0f,
 		//	screen_x, screen_y + m_handle_height - 12.0f,
@@ -120,7 +124,7 @@ void Player::Draw(Vec2 camera_pos)
 #endif
 
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
-	DrawFormatString(0, 120, GetColor(255, 255, 255), "m_is_ground : %d", m_is_ground);
+	DrawFormatString(0, 120, GetColor(255, 255, 255), "bottom : %f", m_rect.GetBottomEdge());
 	//DrawFormatString(0, 90, GetColor(255, 255, 255), "m_move : %f", m_move.x);
 }
 
@@ -187,8 +191,8 @@ void Player::MovePlayerY()
 
 void Player::UpdateRect()
 {
+	//m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
 	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_collision_width, m_collision_height);
-	//m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_collision_width, m_collision_height);
 
 }
 

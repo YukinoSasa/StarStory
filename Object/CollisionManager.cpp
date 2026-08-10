@@ -65,6 +65,7 @@ void CollisionManager::CheckPlayerCollision(
 
 		p_player->SetPlayerMoveX(0.0f);
 		p_player->SetPlayerPosX(pos_x);
+
 		// コリジョン更新
 		p_player->UpdateRect();
 	}

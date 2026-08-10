@@ -7,7 +7,7 @@
 
 GimmickManager::GimmickManager()
 {
-	// csv‚ğ“Ç‚İ‚Ş
+	// csv“Ç‚İ‚İ
 	m_gimmick_datas = LoadGimmick("csv/Gimmick.csv");
 
 	for (auto& gimmick_data : m_gimmick_datas)

@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "../GameConst.h"
 #include "../Object/Character/Camera.h"
+#include "Mapchip.h"
 #include "Stage.h"
 
 Stage::Stage() :
@@ -9,9 +10,23 @@ Stage::Stage() :
 	// csv読み込み
 	m_map_data = LoadMap("csv/Stage1.csv");
 	m_collision_data = LoadCollision("csv/MapCollision.csv");
-
+	// 画像データ読み込み
 	LoadDivGraph("Data/newtileset.png", 190, 18, 11, 16, 16, m_handle_array);
 
+	// マップチップをインスタンス化、vectorに格納
+	for (int y = 0; y < (int)m_map_data.size(); y++)
+	{
+		for (int x = 0; x < (int)m_map_data[y].size(); x++)
+		{
+			// マップチップのワールド座標(マップチップの中心座標)を求める
+			float world_x = (x * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
+			float world_y = (y * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
+
+			std::shared_ptr<Mapchip> p_mapchip = std::make_shared<Mapchip>(
+				world_x, world_y, m_map_data[y][x], m_collision_data[m_map_data[y][x]]);
+			m_p_mapchips.push_back(p_mapchip);
+		}
+	}
 }
 
 Stage::~Stage()
@@ -24,7 +39,13 @@ Stage::~Stage()
 
 void Stage::Init()
 {
+	// ステージの全長を計算
 	m_stage_height = (int)m_map_data.size() * Game::MAPCHIP_SIZE;
+
+	for (auto& mapchip : m_p_mapchips)
+	{
+		mapchip->Init();
+	}
 }
 
 void Stage::Update()
@@ -34,24 +55,10 @@ void Stage::Update()
 
 void Stage::Draw(Vec2 camera_pos)
 {
-	for (int y = 0; y < (int)m_map_data.size(); y++)
+	for (auto& mapchip : m_p_mapchips)
 	{
-		for (int x = 0; x < (int)m_map_data[y].size(); x++)
-		{
-			int tile = m_map_data[y][x];
-
-			// マップチップのワールド座標(マップチップの中心座標)を求める
-			float world_x = (x * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
-			float world_y = (y * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
-
-			// DrawGraphは左上基準なので中心基準から左上にずらす
-			float screen_x = world_x - camera_pos.x + Game::SCREEN_HALF_WIDTH - (Game::MAPCHIP_SIZE * 0.5f);
-			float screen_y = world_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT - (Game::MAPCHIP_SIZE * 0.5f);
-
-			DrawExtendGraphF(screen_x, screen_y, screen_x + Game::MAPCHIP_SIZE, screen_y + Game::MAPCHIP_SIZE, m_handle_array[tile], true);
-		}
+		mapchip->Draw(camera_pos, m_handle_array);
 	}
-
 
 	//DrawFormatString(0, 30, GetColor(255, 255, 255), "cameraX : %f", camera_pos.x);
 	//DrawFormatString(0, 60, GetColor(255, 255, 255), "screenW : %d", Game::SCREEN_WIDTH);
@@ -68,32 +75,20 @@ void Stage::Draw(Vec2 camera_pos)
 
 bool Stage::IsCollision(const Rect& rect, Rect& chip_rect)
 {
-	for (int y = 0; y < (int)m_map_data.size(); y++)
+	for (auto& mapchip : m_p_mapchips)
 	{
-		for (int x = 0; x < (int)m_map_data[y].size(); x++)
+		// 当たり判定がないマップチップは飛ばす
+		if (!mapchip->GetIsCollision())
 		{
-			// 当たり判定がないマップチップは飛ばす
-			if (!IsCollisionChip(m_map_data[y][x]))
-			{
-				continue;
-			}
-			
-			// 当たり判定の矩形を持つ
-			Rect check_chip_rect;
-			// 矩形の中心座標を計算
-			float chip_x = (x * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
-			float chip_y = (y * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
+			continue;
+		}
 
-			// 矩形の端をセット
-			check_chip_rect.CalculateEdges(chip_x, chip_y, Game::MAPCHIP_SIZE, Game::MAPCHIP_SIZE);
-			// 対象の矩形とマップチップの矩形の当たりを調べる
-			if (check_chip_rect.IsCollision(rect))
-			{
-				// ぶつかったマップチップの矩形を設定
-				chip_rect.CalculateEdges(chip_x, chip_y, Game::MAPCHIP_SIZE, Game::MAPCHIP_SIZE);
+		// 当たっている場合、その矩形を保存
+		if (rect.IsCollision(mapchip->GetRect()))
+		{
+			chip_rect = mapchip->GetRect();
 
-				return true;
-			}
+			return true;
 		}
 	}
 

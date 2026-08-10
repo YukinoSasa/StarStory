@@ -163,6 +163,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
     <ClCompile Include="Sound\SoundManager.cpp" />
+    <ClCompile Include="Stage\Mapchip.cpp" />
     <ClCompile Include="Stage\Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -200,6 +201,7 @@
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
     <ClInclude Include="Sound\SoundManager.h" />
+    <ClInclude Include="Stage\Mapchip.h" />
     <ClInclude Include="Stage\Stage.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

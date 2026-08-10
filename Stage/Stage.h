@@ -1,10 +1,12 @@
 #pragma once
 #include <memory>
+#include <vector>
 #include "../csv/LoadCsv.h"
 #include "../Math/Rect.h"
 
 class Camera;
 class Piece;
+class Mapchip;
 
 /// <summary>
 /// マップのデータを持つステージクラス
@@ -49,6 +51,9 @@ private:
 
 	// マップデータ
 	MapData m_map_data;
+
+	// マップチップをまとめたvector配列
+	std::vector<std::shared_ptr<Mapchip>> m_p_mapchips;
 
 	// コリジョンデータ
 	CollisionData m_collision_data;
