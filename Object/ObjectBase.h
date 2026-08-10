@@ -31,6 +31,9 @@ protected:
 	// 当たり判定の高さを保存する変数
 	float m_collision_height;
 
+	// 画像と当たり判定のオフセット
+	Vec2 m_handle_offset;
+
 	// オブジェクトの中心座標
 	Vec2 m_pos;
 	// オブジェクトの移動量

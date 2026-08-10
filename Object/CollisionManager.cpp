@@ -134,10 +134,13 @@ void CollisionManager::CheckGimmickX(
 			else if (p_player->GetPlayerMove().x < 0.0f)
 			{
 				p_player->SetPlayerPosX(
-					p_gimmick->GetRect().GetRightEdge() + p_player->GetCollisionWidth() * 0.5f);
+					p_gimmick->GetRect().GetRightEdge() + p_player->GetCollisionWidth() * 0.5f + 5.0f);
 			}
 
+			p_player->UpdateRect();
+
 			p_gimmick->MoveByPush(p_player->GetPlayerMove());
+			p_player->SetPlayerMoveX(0.0f);
 
 			break;
 		}
@@ -152,6 +155,8 @@ void CollisionManager::CheckGimmickX(
 			break;
 		}
 		}
+
+		p_player->UpdateRect();
 	}
 }
 
@@ -193,6 +198,8 @@ void CollisionManager::CheckGimmickY(
 		{
 			p_player->MoveWithPratform(p_gimmick->GetGimmickMove().x);
 		}
+
+		p_player->UpdateRect();
 	}
 }
 

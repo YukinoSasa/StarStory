@@ -37,6 +37,6 @@ protected:
 	// ギミックタイプ(1:箱、2:動く床(縦)、3:動く床(横))
 	int m_gimmick_type;
 
-	// 画像のオフセット
-	Vec2 m_handle_offset;
+	//// 画像のオフセット
+	//Vec2 m_handle_offset;
 };

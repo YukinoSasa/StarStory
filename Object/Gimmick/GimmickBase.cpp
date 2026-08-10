@@ -3,7 +3,6 @@
 #include "GimmickBase.h"
 
 GimmickBase::GimmickBase(GimmickData gimmick_data)
-	:m_handle_offset(0.0f, 0.0f)
 {
 	m_handle = LoadGraph(gimmick_data.m_file_pass.c_str());
 	m_gimmick_type = gimmick_data.m_gimmick_type;

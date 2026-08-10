@@ -15,7 +15,7 @@ namespace
 Player::Player()
 	:m_move_by_gimmick(0.0f,0.0f), m_is_on_moving_pratform(false)
 {
-	LoadDivGraph("Data/player.png", 42, 8, 6, 24, 24, m_handle_array);
+	LoadDivGraph("Data/player.png", 42, 8, 6, 72, 72, m_handle_array);
 	m_handle = m_handle_array[0];
 
 	m_animation_state = Animation::Idle;
@@ -36,11 +36,13 @@ void Player::Init()
 {
 	CharacterBase::Init();
 
-	m_handle_width *= 3.0f;
-	m_handle_height *= 3.0f;
+	//m_handle_width = 3.0f;
+	//m_handle_height = 3.0f;
 
 	m_collision_width = 26.0f;
 	m_collision_height = 48.0f;
+
+	m_handle_offset.y = 12.0f;
 }
 
 void Player::Update()
@@ -84,10 +86,6 @@ void Player::Draw(Vec2 camera_pos)
 
 	//CharacterBase::Draw(camera_pos);
 
-	//	// 画像サイズ * 拡大率
-	//float graph_width = m_handle_width * 3.0f;
-	//float graph_height = m_handle_height * 3.0f;
-
 	// キャラクター画像の左上の座標
 	float draw_x = m_pos.x - m_handle_width * 0.5f;
 	float draw_y = m_pos.y - m_handle_height * 0.5f;
@@ -100,17 +98,20 @@ void Player::Draw(Vec2 camera_pos)
 	// 当たり判定矩形に合うように高さ調整
 	if (m_is_right)
 	{
-		DrawExtendGraphF(
-			screen_x , screen_y - 12.0f,
-			screen_x + m_handle_width, screen_y + m_handle_height - 12.0f,
-			m_handle, true);
+		DrawGraphF(screen_x , screen_y - m_handle_offset.y, m_handle, true);
+		//DrawExtendGraphF(
+		//	screen_x, screen_y - 12.0f,
+		//	screen_x + m_handle_width, screen_y + m_handle_height - 12.0f,
+		//	m_handle, true);
+
 	}
 	else
 	{
-		DrawExtendGraphF(
-			screen_x + m_handle_width, screen_y - 12.0f,
-			screen_x , screen_y + m_handle_height - 12.0f,
-			m_handle, true);
+		DrawTurnGraphF(screen_x , screen_y - m_handle_offset.y, m_handle, true);
+		//DrawExtendGraphF(
+		//	screen_x + m_handle_width, screen_y - 12.0f,
+		//	screen_x, screen_y + m_handle_height - 12.0f,
+		//	m_handle, true);
 	}
 
 #ifdef _DEBUG
@@ -187,6 +188,8 @@ void Player::MovePlayerY()
 void Player::UpdateRect()
 {
 	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_collision_width, m_collision_height);
+	//m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_collision_width, m_collision_height);
+
 }
 
 void Player::UpdateAnimation()
