@@ -6,14 +6,15 @@
 namespace
 {
 	// 移動速度
-	float MOVE_SPEED = 2.0f;
+	float MOVE_SPEED = 1.0f;
 	// 床判定用仮想rectクラスのサイズ
 	float RECT_SIZE = 32.0f;
 }
 
 Enemy::Enemy(EnemyData enemy_data)
+	:m_animation_frame(0), m_animation_timer(0)
 {
-	m_handle = LoadGraph(enemy_data.m_file_pass.c_str());
+	LoadDivGraph(enemy_data.m_file_pass.c_str(), 9, 9, 1, 64, 64, m_handle_array);
 	m_pos = enemy_data.m_spawn;
 	m_handle_width = enemy_data.m_size;
 	m_handle_height = enemy_data.m_size;
@@ -21,12 +22,21 @@ Enemy::Enemy(EnemyData enemy_data)
 
 Enemy::~Enemy()
 {
-	DeleteGraph(m_handle);
+	for (int i = 0; i < sizeof(m_handle_array) / sizeof(m_handle_array[0]); i++)
+	{
+		DeleteGraph(m_handle_array[i]);
+	}
 }
 
 void Enemy::Init()
 {
 	CharacterBase::Init();
+
+	// 当たり判定サイズ
+	m_collision_width = 46.0f;
+	m_collision_height = 50.0f;
+
+	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
 }
 
 void Enemy::Update()
@@ -68,10 +78,54 @@ void Enemy::Update()
 		m_move.x = -MOVE_SPEED;
 	}
 
-	CharacterBase::Update();
+	m_pos.x += m_move.x;
+	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
+	//CharacterBase::Update();
+
+	m_handle = m_handle_array[m_animation_frame];
+
+	m_animation_timer++;
+	if (m_animation_timer >= 7)
+	{
+		UpdateAnimation();
+		m_animation_timer = 0;
+	}
+
 }
 
 void Enemy::Draw(Vec2 camera_pos)
 {
-	CharacterBase::Draw(camera_pos);
+	//CharacterBase::Draw(camera_pos);
+
+	// キャラクター画像の左上の座標
+	float draw_x = m_pos.x - m_handle_width * 0.5f;
+	float draw_y = m_pos.y - m_handle_height * 0.5f;
+
+	// キャラクター描画のスクリーン座標
+	float screen_x = draw_x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
+	float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
+
+	// キャラクターの向きによって画像を反転
+	if (m_is_right)
+	{
+		DrawTurnGraphF(screen_x, screen_y, m_handle, true);
+	}
+	else
+	{
+		DrawGraphF(screen_x, screen_y, m_handle, true);
+	}
+
+#ifdef _DEBUG
+	// デバック時のみ当たり判定の矩形を描画
+	m_rect.Draw(camera_pos);
+#endif
+}
+
+void Enemy::UpdateAnimation()
+{
+	m_animation_frame++;
+	if (m_animation_frame > 8)
+	{
+		m_animation_frame = 0;
+	}
 }

@@ -31,5 +31,5 @@ void Mapchip::Draw(Vec2 camera_pos, int* handle_array)
 
 	DrawExtendGraphF(screen_x, screen_y, screen_x + Game::MAPCHIP_SIZE, screen_y + Game::MAPCHIP_SIZE, handle_array[m_tile], true);
 
-	m_rect.Draw(camera_pos);
+	//m_rect.Draw(camera_pos);
 }

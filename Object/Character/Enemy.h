@@ -20,4 +20,16 @@ public:
 
 	// 描画
 	void Draw(Vec2 camera_pos) override;
+
+private:
+	void UpdateAnimation();
+
+	// 画像データの配列
+	int m_handle_array[9];
+
+	// アニメーションフレーム
+	int m_animation_frame;
+
+	// アニメーションタイマー
+	int m_animation_timer;
 };
