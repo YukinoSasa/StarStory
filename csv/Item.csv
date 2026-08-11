@@ -1,3 +1,12 @@
 ﻿ステージ,スポーンx座標,スポーンy座標,サイズ,素材データ
-1,676,3188,16,Data/piece_kari.png
-1,800,3000,16,Data/piece_kari.png
+1,1800,3984,48,Data/piece.png
+1,1085,3700,48,Data/piece.png
+1,195,3500,48,Data/piece.png
+1,1080,3400,48,Data/piece.png
+1,920,3100,48,Data/piece.png
+1,1680,3176,48,Data/piece.png
+1,420,2936,48,Data/piece.png
+1,500,2600,48,Data/piece.png
+1,700,2600,48,Data/piece.png
+1,1750,2190,48,Data/piece.png
+1,1090,2000,48,Data/piece.png

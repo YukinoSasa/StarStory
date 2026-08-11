@@ -122,7 +122,7 @@ bool Stage::IsTrigger(const Rect& rect, Rect& chip_rect)
 				chip_rect.CalculateEdges(chip_x, chip_y, Game::MAPCHIP_SIZE, Game::MAPCHIP_SIZE);
 
 				// ƒS[ƒ‹‚ÆÚG‚Í“–‚½‚è”»’èˆ—‚ğs‚í‚È‚¢
-				if (m_map_data[y][x] == 3)
+				if (m_map_data[y][x] == 7)
 				{
 					chip_rect.SetIsObject(false);
 					m_is_goal = true;

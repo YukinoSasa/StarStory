@@ -9,11 +9,11 @@ namespace
 	constexpr float PLAYER_SPEED = 5.0f;
 
 	// ÉWÉÉÉìÉvóÕ
-	constexpr float PLAYER_JUMP_POWER = 12.0f;
+	constexpr float PLAYER_JUMP_POWER = 11.0f;
 }
 
 Player::Player()
-	:m_move_by_gimmick(0.0f,0.0f), m_is_on_moving_pratform(false)
+	:m_move_by_gimmick(0.0f,0.0f), m_is_on_moving_pratform(false), m_collected_item(0)
 {
 	LoadDivGraph("Data/player.png", 42, 8, 6, 72, 72, m_handle_array);
 	m_handle = m_handle_array[0];
@@ -125,7 +125,7 @@ void Player::Draw(Vec2 camera_pos)
 
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
 	DrawFormatString(0, 120, GetColor(255, 255, 255), "bottom : %f", m_rect.GetBottomEdge());
-	//DrawFormatString(0, 90, GetColor(255, 255, 255), "m_move : %f", m_move.x);
+	DrawFormatString(1100, 0, GetColor(255, 255, 255), "èWÇﬂÇΩÇ©ÇØÇÁ : %d", m_collected_item);
 }
 
 void Player::Move()
@@ -230,4 +230,9 @@ void Player::MoveWithPratform(float move)
 {
 	m_move_by_gimmick.x = move;
 	UpdateRect();
+}
+
+void Player::CountItem()
+{
+	m_collected_item++;
 }

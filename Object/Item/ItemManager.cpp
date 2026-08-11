@@ -25,7 +25,10 @@ void ItemManager::Init()
 
 void ItemManager::Update()
 {
-
+	for (auto& item : m_p_items)
+	{
+		item->Update();
+	}
 }
 
 void ItemManager::Draw(Vec2 camera_pos)

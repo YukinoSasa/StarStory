@@ -66,6 +66,7 @@ void SceneMain::Update()
 	m_p_player->Update();
 	m_p_collision_manager->CheckPlayerCollision(m_p_player, m_p_stage, m_p_gimmick_manager);
 	m_p_enemy_manager->Update();
+	m_p_item_manager->Update();
 	m_p_camera->Update();
 	
 	// ギミック接触判定
@@ -169,6 +170,10 @@ void SceneMain::HitPlayerItem(const Rect& player_rect, const Rect& item_rect, st
 	// プレイヤーがアイテムに接触した場合取得
 	if (player_rect.IsCollision(item_rect))
 	{
+		if (!item->GetIsCollected())
+		{
+			m_p_player->CountItem();
+		}
 		item->Collect();
 	}
 }

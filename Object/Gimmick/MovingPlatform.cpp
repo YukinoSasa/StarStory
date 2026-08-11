@@ -47,11 +47,11 @@ void MovingPlatform::Update(Rect player_rect, Vec2 player_last_move)
 	// cˆÚ“®‚Ì°
 	case 2:
 	{
-		if (m_pos.y <= m_init_pos.y - 100.0f)
+		if (m_pos.y <= m_init_pos.y - 200.0f)
 		{
 			m_move.y = +MOVE_SPEED;
 		}
-		else if (m_pos.y >= m_init_pos.y + 100.0f)
+		else if (m_pos.y >= m_init_pos.y + 200.0f)
 		{
 			m_move.y = -MOVE_SPEED;
 		}

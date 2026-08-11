@@ -64,6 +64,9 @@ public:
 	// 床と一緒に移動する
 	void MoveWithPratform(float move);
 
+	// アイテム取得時にカウント
+	void CountItem();
+
 private:
 	// 左右の移動量を計算
 	void Move();
@@ -79,6 +82,9 @@ private:
 
 	// 動く床(横)に乗っているかどうか
 	bool m_is_on_moving_pratform;
+
+	// 集めたアイテムの数
+	int m_collected_item;
 
 	//// 敵との当たり判定
 	//void CheckHitEnemy(Rect& enemy_rect);
