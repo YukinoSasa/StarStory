@@ -20,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	
 	//	デバッグ中はウィンドウモード、リリース版はフルスクリーン
 #ifdef _DEBUG
-	ChangeWindowMode(TRUE);
+	ChangeWindowMode(FALSE);
 #else
 	ChangeWindowMode(FALSE);
 #endif
@@ -61,8 +61,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 		}
 
-		// Escapeキーで終了
-		if (CheckHitKey(KEY_INPUT_ESCAPE))
+		// 0キーで終了
+		if (CheckHitKey(KEY_INPUT_0))
 		{
 			break;
 		}

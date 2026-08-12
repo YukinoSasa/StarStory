@@ -11,9 +11,11 @@
 #include "../Object/Gimmick/GimmickManager.h"
 #include "../Object/Gimmick/GimmickBase.h"
 #include "../Object/Item/ItemManager.h"
+#include "Menu/MenuPause.h"
+#include "../Input/Keyboard.h"
 
-SceneMain::SceneMain() :
-	m_is_goal(false)
+SceneMain::SceneMain()
+	:m_is_pause(false), m_is_goal(false)
 {
 	m_p_player = std::make_shared<Player>();
 	m_p_enemy_manager = std::make_shared<EnemyManager>();
@@ -24,6 +26,7 @@ SceneMain::SceneMain() :
 	m_p_camera = std::make_shared<Camera>();
 	m_p_gimmick_manager = std::make_shared<GimmickManager>();
 	m_p_item_manager = std::make_shared<ItemManager>();
+	m_p_menu_pause = std::make_shared<MenuPause>();
 
 	//m_p_pieces.resize(10);
 	//for (auto& piece : m_p_pieces)
@@ -62,6 +65,23 @@ void SceneMain::Init()
 
 void SceneMain::Update()
 {
+	//m_p_menu_pause->Update();
+
+	// ポーズ判定
+	if (!m_is_pause && Keyboard::IsTrigger(KEY_INPUT_ESCAPE))
+	{
+		m_is_pause = true;
+		//m_p_menu_pause->SetIsClosed(false);
+		return;
+	}
+
+
+	if (m_is_pause && Keyboard::IsTrigger(KEY_INPUT_ESCAPE))
+	{
+		m_is_pause = false;
+		return;
+	}
+
 	m_p_gimmick_manager->Update(m_p_player->GetRect(), m_p_player->GetPlayerMove());
 	m_p_player->Update();
 	m_p_collision_manager->CheckPlayerCollisionX(m_p_player, m_p_stage, m_p_gimmick_manager);
@@ -113,6 +133,16 @@ void SceneMain::Draw()
 	m_p_enemy_manager->Draw(m_p_camera->GetCameraPos());
 	m_p_player->Draw(m_p_camera->GetCameraPos());
 
+	// ポーズ中の場合最前面にポーズメニューを描画
+	if (m_is_pause)
+	{
+		m_p_menu_pause->Draw();
+
+		//if (m_p_menu_pause->GetIsClosed())
+		//{
+		//	m_is_pause = false;
+		//}
+	}
 	
 
 	//for (auto& piece : m_p_pieces)

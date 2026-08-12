@@ -14,6 +14,7 @@ class Camera;
 class GimmickManager;
 class ItemManager;
 class CollisionManager;
+class MenuPause;
 
 /// <summary>
 /// シーンクラスを継承したメインシーンクラス
@@ -69,6 +70,12 @@ private:
 
 	// アイテムマネージャーのポインタ
 	std::shared_ptr<ItemManager> m_p_item_manager = nullptr;
+
+	// ポーズメニューのポインタ
+	std::shared_ptr<MenuPause> m_p_menu_pause = nullptr;
+
+	// ポーズ中かどうか
+	bool m_is_pause;
 
 	// ゴールしたかどうか
 	bool m_is_goal;

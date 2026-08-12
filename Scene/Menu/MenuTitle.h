@@ -1,6 +1,9 @@
 #pragma once
 #include "MenuBase.h"
 
+/// <summary>
+/// メニューベースクラスを継承したタイトルメニュークラス
+/// </summary>
 class MenuTitle : public MenuBase
 {
 public:
