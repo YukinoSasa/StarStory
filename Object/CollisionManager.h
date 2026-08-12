@@ -21,8 +21,14 @@ public:
 	// 更新
 	void Update();
 
-	// プレイヤーとオブジェクトの衝突判定
-	void CheckPlayerCollision(
+	// プレイヤーとオブジェクトの横方向衝突判定
+	void CheckPlayerCollisionX(
+		std::shared_ptr<Player> p_player,
+		std::shared_ptr<Stage> p_stage,
+		std::shared_ptr<GimmickManager> p_gimmick_manager);
+
+	// プレイヤーとオブジェクトの縦方向衝突判定
+	void CheckPlayerCollisionY(
 		std::shared_ptr<Player> p_player,
 		std::shared_ptr<Stage> p_stage,
 		std::shared_ptr<GimmickManager> p_gimmick_manager);
@@ -35,7 +41,4 @@ private:
 	// ギミックの縦方向の衝突判定
 	void CheckGimmickY(
 		std::shared_ptr<Player> p_player, std::shared_ptr<GimmickBase> p_gimmick);
-
-	// 動く床に乗っているかどうか
-	bool m_is_ride_pratform;
 };

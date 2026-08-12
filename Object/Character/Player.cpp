@@ -191,8 +191,8 @@ void Player::MovePlayerY()
 
 void Player::UpdateRect()
 {
-	//m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
-	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_collision_width, m_collision_height);
+	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
+	//m_rect.CalculateEdges(m_pos.x, m_pos.y - 1.0f, m_collision_width, m_collision_height);
 
 }
 

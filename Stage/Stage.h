@@ -27,8 +27,9 @@ public:
 	// 描画
 	void Draw(Vec2 camera_pos);
 
-	// 指定した矩形がマップチップと衝突しているかどうか
-	bool IsCollision(const Rect& rect, Rect& chip_rect);
+	// rectがマップチップと衝突しているかどうか(chip_rectに当たった矩形情報を保存)
+	bool IsCollisionX(const Rect& rect, Rect& chip_rect);
+	bool IsCollisionY(const Rect& rect, Rect& chip_rect);
 
 	// 指定した矩形がマップチップに入っているかどうか
 	bool IsTrigger(const Rect& rect, Rect& chip_rect);

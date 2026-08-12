@@ -73,7 +73,7 @@ void Stage::Draw(Vec2 camera_pos)
 	}
 }
 
-bool Stage::IsCollision(const Rect& rect, Rect& chip_rect)
+bool Stage::IsCollisionX(const Rect& rect, Rect& chip_rect)
 {
 	for (auto& mapchip : m_p_mapchips)
 	{
@@ -83,10 +83,50 @@ bool Stage::IsCollision(const Rect& rect, Rect& chip_rect)
 			continue;
 		}
 
-		// 当たっている場合、その矩形を保存
-		if (rect.IsCollision(mapchip->GetRect()))
+		// 走査中のマップチップrect
+		const Rect& target = mapchip->GetRect();
+
+		// y方向に重なっていなければ、x移動による衝突ではない
+		if (rect.GetBottomEdge() <= target.GetTopEdge() || rect.GetTopEdge() >= target.GetBottomEdge())
 		{
-			chip_rect = mapchip->GetRect();
+			continue;
+		}
+
+		// x方向で当たっている場合、その矩形を保存
+		if (rect.GetRightEdge() > target.GetLeftEdge() && rect.GetLeftEdge() < target.GetRightEdge())
+		{
+			chip_rect = target;
+
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool Stage::IsCollisionY(const Rect& rect, Rect& chip_rect)
+{
+	for (auto& mapchip : m_p_mapchips)
+	{
+		// 当たり判定がないマップチップは飛ばす
+		if (!mapchip->GetIsCollision())
+		{
+			continue;
+		}
+
+		// 走査中のマップチップrect
+		const Rect& target = mapchip->GetRect();
+
+		// x方向に重なっていなければ、y移動による衝突ではない
+		if (rect.GetRightEdge() <= target.GetLeftEdge() || rect.GetLeftEdge() >= target.GetRightEdge())
+		{
+			continue;
+		}
+
+		// y方向で当たっている場合、その矩形を保存
+		if (rect.GetBottomEdge() > target.GetTopEdge() && rect.GetTopEdge() < target.GetBottomEdge())
+		{
+			chip_rect = target;
 
 			return true;
 		}

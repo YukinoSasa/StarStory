@@ -6,7 +6,6 @@
 #include "CollisionManager.h"
 
 CollisionManager::CollisionManager()
-	:m_is_ride_pratform(false)
 {
 
 }
@@ -21,18 +20,15 @@ void CollisionManager::Update()
 
 }
 
-void CollisionManager::CheckPlayerCollision(
+void CollisionManager::CheckPlayerCollisionX(
 	std::shared_ptr<Player> p_player, std::shared_ptr<Stage> p_stage,
 	std::shared_ptr<GimmickManager> p_gimmick_manager)
 {
-	//m_is_ride_pratform = false;
-
 	// 衝突したチップの矩形
 	Rect chip_rect;
 
 	// 位置補正後座標
 	float pos_x = p_player->GetPlayerPos().x;
-	float pos_y = p_player->GetPlayerPos().y;
 
 	// 横移動、コリジョン更新
 	p_player->MovePlayerX();
@@ -50,14 +46,15 @@ void CollisionManager::CheckPlayerCollision(
 	// 画面外不可処理後、コリジョンの更新
 	p_player->UpdateRect();
 
-	// ステージと衝突した場合 //
-	if (p_stage->IsCollision(p_player->GetRect(), chip_rect))
+	// ステージと横から衝突した場合 //
+	if (p_stage->IsCollisionX(p_player->GetRect(), chip_rect))
 	{
-		// 横からの衝突をチェック
+		// プレイヤーが左から衝突
 		if (p_player->GetPlayerMove().x > 0.0f)
 		{
 			pos_x = chip_rect.GetLeftEdge() - p_player->GetCollisionWidth() * 0.5f;
 		}
+		// プレイヤーが右から衝突
 		else if (p_player->GetPlayerMove().x < 0.0f)
 		{
 			pos_x = chip_rect.GetRightEdge() + p_player->GetCollisionWidth() * 0.5f;
@@ -78,15 +75,25 @@ void CollisionManager::CheckPlayerCollision(
 	{
 		CheckGimmickX(p_player, gimmick);
 	}
+}
 
+void CollisionManager::CheckPlayerCollisionY(
+	std::shared_ptr<Player> p_player, std::shared_ptr<Stage> p_stage,
+	std::shared_ptr<GimmickManager> p_gimmick_manager)
+{
+	// 衝突したチップの矩形
+	Rect chip_rect;
+
+	// 位置補正後座標
+	float pos_y = p_player->GetPlayerPos().y;
 
 	// 縦移動の更新、コリジョンの更新
 	p_player->MovePlayerY();
 
 	// ステージと衝突した場合 //
-	if (p_stage->IsCollision(p_player->GetRect(), chip_rect))
+	if (p_stage->IsCollisionY(p_player->GetRect(), chip_rect))
 	{
-		// 縦からの衝突をチェック
+		// プレイヤーが上から衝突
 		if (p_player->GetPlayerMove().y > 0.0f)
 		{
 			pos_y = chip_rect.GetTopEdge() - p_player->GetCollisionHeight() * 0.5f;
@@ -94,6 +101,7 @@ void CollisionManager::CheckPlayerCollision(
 			p_player->SetIsGround(true);
 			p_player->SetIsOnMovingPratform(false);
 		}
+		// プレイヤーが下から衝突
 		else if (p_player->GetPlayerMove().y < 0.0f)
 		{
 			pos_y = chip_rect.GetBottomEdge() + p_player->GetCollisionHeight() * 0.5f;
@@ -135,7 +143,7 @@ void CollisionManager::CheckGimmickX(
 			else if (p_player->GetPlayerMove().x < 0.0f)
 			{
 				p_player->SetPlayerPosX(
-					p_gimmick->GetRect().GetRightEdge() + p_player->GetCollisionWidth() * 0.5f + 5.0f);
+					p_gimmick->GetRect().GetRightEdge() + p_player->GetCollisionWidth() * 0.5f);
 			}
 
 			p_player->UpdateRect();
@@ -203,4 +211,3 @@ void CollisionManager::CheckGimmickY(
 		p_player->UpdateRect();
 	}
 }
-
