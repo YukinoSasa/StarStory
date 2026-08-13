@@ -61,6 +61,7 @@ void SceneMain::Init()
 	m_p_stage->Init();
 	m_p_item_manager->Init();
 	m_p_gimmick_manager->Init();
+	m_p_menu_pause->Init();
 }
 
 void SceneMain::Update()
@@ -71,14 +72,20 @@ void SceneMain::Update()
 	if (!m_is_pause && Keyboard::IsTrigger(KEY_INPUT_ESCAPE))
 	{
 		m_is_pause = true;
-		//m_p_menu_pause->SetIsClosed(false);
+		m_p_menu_pause->SetSelectedItem();
 		return;
 	}
-
 
 	if (m_is_pause && Keyboard::IsTrigger(KEY_INPUT_ESCAPE))
 	{
 		m_is_pause = false;
+		return;
+	}
+
+	// ポーズ中はポーズのみUpdateし、それ以外はUpdateしない
+	if (m_is_pause)
+	{
+		m_p_menu_pause->Update();
 		return;
 	}
 

@@ -20,10 +20,8 @@ public:
 	// 描画
 	void Draw() override;
 
-	//// ポーズが閉じられたかどうかのゲッタ
-	//bool GetIsClosed() const { return m_is_closed; }
-
-	//void SetIsClosed(bool is_closed) { m_is_closed = is_closed; }
+	// 選択状態をデフォルトにするセッタ
+	void SetSelectedItem();
 
 private:
 	// ポーズのメニュー項目
@@ -40,6 +38,10 @@ private:
 	// ポーズ背景のハンドル
 	int m_handle_background;
 
+	// ポーズ背景の画像のサイズ
+	float m_background_width;
+	float m_background_height;
+
 	// フォントのハンドル(タイトルサイズフォント)
 	int m_font_handle;
 
@@ -47,6 +49,7 @@ private:
 	int m_font_item_handle;
 
 	// フォントのハンドル(選択状態)
+	int m_font_item_selected_handle;
 
 	//// ポーズが閉じられたかどうか
 	//bool m_is_closed;
