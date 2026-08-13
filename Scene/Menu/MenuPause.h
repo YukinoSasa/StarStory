@@ -20,6 +20,9 @@ public:
 	// 描画
 	void Draw() override;
 
+	// タイトルへ戻るが選択されたかどうかのゲッタ
+	bool GetSelectedTitle() const { return m_is_selected_title; }
+
 	// 選択状態をデフォルトにするセッタ
 	void SetSelectedItem();
 
@@ -51,6 +54,6 @@ private:
 	// フォントのハンドル(選択状態)
 	int m_font_item_selected_handle;
 
-	//// ポーズが閉じられたかどうか
-	//bool m_is_closed;
+	// タイトルへ戻るが選択されたかどうか
+	bool m_is_selected_title;
 };

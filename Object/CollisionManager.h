@@ -4,6 +4,7 @@
 
 class Player;
 class Stage;
+class Box;
 
 /// <summary>
 /// 当たり判定を管理するクラス
@@ -32,6 +33,11 @@ public:
 		std::shared_ptr<Player> p_player,
 		std::shared_ptr<Stage> p_stage,
 		std::shared_ptr<GimmickManager> p_gimmick_manager);
+
+	// 箱とステージの縦方向衝突判定
+	void CheckBoxCollisionY(
+		std::shared_ptr<GimmickManager> p_gimmick_manager,
+		std::shared_ptr<Stage> p_stage);
 
 private:
 	// ギミックの横方向の衝突判定

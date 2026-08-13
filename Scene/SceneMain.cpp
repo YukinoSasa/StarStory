@@ -86,10 +86,19 @@ void SceneMain::Update()
 	if (m_is_pause)
 	{
 		m_p_menu_pause->Update();
+
+		// ポーズ中タイトルへ戻るが選択された場合、タイトルシーンへ遷移
+		if (m_p_menu_pause->GetSelectedTitle())
+		{
+			m_scene_result = SceneResult::None;
+			m_is_scene_end = true;
+		}
+
 		return;
 	}
 
 	m_p_gimmick_manager->Update(m_p_player->GetRect(), m_p_player->GetPlayerMove());
+	m_p_collision_manager->CheckBoxCollisionY(m_p_gimmick_manager, m_p_stage);
 	m_p_player->Update();
 	m_p_collision_manager->CheckPlayerCollisionX(m_p_player, m_p_stage, m_p_gimmick_manager);
 	m_p_collision_manager->CheckPlayerCollisionY(m_p_player, m_p_stage, m_p_gimmick_manager);

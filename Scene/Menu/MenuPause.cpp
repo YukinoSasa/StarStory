@@ -4,7 +4,7 @@
 #include "MenuPause.h"
 
 MenuPause::MenuPause()
-	:m_background_width(0.0f), m_background_height(0.0f)
+	:m_background_width(0.0f), m_background_height(0.0f), m_is_selected_title(false)
 {
 	m_selected_item = MenuPauseItem::ReturnToGame;
 	m_handle_background = LoadGraph("Data/UI/menu_background.png");
@@ -70,6 +70,7 @@ void MenuPause::Update()
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
 			// 内容を保存しタイトルシーンへ遷移
+			m_is_selected_title = true;
 		}
 		// 下を押したとき選択状態をゲームへ戻るに変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))

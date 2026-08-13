@@ -46,6 +46,40 @@ bool Rect::IsCollision(const Rect& object) const
 	}
 }
 
+bool Rect::IsCollisionX(const Rect& object) const
+{
+	// y方向に重なっていなければ、x移動による衝突ではない
+	if (m_bottom_edge <= object.m_top_edge || m_top_edge >= object.m_bottom_edge)
+	{
+		return false;
+	}
+
+	// x方向で当たっている場合、true
+	if (m_right_edge > object.m_left_edge && m_left_edge < object.m_right_edge)
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool Rect::IsCollisionY(const Rect& object) const
+{
+	// x方向に重なっていなければ、y移動による衝突ではない
+	if (m_right_edge <= object.m_left_edge || m_left_edge >= object.m_right_edge)
+	{
+		return false;
+	}
+
+	// y方向で当たっている場合、true
+	if (m_bottom_edge > object.m_top_edge && m_top_edge < object.m_bottom_edge)
+	{
+		return true;
+	}
+
+	return false;
+}
+
 void Rect::CalculateEdges(float x, float y, float width, float height)
 {
 	m_left_edge = x - width * 0.5f;

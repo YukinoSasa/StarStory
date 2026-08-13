@@ -44,6 +44,11 @@ void GimmickBase::Draw(Vec2 camera_pos)
 #endif
 }
 
+void GimmickBase::UpdateRect()
+{
+	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
+}
+
 void GimmickBase::MoveByPush(Vec2 move)
 {
 

@@ -3,6 +3,7 @@
 #include "Character/Player.h"
 #include "Gimmick/GimmickManager.h"
 #include "Gimmick/GimmickBase.h"
+#include "Gimmick/Box.h"
 #include "CollisionManager.h"
 
 CollisionManager::CollisionManager()
@@ -127,7 +128,7 @@ void CollisionManager::CheckGimmickX(
 	std::shared_ptr<Player> p_player, std::shared_ptr<GimmickBase> p_gimmick)
 {
 	// プレイヤーがギミックに接している場合プレイヤー座標をセット
-	if (p_player->GetRect().IsCollision(p_gimmick->GetRect()))
+	if (p_player->GetRect().IsCollisionX(p_gimmick->GetRect()))
 	{
 		switch (p_gimmick->GetGimmickType())
 		{
@@ -173,7 +174,7 @@ void CollisionManager::CheckGimmickY(
 	std::shared_ptr<Player> p_player, std::shared_ptr<GimmickBase> p_gimmick)
 {
 	// プレイヤーがギミックに接している場合プレイヤー座標をセット
-	if (p_player->GetRect().IsCollision(p_gimmick->GetRect()))
+	if (p_player->GetRect().IsCollisionY(p_gimmick->GetRect()))
 	{
 		// プレイヤーが上から接した場合
 		if (p_player->GetPlayerMove().y > 0.0f)
@@ -209,5 +210,42 @@ void CollisionManager::CheckGimmickY(
 		}
 
 		p_player->UpdateRect();
+	}
+}
+
+void CollisionManager::CheckBoxCollisionY(
+	std::shared_ptr<GimmickManager> p_gimmick_manager, std::shared_ptr<Stage> p_stage)
+{
+	for (auto& gimmick : p_gimmick_manager->GetGimmicks())
+	{
+		// ギミックが箱以外の時は飛ばす
+		if (gimmick->GetGimmickType() == 2 || gimmick->GetGimmickType() == 3)
+		{
+			continue;
+		}
+
+		// 衝突したチップの矩形
+		Rect chip_rect;
+
+		// 位置補正後座標
+		float pos_y = gimmick->GetGimmickPos().y;
+
+		//// 縦移動の更新、コリジョンの更新
+		//p_player->MovePlayerY();
+
+		// ステージと衝突した場合 //
+		if (p_stage->IsCollisionY(gimmick->GetRect(), chip_rect))
+		{
+			// プレイヤーが上から衝突
+			if (gimmick->GetGimmickMove().y > 0.0f)
+			{
+				pos_y = chip_rect.GetTopEdge() - gimmick->GetCollisionHeight() * 0.5f;
+				gimmick->SetGimmickMove(0.0f, 0.0f);
+			}
+
+			gimmick->SetGimmickPosY(pos_y);
+			// コリジョン更新
+			gimmick->UpdateRect();
+		}
 	}
 }
