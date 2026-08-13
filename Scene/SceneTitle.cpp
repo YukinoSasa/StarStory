@@ -27,8 +27,15 @@ void SceneTitle::Update()
 	m_p_menu_title->Update();
 
 	// ゲーム開始が選択されたときシーン遷移
-	if (m_p_menu_title->GetIsNewGame())
+	if (m_p_menu_title->GetCurrentState() == MenuTitle::MenuTitleState::SelectedNewGame)
 	{
+		m_scene_result = SceneBase::SceneResult::NewGame;
+		m_is_scene_end = true;
+	}
+
+	if (m_p_menu_title->GetCurrentState() == MenuTitle::MenuTitleState::SelectedExit)
+	{
+		m_scene_result = SceneBase::SceneResult::ExitGame;
 		m_is_scene_end = true;
 	}
 }

@@ -23,6 +23,19 @@ public:
 	// ゲームが開始されたかどうかのゲッタ
 	bool GetIsNewGame() { return m_is_newgame; }
 
+	// タイトルの状態
+	enum class MenuTitleState
+	{
+		None,
+		SelectedNewGame,
+		SelectedLoad,
+		SelectedConfig,
+		SelectedExit,
+	};
+
+	// 現在の状態のゲッタ
+	MenuTitleState GetCurrentState() const { return m_current_state; }
+
 private:
 	// タイトルシーンのメニュー項目
 	enum class MenuTitleItem
@@ -35,6 +48,9 @@ private:
 
 	// 選択状態の項目
 	MenuTitleItem m_selected_item;
+
+	// 現在の状態
+	MenuTitleState m_current_state;
 
 	// ゲーム開始が押されたかどうか
 	bool m_is_newgame;

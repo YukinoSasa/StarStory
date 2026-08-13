@@ -62,7 +62,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 
 		// 0ƒL[‚ÅI—¹
-		if (CheckHitKey(KEY_INPUT_0))
+		if (CheckHitKey(KEY_INPUT_0) || p_scene_manager->GetIsGameEnd())
 		{
 			break;
 		}

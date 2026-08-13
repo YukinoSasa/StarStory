@@ -73,10 +73,12 @@ void SceneMain::Update()
 	{
 		m_is_pause = true;
 		m_p_menu_pause->SetSelectedItem();
+		m_p_menu_pause->SetCurrentStateDefault();
 		return;
 	}
 
-	if (m_is_pause && Keyboard::IsTrigger(KEY_INPUT_ESCAPE))
+	if (m_is_pause && (Keyboard::IsTrigger(KEY_INPUT_ESCAPE) ||
+		m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedReturnToGame))
 	{
 		m_is_pause = false;
 		return;
@@ -88,7 +90,7 @@ void SceneMain::Update()
 		m_p_menu_pause->Update();
 
 		// ポーズ中タイトルへ戻るが選択された場合、タイトルシーンへ遷移
-		if (m_p_menu_pause->GetSelectedTitle())
+		if (m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedReturnToTitle)
 		{
 			m_scene_result = SceneResult::None;
 			m_is_scene_end = true;

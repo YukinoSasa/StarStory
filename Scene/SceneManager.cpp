@@ -13,7 +13,7 @@ namespace
 }
 
 SceneManager::SceneManager() :
-	m_wait_count(0.0f)
+	m_wait_count(0.0f), m_is_game_end(false)
 {
 	m_p_current_scene = std::make_unique<SceneTitle>();
 	m_scene_state = SceneState::Title;
@@ -38,11 +38,28 @@ void SceneManager::Update()
 			{
 			case SceneState::Title:
 			{
-				// 現在のSceneStateがTitleの場合、Playへ遷移
-				std::unique_ptr<SceneMain> p_scene_main = std::make_unique<SceneMain>();
-				ChangeScene(std::move(p_scene_main));
-				m_scene_state = SceneState::Play;
-				m_wait_count = 0.0f;
+				// 現在のSceneStateがTitleの場合、シーン終了結果がNewGameの場合、Playへ遷移
+				switch (m_p_current_scene->GetSceneResult())
+				{
+				case SceneBase::SceneResult::NewGame:
+				{
+					std::unique_ptr<SceneMain> p_scene_main = std::make_unique<SceneMain>();
+					ChangeScene(std::move(p_scene_main));
+					m_scene_state = SceneState::Play;
+					m_wait_count = 0.0f;
+
+					break;
+				}
+				case SceneBase::SceneResult::ExitGame:
+				{
+					m_is_game_end = true;
+					break;
+				}
+				}
+				//std::unique_ptr<SceneMain> p_scene_main = std::make_unique<SceneMain>();
+				//ChangeScene(std::move(p_scene_main));
+				//m_scene_state = SceneState::Play;
+				//m_wait_count = 0.0f;
 				break;
 			}
 			case SceneState::Play:

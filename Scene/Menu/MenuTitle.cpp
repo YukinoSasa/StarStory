@@ -12,6 +12,7 @@ MenuTitle::MenuTitle()
 	:m_is_newgame(false),m_item_y(300.0f)
 {
 	m_selected_item = MenuTitleItem::NewGame;
+	m_current_state = MenuTitleState::None;
 }
 
 MenuTitle::~MenuTitle()
@@ -32,6 +33,7 @@ void MenuTitle::Update()
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
 			m_is_newgame = true;
+			m_current_state = MenuTitleState::SelectedNewGame;
 		}
 		// 下を押したとき選択状態をロードに変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
@@ -53,6 +55,7 @@ void MenuTitle::Update()
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
 			// メインシーンへ遷移し、保存された箇所からスタートする
+			m_current_state = MenuTitleState::SelectedLoad;
 		}
 		// 下を押したとき選択状態を設定に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
@@ -74,6 +77,7 @@ void MenuTitle::Update()
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
 			// 音量設定など
+			m_current_state = MenuTitleState::SelectedConfig;
 		}
 		// 下を押したとき選択状態をゲーム終了に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
@@ -95,6 +99,7 @@ void MenuTitle::Update()
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
 			// ゲーム終了
+			m_current_state = MenuTitleState::SelectedExit;
 		}
 		// 下を押したとき選択状態をゲーム開始に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))

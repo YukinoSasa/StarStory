@@ -26,6 +26,9 @@ public:
 	enum class SceneResult
 	{
 		None,
+		NewGame,
+		LoadGame,
+		ExitGame,
 		Clear,
 		Gameover,
 	};

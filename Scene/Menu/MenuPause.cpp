@@ -4,9 +4,10 @@
 #include "MenuPause.h"
 
 MenuPause::MenuPause()
-	:m_background_width(0.0f), m_background_height(0.0f), m_is_selected_title(false)
+	:m_background_width(0.0f), m_background_height(0.0f)
 {
 	m_selected_item = MenuPauseItem::ReturnToGame;
+	m_current_state = MenuPauseState::None;
 	m_handle_background = LoadGraph("Data/UI/menu_background.png");
 	m_font_handle = CreateFontToHandle("クラフト明朝", 48, -1);
 	m_font_item_handle = CreateFontToHandle("クラフト明朝", 24, -1);
@@ -31,7 +32,7 @@ void MenuPause::Update()
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
-			//m_is_newgame = true;
+			m_current_state = MenuPauseState::SelectedReturnToGame;
 		}
 		// 下を押したとき選択状態を設定に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
@@ -50,7 +51,7 @@ void MenuPause::Update()
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
-			// 設定を開く
+			m_current_state = MenuPauseState::SelectedConfig;
 		}
 		// 下を押したとき選択状態をタイトルへに変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
@@ -70,7 +71,8 @@ void MenuPause::Update()
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
 			// 内容を保存しタイトルシーンへ遷移
-			m_is_selected_title = true;
+			//m_is_selected_title = true;
+			m_current_state = MenuPauseState::SelectedReturnToTitle;
 		}
 		// 下を押したとき選択状態をゲームへ戻るに変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))

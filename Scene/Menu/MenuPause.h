@@ -20,11 +20,23 @@ public:
 	// 描画
 	void Draw() override;
 
-	// タイトルへ戻るが選択されたかどうかのゲッタ
-	bool GetSelectedTitle() const { return m_is_selected_title; }
+	// ポーズの状態
+	enum class MenuPauseState
+	{
+		None,
+		SelectedReturnToGame,
+		SelectedConfig,
+		SelectedReturnToTitle,
+	};
+
+	// 現在のポーズ状態のゲッタ
+	MenuPauseState GetCurrentState() const { return m_current_state; }
 
 	// 選択状態をデフォルトにするセッタ
 	void SetSelectedItem();
+
+	// 現在のポーズ状態をデフォルトにするセッタ
+	void SetCurrentStateDefault() { m_current_state = MenuPauseState::None; }
 
 private:
 	// ポーズのメニュー項目
@@ -37,6 +49,9 @@ private:
 
 	// 選択状態の項目
 	MenuPauseItem m_selected_item;
+
+	// 現在の状態
+	MenuPauseState m_current_state;
 
 	// ポーズ背景のハンドル
 	int m_handle_background;
@@ -53,7 +68,4 @@ private:
 
 	// フォントのハンドル(選択状態)
 	int m_font_item_selected_handle;
-
-	// タイトルへ戻るが選択されたかどうか
-	bool m_is_selected_title;
 };
