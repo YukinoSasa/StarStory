@@ -1,13 +1,14 @@
 #include <DxLib.h>
 #include "../Sound/SoundManager.h"
+#include "../Input/Keyboard.h"
 #include "Menu/MenuTitle.h"
 #include "SceneTitle.h"
 
 SceneTitle::SceneTitle()
 {
 	m_p_menu_title = std::make_shared<MenuTitle>();
-	m_p_sound_manager = std::make_shared<SoundManager>();
-	m_font_handle = CreateFontToHandle("クラフト明朝", 32, -1);
+	//m_p_sound_manager = std::make_shared<SoundManager>();
+	m_font_handle = CreateFontToHandle("クラフト明朝", 64, -1);
 	m_bg_handle = LoadGraph("Data/title_bg.png");
 }
 
@@ -19,10 +20,11 @@ SceneTitle::~SceneTitle()
 
 void SceneTitle::Init()
 {
-	m_p_sound_manager->Init();
+	//m_p_sound_manager->Init();
+	m_config.Init();
 }
 
-void SceneTitle::Update()
+void SceneTitle::Update(GameSetting& game_setting)
 {
 	m_p_menu_title->Update();
 
@@ -32,7 +34,18 @@ void SceneTitle::Update()
 		m_scene_result = SceneBase::SceneResult::NewGame;
 		m_is_scene_end = true;
 	}
+	// 設定が選択されたとき設定を開く
+	if (m_p_menu_title->GetCurrentState() == MenuTitle::MenuTitleState::SelectedConfig)
+	{
+		if (Keyboard::IsTrigger(KEY_INPUT_ESCAPE))
+		{
+			m_p_menu_title->SetCurrentStateDefault();
+		}
 
+		m_config.Update(game_setting);
+	}
+
+	// ゲーム終了が選択されたとき終了フラグを立てる
 	if (m_p_menu_title->GetCurrentState() == MenuTitle::MenuTitleState::SelectedExit)
 	{
 		m_scene_result = SceneBase::SceneResult::ExitGame;
@@ -42,7 +55,18 @@ void SceneTitle::Update()
 
 void SceneTitle::Draw()
 {
-	DrawGraph(-96, -54, m_bg_handle, true);
-	DrawFormatStringToHandle(200, 200, GetColor(255, 255, 255), m_font_handle, "星のものがたり");
-	m_p_menu_title->Draw();
+	if (m_p_menu_title->GetCurrentState() == MenuTitle::MenuTitleState::SelectedConfig)
+	{
+		DrawGraph(-96, -54, m_bg_handle, true);
+		m_config.Draw();
+	}
+	else
+	{
+		DrawGraph(-96, -54, m_bg_handle, true);
+		DrawFormatStringToHandle(200, 200, GetColor(255, 255, 255), m_font_handle, "星のものがたり");
+		m_p_menu_title->Draw();
+	}
+	//DrawGraph(-96, -54, m_bg_handle, true);
+	//DrawFormatStringToHandle(200, 200, GetColor(255, 255, 255), m_font_handle, "星のものがたり");
+	//m_p_menu_title->Draw();
 }

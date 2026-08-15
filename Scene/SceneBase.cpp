@@ -11,7 +11,7 @@ void SceneBase::Init()
 
 }
 
-void SceneBase::Update()
+void SceneBase::Update(GameSetting& game_setting)
 {
 
 }

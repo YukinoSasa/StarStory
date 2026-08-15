@@ -62,9 +62,10 @@ void SceneMain::Init()
 	m_p_item_manager->Init();
 	m_p_gimmick_manager->Init();
 	m_p_menu_pause->Init();
+	m_config.Init();
 }
 
-void SceneMain::Update()
+void SceneMain::Update(GameSetting& game_setting)
 {
 	//m_p_menu_pause->Update();
 
@@ -89,6 +90,11 @@ void SceneMain::Update()
 	{
 		m_p_menu_pause->Update();
 
+		// ポーズ中設定が選択された場合、設定を開く
+		if (m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedConfig)
+		{
+			m_config.Update(game_setting);
+		}
 		// ポーズ中タイトルへ戻るが選択された場合、タイトルシーンへ遷移
 		if (m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedReturnToTitle)
 		{
@@ -151,15 +157,17 @@ void SceneMain::Draw()
 	m_p_enemy_manager->Draw(m_p_camera->GetCameraPos());
 	m_p_player->Draw(m_p_camera->GetCameraPos());
 
-	// ポーズ中の場合最前面にポーズメニューを描画
+	// ポーズ中で設定が開かれた場合最前面に設定を描画、それ以外はポーズメニューを描画
 	if (m_is_pause)
 	{
-		m_p_menu_pause->Draw();
-
-		//if (m_p_menu_pause->GetIsClosed())
-		//{
-		//	m_is_pause = false;
-		//}
+		if (m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedConfig)
+		{
+			m_config.Draw();
+		}
+		else
+		{
+			m_p_menu_pause->Draw();
+		}
 	}
 	
 

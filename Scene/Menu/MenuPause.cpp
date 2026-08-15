@@ -17,6 +17,9 @@ MenuPause::MenuPause()
 MenuPause::~MenuPause()
 {
 	DeleteGraph(m_handle_background);
+	DeleteFontToHandle(m_font_handle);
+	DeleteFontToHandle(m_font_item_handle);
+	DeleteFontToHandle(m_font_item_selected_handle);
 }
 
 void MenuPause::Init()

@@ -20,9 +20,6 @@ public:
 	// 描画
 	void Draw() override;
 
-	// ゲームが開始されたかどうかのゲッタ
-	bool GetIsNewGame() { return m_is_newgame; }
-
 	// タイトルの状態
 	enum class MenuTitleState
 	{
@@ -35,6 +32,9 @@ public:
 
 	// 現在の状態のゲッタ
 	MenuTitleState GetCurrentState() const { return m_current_state; }
+
+	// 現在の状態をデフォルトにするセッタ
+	void SetCurrentStateDefault() { m_current_state = MenuTitleState::None; }
 
 private:
 	// タイトルシーンのメニュー項目
@@ -52,9 +52,9 @@ private:
 	// 現在の状態
 	MenuTitleState m_current_state;
 
-	// ゲーム開始が押されたかどうか
-	bool m_is_newgame;
+	// メニュー項目のフォントハンドル
+	int m_font_item_handle;
 
-	// 選択項目を指す●のy座標
-	float m_item_y;
+	// 選択状態の項目のフォントハンドル
+	int m_font_selected_handle;
 };

@@ -154,6 +154,7 @@
     <ClCompile Include="Object\Item\Piece.cpp" />
     <ClCompile Include="Object\ObjectBase.cpp" />
     <ClCompile Include="Scene\BackGround\BackGround.cpp" />
+    <ClCompile Include="Scene\Menu\Config.cpp" />
     <ClCompile Include="Scene\Menu\MenuBase.cpp" />
     <ClCompile Include="Scene\Menu\MenuPause.cpp" />
     <ClCompile Include="Scene\Menu\MenuTitle.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="Character\Player.h" />
     <ClInclude Include="csv\LoadCsv.h" />
     <ClInclude Include="GameConst.h" />
+    <ClInclude Include="GameSetting.h" />
     <ClInclude Include="Input\Keyboard.h" />
     <ClInclude Include="Input\Pad.h" />
     <ClInclude Include="Math\Rect.h" />
@@ -193,6 +195,7 @@
     <ClInclude Include="Object\Item\Piece.h" />
     <ClInclude Include="Object\ObjectBase.h" />
     <ClInclude Include="Scene\BackGround\BackGround.h" />
+    <ClInclude Include="Scene\Menu\Config.h" />
     <ClInclude Include="Scene\Menu\MenuBase.h" />
     <ClInclude Include="Scene\Menu\MenuPause.h" />
     <ClInclude Include="Scene\Menu\MenuTitle.h" />

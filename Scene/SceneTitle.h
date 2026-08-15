@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include "Menu/Config.h"
 #include "SceneBase.h"
 
 class MenuTitle;
@@ -19,7 +20,7 @@ public:
 	void Init() override;
 
 	// 更新
-	void Update() override;
+	void Update(GameSetting& game_setting) override;
 
 	// 描画
 	void Draw() override;
@@ -30,6 +31,9 @@ private:
 
 	// サウンドマネージャーのポインタ
 	std::shared_ptr<SoundManager> m_p_sound_manager = nullptr;
+
+	// 設定
+	Config m_config;
 
 	// フォントのハンドル
 	int m_font_handle;

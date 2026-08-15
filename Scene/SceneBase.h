@@ -1,4 +1,5 @@
 #pragma once
+#include "../GameSetting.h"
 
 /// <summary>
 /// シーンの基底クラス
@@ -14,7 +15,7 @@ public:
 	virtual void Init();
 
 	// 更新
-	virtual void Update();
+	virtual void Update(GameSetting& game_setting);
 
 	// 描画
 	virtual void Draw();

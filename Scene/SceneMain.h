@@ -4,6 +4,7 @@
 #include "SceneBase.h"
 #include "../csv/LoadCsv.h"
 #include "../Math/Rect.h"
+#include "Menu/Config.h"
 
 class Player;
 class EnemyManager;
@@ -30,7 +31,7 @@ public:
 	void Init() override;
 
 	// 更新
-	void Update() override;
+	void Update(GameSetting& game_setting) override;
 
 	// 描画
 	void Draw() override;
@@ -73,6 +74,9 @@ private:
 
 	// ポーズメニューのポインタ
 	std::shared_ptr<MenuPause> m_p_menu_pause = nullptr;
+
+	// 設定
+	Config m_config;
 
 	// ポーズ中かどうか
 	bool m_is_pause;

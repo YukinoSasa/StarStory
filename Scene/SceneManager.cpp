@@ -1,10 +1,12 @@
 #include <DxLib.h>
 #include "SceneManager.h"
 #include "SceneBase.h"
+#include "../Sound/SoundManager.h"
 #include "SceneTitle.h"
 #include "SceneMain.h"
 #include "SceneClear.h"
 #include "SceneGameover.h"
+
 
 namespace
 {
@@ -17,16 +19,25 @@ SceneManager::SceneManager() :
 {
 	m_p_current_scene = std::make_unique<SceneTitle>();
 	m_scene_state = SceneState::Title;
+
+	m_p_sound_manager = std::make_unique<SoundManager>();
+}
+
+SceneManager::~SceneManager()
+{
+	
 }
 
 void SceneManager::Init()
 {
 	m_p_current_scene->Init();
+	m_p_sound_manager->Init(m_scene_state);
 }
 
-void SceneManager::Update()
+void SceneManager::Update(GameSetting& game_setting)
 {
-	m_p_current_scene->Update();
+	m_p_current_scene->Update(game_setting);
+	m_p_sound_manager->Update(game_setting, m_scene_state);
 
 	if (m_p_current_scene->GetIsSceneEnd())
 	{

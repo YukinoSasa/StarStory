@@ -1,8 +1,10 @@
 #include <Dxlib.h>
 #include <memory>
 #include "GameConst.h"
+#include "GameSetting.h"
 #include "Scene/SceneManager.h"
 #include "Scene/SceneMain.h"
+//#include "Sound/SoundManager.h"
 #include "Input/Keyboard.h"
 
 
@@ -24,7 +26,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 #else
 	ChangeWindowMode(FALSE);
 #endif
-	
 
 	if (DxLib_Init() == -1)
 		return -1;
@@ -32,13 +33,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// シーンマネージャーのポインタ
 	std::unique_ptr<SceneManager> p_scene_manager = std::make_unique<SceneManager>();
 
+	//// サウンドマネージャーのポインタ
+	//std::unique_ptr<SoundManager> p_sound_manager = std::make_unique<SoundManager>();
 
-	//// メインシーンのポインタ
-	//SceneMain* p_scene_main = new SceneMain;
+	GameSetting game_setting;
 
-	// シーンの初期化
-	//p_scene_main->Init();
+	// シーン、サウンドの初期化
 	p_scene_manager->Init();
+	//p_sound_manager->Init(p_scene_manager->GetCurrentSceneState());
 
 	while (ProcessMessage() == 0)
 	{
@@ -50,7 +52,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		// キーボードの入力を更新
 		Keyboard::Update();
 
-		p_scene_manager->Update();
+		p_scene_manager->Update(game_setting);
+		//p_sound_manager->Update(game_setting, p_scene_manager->GetCurrentSceneState());
+
 		p_scene_manager->Draw();
 
 		// 表画面と裏画面の入れ替え
@@ -61,14 +65,21 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		{
 		}
 
-		// 0キーで終了
+#ifdef _DEBUG
+		// 0キー、またはタイトルメニューの終了でゲーム終了
 		if (CheckHitKey(KEY_INPUT_0) || p_scene_manager->GetIsGameEnd())
 		{
 			break;
 		}
-	}
+#else
+		// タイトルメニューの終了でゲーム終了
+		if (p_scene_manager->GetIsGameEnd())
+		{
+			break;
+		}
+#endif
 
-	//delete p_scene_main;
+	}
 
 	DxLib_End();
 	return 0;
