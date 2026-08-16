@@ -1,5 +1,8 @@
 #pragma once
+#include <memory>
 #include "../GameSetting.h"
+
+class SoundManager;
 
 /// <summary>
 /// シーンの基底クラス
@@ -15,7 +18,7 @@ public:
 	virtual void Init();
 
 	// 更新
-	virtual void Update(GameSetting& game_setting);
+	virtual void Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager);
 
 	// 描画
 	virtual void Draw();

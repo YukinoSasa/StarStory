@@ -7,7 +7,7 @@
 class Player : public CharacterBase
 {
 public:
-	Player();
+	Player(Vec2 spawn_pos);
 
 	~Player() override;
 

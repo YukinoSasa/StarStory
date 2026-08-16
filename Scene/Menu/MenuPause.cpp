@@ -1,6 +1,7 @@
 #include <DxLib.h>
 #include "../../GameConst.h"
 #include "../../Input/Keyboard.h"
+#include "../../Sound/SoundManager.h"
 #include "MenuPause.h"
 
 MenuPause::MenuPause()
@@ -27,7 +28,7 @@ void MenuPause::Init()
 	GetGraphSizeF(m_handle_background, &m_background_width, &m_background_height);
 }
 
-void MenuPause::Update()
+void MenuPause::Update(std::shared_ptr<SoundManager> p_sound_manager)
 {
 	switch (m_selected_item)
 	{
@@ -35,16 +36,19 @@ void MenuPause::Update()
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Cancel);
 			m_current_state = MenuPauseState::SelectedReturnToGame;
 		}
 		// 下を押したとき選択状態を設定に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuPauseItem::Config;
 		}
 		// 上を押したとき選択状態をタイトルへに変更
 		if (Keyboard::IsTrigger(KEY_INPUT_UP))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuPauseItem::ReturnToTitle;
 		}
 
@@ -54,16 +58,19 @@ void MenuPause::Update()
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Enter);
 			m_current_state = MenuPauseState::SelectedConfig;
 		}
 		// 下を押したとき選択状態をタイトルへに変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuPauseItem::ReturnToTitle;
 		}
 		// 上を押したとき選択状態をゲームへもどるに変更
 		if (Keyboard::IsTrigger(KEY_INPUT_UP))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuPauseItem::ReturnToGame;
 		}
 
@@ -73,6 +80,7 @@ void MenuPause::Update()
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Enter);
 			// 内容を保存しタイトルシーンへ遷移
 			//m_is_selected_title = true;
 			m_current_state = MenuPauseState::SelectedReturnToTitle;
@@ -80,11 +88,13 @@ void MenuPause::Update()
 		// 下を押したとき選択状態をゲームへ戻るに変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuPauseItem::ReturnToGame;
 		}
 		// 上を押したとき選択状態を設定に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_UP))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuPauseItem::Config;
 		}
 

@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "../../Input/Keyboard.h"
+#include "../../Sound/SoundManager.h"
 #include "MenuTitle.h"
 
 MenuTitle::MenuTitle()
@@ -22,7 +23,7 @@ void MenuTitle::Init()
 
 }
 
-void MenuTitle::Update()
+void MenuTitle::Update(std::shared_ptr<SoundManager> p_sound_manager)
 {
 	switch (m_selected_item)
 	{
@@ -30,16 +31,19 @@ void MenuTitle::Update()
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Enter);
 			m_current_state = MenuTitleState::SelectedNewGame;
 		}
 		// 下を押したとき選択状態をロードに変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuTitleItem::Load;
 		}
 		// 上を押したとき選択状態をゲーム終了に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_UP))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuTitleItem::Exit;
 		}
 
@@ -49,17 +53,20 @@ void MenuTitle::Update()
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Enter);
 			// メインシーンへ遷移し、保存された箇所からスタートする
 			m_current_state = MenuTitleState::SelectedLoad;
 		}
 		// 下を押したとき選択状態を設定に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuTitleItem::Config;
 		}
 		// 上を押したとき選択状態をゲーム開始に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_UP))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuTitleItem::NewGame;
 		}
 
@@ -69,17 +76,20 @@ void MenuTitle::Update()
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Enter);
 			// 音量設定など
 			m_current_state = MenuTitleState::SelectedConfig;
 		}
 		// 下を押したとき選択状態をゲーム終了に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuTitleItem::Exit;
 		}
 		// 上を押したとき選択状態をロードに変更
 		if (Keyboard::IsTrigger(KEY_INPUT_UP))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuTitleItem::Load;
 		}
 
@@ -89,17 +99,20 @@ void MenuTitle::Update()
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Enter);
 			// ゲーム終了
 			m_current_state = MenuTitleState::SelectedExit;
 		}
 		// 下を押したとき選択状態をゲーム開始に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuTitleItem::NewGame;
 		}
 		// 上を押したとき選択状態を設定に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_UP))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuTitleItem::Config;
 		}
 

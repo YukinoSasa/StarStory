@@ -24,9 +24,9 @@ void SceneTitle::Init()
 	m_config.Init();
 }
 
-void SceneTitle::Update(GameSetting& game_setting)
+void SceneTitle::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager)
 {
-	m_p_menu_title->Update();
+	m_p_menu_title->Update(p_sound_manager);
 
 	// ゲーム開始が選択されたときシーン遷移
 	if (m_p_menu_title->GetCurrentState() == MenuTitle::MenuTitleState::SelectedNewGame)
@@ -34,11 +34,20 @@ void SceneTitle::Update(GameSetting& game_setting)
 		m_scene_result = SceneBase::SceneResult::NewGame;
 		m_is_scene_end = true;
 	}
+
+	//// ロードが選択されたとき前回のデータでシーン遷移
+	//if (m_p_menu_title->GetCurrentState() == MenuTitle::MenuTitleState::SelectedNewGame)
+	//{
+	//	m_scene_result = SceneBase::SceneResult::LoadGame;
+	//	m_is_scene_end = true;
+	//}
+
 	// 設定が選択されたとき設定を開く
 	if (m_p_menu_title->GetCurrentState() == MenuTitle::MenuTitleState::SelectedConfig)
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_ESCAPE))
 		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Cancel);
 			m_p_menu_title->SetCurrentStateDefault();
 		}
 

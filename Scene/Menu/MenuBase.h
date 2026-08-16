@@ -1,4 +1,7 @@
 #pragma once
+#include <memory>
+
+class SoundManager;
 
 /// <summary>
 /// メニューの基底クラス
@@ -14,7 +17,7 @@ public:
 	virtual void Init();
 
 	// 更新
-	virtual void Update();
+	virtual void Update(std::shared_ptr<SoundManager> p_sound_manager);
 
 	// 描画
 	virtual void Draw();

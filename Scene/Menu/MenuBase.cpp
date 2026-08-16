@@ -1,3 +1,4 @@
+#include "../../Sound/SoundManager.h"
 #include "MenuBase.h"
 
 MenuBase::MenuBase()
@@ -15,7 +16,7 @@ void MenuBase::Init()
 
 }
 
-void MenuBase::Update()
+void MenuBase::Update(std::shared_ptr<SoundManager> p_sound_manager)
 {
 
 }

@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include "Menu/Config.h"
 #include "SceneBase.h"
 
@@ -20,7 +19,7 @@ public:
 	void Init() override;
 
 	// XV
-	void Update(GameSetting& game_setting) override;
+	void Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager) override;
 
 	// •`‰æ
 	void Draw() override;

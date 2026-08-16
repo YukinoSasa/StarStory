@@ -20,7 +20,7 @@ SceneManager::SceneManager() :
 	m_p_current_scene = std::make_unique<SceneTitle>();
 	m_scene_state = SceneState::Title;
 
-	m_p_sound_manager = std::make_unique<SoundManager>();
+	m_p_sound_manager = std::make_shared<SoundManager>();
 }
 
 SceneManager::~SceneManager()
@@ -36,8 +36,8 @@ void SceneManager::Init()
 
 void SceneManager::Update(GameSetting& game_setting)
 {
-	m_p_current_scene->Update(game_setting);
 	m_p_sound_manager->Update(game_setting, m_scene_state);
+	m_p_current_scene->Update(game_setting, m_p_sound_manager);
 
 	if (m_p_current_scene->GetIsSceneEnd())
 	{

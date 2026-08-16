@@ -1,6 +1,7 @@
 #include "GimmickManager.h"
 #include "../../csv/LoadCsv.h"
 #include "GimmickBase.h"
+#include "SavePoint.h"
 #include "Box.h"
 #include "MovingPlatform.h"
 #include <DxLib.h>
@@ -17,6 +18,12 @@ GimmickManager::GimmickManager()
 		// 各ギミックのポインタを生成する
 		switch (gimmick_data.m_gimmick_type)
 		{
+		// セーブポイント
+		case 0:
+		{
+			gimmick = std::make_shared<SavePoint>(gimmick_data);
+			break;
+		}
 		// 箱
 		case 1:
 		{

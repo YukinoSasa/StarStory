@@ -1,3 +1,4 @@
+#include "../Sound/SoundManager.h"
 #include "SceneBase.h"
 
 SceneBase::SceneBase() :
@@ -11,7 +12,7 @@ void SceneBase::Init()
 
 }
 
-void SceneBase::Update(GameSetting& game_setting)
+void SceneBase::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager)
 {
 
 }

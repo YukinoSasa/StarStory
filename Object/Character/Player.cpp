@@ -5,6 +5,9 @@
 
 namespace
 {
+	// プレイヤーの初期スポーン
+	Vec2 PLAYER_INIT_POS (130.0f, 4008.0f);
+
 	// プレイヤーの速度
 	constexpr float PLAYER_SPEED = 5.0f;
 
@@ -12,11 +15,16 @@ namespace
 	constexpr float PLAYER_JUMP_POWER = 11.0f;
 }
 
-Player::Player()
+Player::Player(Vec2 spawn_pos)
 	:m_move_by_gimmick(0.0f,0.0f), m_is_on_moving_pratform(false), m_collected_item(0)
 {
 	LoadDivGraph("Data/player.png", 42, 8, 6, 72, 72, m_handle_array);
 	m_handle = m_handle_array[0];
+
+	//m_pos.x = 130.0f;
+	//m_pos.y = 4008.0f;
+
+	m_pos = spawn_pos;
 
 	m_animation_state = Animation::Idle;
 	m_animation_timer = 0;

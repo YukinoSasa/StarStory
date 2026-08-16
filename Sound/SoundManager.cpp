@@ -4,11 +4,14 @@
 
 SoundManager::SoundManager()
 {
+	// BGMデータ読み込み
 	m_title_bgm_handle = LoadSoundMem("Data/Sound/BGM/title.mp3");
 	m_play_bgm_handle = LoadSoundMem("Data/Sound/BGM/play.mp3");
+
 	m_current_state = SceneManager::SceneState::Title;
 	m_last_state = SceneManager::SceneState::Title;
 
+	// SEデータ読み込み
 	m_enter_handle = LoadSoundMem("Data/Sound/SE/enter.mp3");
 	m_cancel_handle = LoadSoundMem("Data/Sound/SE/cancel.mp3");
 	m_select_handle = LoadSoundMem("Data/Sound/SE/select.mp3");
@@ -28,7 +31,7 @@ SoundManager::~SoundManager()
 
 void SoundManager::Init(SceneManager::SceneState current_scene)
 {
-	// シーンによって再生するBGMを変更
+	// 最初のBGMはタイトル用を再生
 	PlaySoundMem(m_title_bgm_handle, DX_PLAYTYPE_LOOP);
 
 	//switch (current_scene)
@@ -93,7 +96,30 @@ void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneSt
 	}
 }
 
-//void SoundManager::PlaySE()
-//{
-//	PlaySoundMem(m_item_handle, DX_PLAYTYPE_LOOP);
-//}
+void SoundManager::PlaySE(SeType se_type)
+{
+	// 呼び出し側で指定したSEを再生
+	switch (se_type)
+	{
+	case SeType::Enter:
+	{
+		PlaySoundMem(m_enter_handle, DX_PLAYTYPE_BACK);
+		break;
+	}
+	case SeType::Cancel:
+	{
+		PlaySoundMem(m_cancel_handle, DX_PLAYTYPE_BACK);
+		break;
+	}
+	case SeType::Select:
+	{
+		PlaySoundMem(m_select_handle, DX_PLAYTYPE_BACK);
+		break;
+	}
+	case SeType::Item:
+	{
+		PlaySoundMem(m_item_handle, DX_PLAYTYPE_BACK);
+		break;
+	}
+	}
+}

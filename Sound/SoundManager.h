@@ -18,8 +18,16 @@ public:
 	// 更新
 	void Update(const GameSetting& game_setting, SceneManager::SceneState current_scene);
 
-	//// SEを再生
-	//void PlaySE();
+	enum class SeType
+	{
+		Enter,
+		Cancel,
+		Select,
+		Item,
+	};
+
+	// SEを再生
+	void PlaySE(SeType se_type);
 
 private:
 	// BGMのハンドル

@@ -54,7 +54,7 @@ private:
 	std::unique_ptr<SceneBase> m_p_current_scene = nullptr;
 
 	// サウンドマネージャーのポインタ
-	std::unique_ptr<SoundManager> m_p_sound_manager = nullptr;
+	std::shared_ptr<SoundManager> m_p_sound_manager = nullptr;
 
 	// ゲームを終了するかどうか
 	bool m_is_game_end;

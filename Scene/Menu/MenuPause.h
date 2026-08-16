@@ -15,7 +15,7 @@ public:
 	void Init() override;
 
 	// XV
-	void Update() override;
+	void Update(std::shared_ptr<SoundManager> p_sound_manager) override;
 
 	// •`‰æ
 	void Draw() override;

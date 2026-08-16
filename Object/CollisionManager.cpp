@@ -23,7 +23,7 @@ void CollisionManager::Update()
 
 void CollisionManager::CheckPlayerCollisionX(
 	std::shared_ptr<Player> p_player, std::shared_ptr<Stage> p_stage,
-	std::shared_ptr<GimmickManager> p_gimmick_manager)
+	std::shared_ptr<GimmickManager> p_gimmick_manager, GameData& game_data)
 {
 	// 衝突したチップの矩形
 	Rect chip_rect;
@@ -74,13 +74,13 @@ void CollisionManager::CheckPlayerCollisionX(
 	// ギミックと衝突した場合 //
 	for (auto& gimmick : p_gimmick_manager->GetGimmicks())
 	{
-		CheckGimmickX(p_player, gimmick);
+		CheckGimmickX(p_player, gimmick, game_data);
 	}
 }
 
 void CollisionManager::CheckPlayerCollisionY(
 	std::shared_ptr<Player> p_player, std::shared_ptr<Stage> p_stage,
-	std::shared_ptr<GimmickManager> p_gimmick_manager)
+	std::shared_ptr<GimmickManager> p_gimmick_manager, GameData& game_data)
 {
 	// 衝突したチップの矩形
 	Rect chip_rect;
@@ -120,18 +120,24 @@ void CollisionManager::CheckPlayerCollisionY(
 	// ギミックと衝突した場合 //
 	for (auto& gimmick : p_gimmick_manager->GetGimmicks())
 	{
-		CheckGimmickY(p_player, gimmick);
+		CheckGimmickY(p_player, gimmick, game_data);
 	}
 }
 
 void CollisionManager::CheckGimmickX(
-	std::shared_ptr<Player> p_player, std::shared_ptr<GimmickBase> p_gimmick)
+	std::shared_ptr<Player> p_player, std::shared_ptr<GimmickBase> p_gimmick, GameData& game_data)
 {
 	// プレイヤーがギミックに接している場合プレイヤー座標をセット
 	if (p_player->GetRect().IsCollisionX(p_gimmick->GetRect()))
 	{
 		switch (p_gimmick->GetGimmickType())
 		{
+		// セーブポイント
+		case 0:
+		{
+			game_data.m_spawn_pos = p_gimmick->GetGimmickPos();
+			break;
+		}
 		// 箱
 		case 1:
 		{
@@ -171,11 +177,18 @@ void CollisionManager::CheckGimmickX(
 }
 
 void CollisionManager::CheckGimmickY(
-	std::shared_ptr<Player> p_player, std::shared_ptr<GimmickBase> p_gimmick)
+	std::shared_ptr<Player> p_player, std::shared_ptr<GimmickBase> p_gimmick, GameData& game_data)
 {
 	// プレイヤーがギミックに接している場合プレイヤー座標をセット
 	if (p_player->GetRect().IsCollisionY(p_gimmick->GetRect()))
 	{
+		// セーブポイントの場合スポーン位置を保存し、衝突処理をしない
+		if (p_gimmick->GetGimmickType() == 0)
+		{
+			game_data.m_spawn_pos = p_gimmick->GetGimmickPos();
+			return;
+		}
+
 		// プレイヤーが上から接した場合
 		if (p_player->GetPlayerMove().y > 0.0f)
 		{
@@ -219,7 +232,7 @@ void CollisionManager::CheckBoxCollisionY(
 	for (auto& gimmick : p_gimmick_manager->GetGimmicks())
 	{
 		// ギミックが箱以外の時は飛ばす
-		if (gimmick->GetGimmickType() == 2 || gimmick->GetGimmickType() == 3)
+		if (gimmick->GetGimmickType() != 1)
 		{
 			continue;
 		}

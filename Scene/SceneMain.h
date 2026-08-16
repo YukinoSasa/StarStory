@@ -5,6 +5,7 @@
 #include "../csv/LoadCsv.h"
 #include "../Math/Rect.h"
 #include "Menu/Config.h"
+#include "../GameData.h"
 
 class Player;
 class EnemyManager;
@@ -31,7 +32,7 @@ public:
 	void Init() override;
 
 	// 更新
-	void Update(GameSetting& game_setting) override;
+	void Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager) override;
 
 	// 描画
 	void Draw() override;
@@ -44,7 +45,8 @@ private:
 	void HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect);
 
 	// プレイヤーとアイテムの衝突をチェック
-	void HitPlayerItem(const Rect& player_rect, const Rect& item_rect, std::shared_ptr<Piece> item);
+	void HitPlayerItem(const Rect& player_rect, const Rect& item_rect,
+		std::shared_ptr<Piece> item, std::shared_ptr<SoundManager> p_sound_manager);
 
 	// プレイヤーのポインタ
 	std::shared_ptr<Player> m_p_player = nullptr;
@@ -83,4 +85,7 @@ private:
 
 	// ゴールしたかどうか
 	bool m_is_goal;
+
+	// 仮！！！ゲームデータ
+	struct GameData m_game_data;
 };
