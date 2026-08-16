@@ -61,7 +61,7 @@ void Stage::Draw(Vec2 camera_pos)
 	}
 
 	//DrawFormatString(0, 30, GetColor(255, 255, 255), "cameraX : %f", camera_pos.x);
-	//DrawFormatString(0, 60, GetColor(255, 255, 255), "screenW : %d", Game::SCREEN_WIDTH);
+	DrawFormatString(0, 60, GetColor(255, 255, 255), "stage_height : %f", m_stage_height);
 	//float width1, height1;
 	//GetGraphSizeF(m_handle1, &width1, &height1);
 

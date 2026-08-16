@@ -39,9 +39,9 @@ void CollisionManager::CheckPlayerCollisionX(
 	{
 		p_player->SetPlayerPosX(p_player->GetCollisionWidth() * 0.5f);
 	}
-	else if (p_player->GetPlayerPos().x + (p_player->GetCollisionWidth() * 0.5f) > static_cast<float>(Game::SCREEN_WIDTH))
+	else if (p_player->GetPlayerPos().x > static_cast<float>(Game::SCREEN_WIDTH) - (p_player->GetCollisionWidth() * 0.5f))
 	{
-		p_player->SetPlayerPosX(static_cast<float>(Game::SCREEN_WIDTH));
+		p_player->SetPlayerPosX(static_cast<float>(Game::SCREEN_WIDTH) - (p_player->GetCollisionWidth() * 0.5f));
 	}
 
 	// 画面外不可処理後、コリジョンの更新
