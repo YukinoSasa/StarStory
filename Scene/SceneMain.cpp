@@ -95,7 +95,7 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		// ポーズ中設定が選択された場合、設定を開く
 		if (m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedConfig)
 		{
-			m_config.Update(game_setting);
+			m_config.Update(game_setting, p_sound_manager);
 		}
 		// ポーズ中タイトルへ戻るが選択された場合、タイトルシーンへ遷移
 		if (m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedReturnToTitle)

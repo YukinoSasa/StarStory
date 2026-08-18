@@ -26,13 +26,19 @@ void SceneTitle::Init()
 
 void SceneTitle::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager)
 {
-	m_p_menu_title->Update(p_sound_manager);
+	// 設定を開いているとき以外はタイトルメニューをUpdate
+	if (m_p_menu_title->GetCurrentState() != MenuTitle::MenuTitleState::SelectedConfig)
+	{
+		m_p_menu_title->Update(p_sound_manager);
+	}
 
 	// ゲーム開始が選択されたときシーン遷移
 	if (m_p_menu_title->GetCurrentState() == MenuTitle::MenuTitleState::SelectedNewGame)
 	{
 		m_scene_result = SceneBase::SceneResult::NewGame;
 		m_is_scene_end = true;
+
+		return;
 	}
 
 	//// ロードが選択されたとき前回のデータでシーン遷移
@@ -45,13 +51,17 @@ void SceneTitle::Update(GameSetting& game_setting, std::shared_ptr<SoundManager>
 	// 設定が選択されたとき設定を開く
 	if (m_p_menu_title->GetCurrentState() == MenuTitle::MenuTitleState::SelectedConfig)
 	{
-		if (Keyboard::IsTrigger(KEY_INPUT_ESCAPE))
+		if (Keyboard::IsTrigger(KEY_INPUT_ESCAPE) || m_config.GetIsCloseSelected())
 		{
+			m_config.SetIsCloseSelectedFalse();
 			p_sound_manager->PlaySE(SoundManager::SeType::Cancel);
+			m_config.SetConfigStateDefault();
 			m_p_menu_title->SetCurrentStateDefault();
+
+			return;
 		}
 
-		m_config.Update(game_setting);
+		m_config.Update(game_setting, p_sound_manager);
 	}
 
 	// ゲーム終了が選択されたとき終了フラグを立てる
@@ -78,4 +88,6 @@ void SceneTitle::Draw()
 	//DrawGraph(-96, -54, m_bg_handle, true);
 	//DrawFormatStringToHandle(200, 200, GetColor(255, 255, 255), m_font_handle, "星のものがたり");
 	//m_p_menu_title->Draw();
+
+	//DrawFormatString(0, 90, GetColor(255, 255, 255), "selected close : %d", m_config.GetIsCloseSelected());
 }

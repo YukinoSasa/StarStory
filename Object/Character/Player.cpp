@@ -77,10 +77,33 @@ void Player::Update()
 	m_handle = m_handle_array[m_animation_frame];
 
 	m_animation_timer++;
-	if (m_animation_timer >= 5)
+
+	// 5フレーム経ったらアニメーションを進める
+	switch (m_animation_state)
+	{
+	case Animation::Idle:
+	{
+		if (m_animation_timer >= 15)
+		{
+			UpdateAnimation();
+			m_animation_timer = 0;
+		}
+		break;
+	}
+	case Animation::Walk:
+	{
+		if (m_animation_timer >= 5)
+		{
+			UpdateAnimation();
+			m_animation_timer = 0;
+		}
+		break;
+	}
+	case Animation::Jamp:
 	{
 		UpdateAnimation();
-		m_animation_timer = 0;
+		break;
+	}
 	}
 }
 
@@ -109,30 +132,19 @@ void Player::Draw(Vec2 camera_pos)
 	if (m_is_right)
 	{
 		DrawGraphF(screen_x, screen_y, m_handle, true);
-		//DrawGraphF(screen_x , screen_y - m_handle_offset.y, m_handle, true);
-		//DrawExtendGraphF(
-		//	screen_x, screen_y - 12.0f,
-		//	screen_x + m_handle_width, screen_y + m_handle_height - 12.0f,
-		//	m_handle, true);
-
 	}
 	else
 	{
 		DrawTurnGraphF(screen_x, screen_y, m_handle, true);
-		//DrawTurnGraphF(screen_x , screen_y - m_handle_offset.y, m_handle, true);
-		//DrawExtendGraphF(
-		//	screen_x + m_handle_width, screen_y - 12.0f,
-		//	screen_x, screen_y + m_handle_height - 12.0f,
-		//	m_handle, true);
 	}
 
 #ifdef _DEBUG
 	// デバック時のみ当たり判定の矩形を描画
 	m_rect.Draw(camera_pos);
-#endif
-
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
 	DrawFormatString(1100, 0, GetColor(255, 255, 255), "集めたかけら : %d", m_collected_item);
+
+#endif
 }
 
 void Player::Move()
@@ -172,12 +184,12 @@ void Player::Jump()
 	// 空中の場合以降の処理を行わない
 	if (!m_is_ground)
 	{
+		m_animation_state = Animation::Jamp;
 		return;
 	}
 
 	if (Keyboard::IsTrigger(KEY_INPUT_SPACE))
 	{
-		//m_animation_state = Animation::Jamp;
 		m_move.y -= PLAYER_JUMP_POWER;
 
 		m_is_ground = false;
@@ -199,8 +211,6 @@ void Player::MovePlayerY()
 void Player::UpdateRect()
 {
 	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
-	//m_rect.CalculateEdges(m_pos.x, m_pos.y - 1.0f, m_collision_width, m_collision_height);
-
 }
 
 void Player::UpdateAnimation()
@@ -209,25 +219,34 @@ void Player::UpdateAnimation()
 	{
 	case Animation::Idle:
 	{
-		//m_animation_frame++;
-		//if (m_animation_frame > 2)
-		//{
-		m_animation_frame = 0;
-		//}
+		m_animation_frame++;
+
+		if (m_animation_frame > 1)
+		{
+			m_animation_frame = 0;
+		}
+
 		break;
 	}
 	case Animation::Walk:
 	{
+		if (m_animation_frame < 8)
+		{
+			m_animation_frame = 8;
+		}
+
 		m_animation_frame++;
+
 		if (m_animation_frame > 11)
 		{
 			m_animation_frame = 8;
 		}
+
 		break;
 	}
 	case Animation::Jamp:
 	{
-		//m_animation_frame = 28;
+		m_animation_frame = 28;
 		break;
 	}
 	}
