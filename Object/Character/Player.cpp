@@ -19,8 +19,12 @@ Player::Player(Vec2 spawn_pos)
 	:m_move_by_gimmick(0.0f,0.0f), m_is_on_moving_pratform(false), m_collected_item(0)
 {
 	LoadDivGraph("Data/player.png", 42, 8, 6, 72, 72, m_handle_array);
+	m_glow_small_handle = LoadGraph("Data/glow_small.png");
+	m_glow_big_handle = LoadGraph("Data/glow_big.png");
 	m_handle = m_handle_array[0];
 
+	// 光描画用のスクリーン作成
+	m_glow_screen = MakeScreen(72, 72, true);
 	//m_pos.x = 130.0f;
 	//m_pos.y = 4008.0f;
 
@@ -33,11 +37,15 @@ Player::Player(Vec2 spawn_pos)
 
 Player::~Player()
 {
-	DeleteGraph(m_handle);
+	DeleteGraph(m_glow_small_handle);
+	DeleteGraph(m_glow_big_handle);
+	DeleteGraph(m_glow_screen);
 	for (int i = 0; i < sizeof(m_handle_array) / sizeof(m_handle_array[0]); i++)
 	{
 		DeleteGraph(m_handle_array[i]);
 	}
+
+	
 }
 
 void Player::Init()
@@ -51,6 +59,8 @@ void Player::Init()
 	m_collision_height = 48.0f;
 
 	m_handle_offset.y = 12.0f;
+
+	SetDrawScreen(m_glow_screen);
 }
 
 void Player::Update()
@@ -131,10 +141,16 @@ void Player::Draw(Vec2 camera_pos)
 	// 当たり判定矩形に合うように高さ調整
 	if (m_is_right)
 	{
+		SetDrawBlendMode(DX_BLENDMODE_ADD,100);
+		DrawGraphF(screen_x, screen_y, m_glow_small_handle, true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		DrawGraphF(screen_x, screen_y, m_handle, true);
 	}
 	else
 	{
+		SetDrawBlendMode(DX_BLENDMODE_ADD, 100);
+		DrawTurnGraphF(screen_x, screen_y, m_glow_small_handle, true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		DrawTurnGraphF(screen_x, screen_y, m_handle, true);
 	}
 

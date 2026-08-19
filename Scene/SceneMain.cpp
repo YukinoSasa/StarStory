@@ -64,6 +64,7 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 	// ƒ|[ƒY”»’è
 	if (!m_is_pause && Keyboard::IsTrigger(KEY_INPUT_ESCAPE))
 	{
+		p_sound_manager->PlaySE(SoundManager::SeType::Cancel);
 		m_is_pause = true;
 		m_p_menu_pause->SetSelectedItem();
 		m_p_menu_pause->SetCurrentStateDefault();

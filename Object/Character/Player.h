@@ -110,4 +110,11 @@ private:
 
 	// アニメーション画像の更新
 	void UpdateAnimation();
+
+	// 光のハンドル
+	int m_glow_small_handle;
+	int m_glow_big_handle;
+
+	// 光の描画先
+	int m_glow_screen;
 };

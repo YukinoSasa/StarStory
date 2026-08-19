@@ -1,3 +1,5 @@
 ﻿ステージ,スポーンx座標,スポーンy座標,敵サイズ,素材データ
 1,1680,3136,64,Data/enemy_g.png
 1,950,2048,64,Data/enemy_g.png
+1,1240,1120,64,Data/enemy_g.png
+1,1245,416,64,Data/enemy_g.png
