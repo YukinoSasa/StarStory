@@ -16,11 +16,10 @@
 #include "../Sound/SoundManager.h"
 
 SceneMain::SceneMain()
-	:m_is_pause(false), m_is_goal(false)
+	:m_is_config(false), m_is_pause(false), m_is_goal(false)
 {
 	m_p_player = std::make_shared<Player>(m_game_data.m_spawn_pos);
 	m_p_enemy_manager = std::make_shared<EnemyManager>();
-	//m_p_piece = std::make_shared<Piece>();
 	m_p_background = std::make_shared<BackGround>();
 	m_p_collision_manager = std::make_shared<CollisionManager>();
 	m_p_stage = std::make_shared<Stage>();
@@ -28,12 +27,6 @@ SceneMain::SceneMain()
 	m_p_gimmick_manager = std::make_shared<GimmickManager>();
 	m_p_item_manager = std::make_shared<ItemManager>();
 	m_p_menu_pause = std::make_shared<MenuPause>();
-
-	//m_p_pieces.resize(10);
-	//for (auto& piece : m_p_pieces)
-	//{
-	//	piece = std::make_shared<Piece>();
-	//}
 
 	m_p_player->SetStage(m_p_stage);
 
@@ -68,8 +61,6 @@ void SceneMain::Init()
 
 void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager)
 {
-	//m_p_menu_pause->Update();
-
 	// ポーズ判定
 	if (!m_is_pause && Keyboard::IsTrigger(KEY_INPUT_ESCAPE))
 	{
@@ -79,12 +70,22 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		return;
 	}
 
-	if (m_is_pause && (Keyboard::IsTrigger(KEY_INPUT_ESCAPE) ||
-		m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedReturnToGame))
+	// 設定中の場合Update
+	if (m_is_config)
 	{
-		p_sound_manager->PlaySE(SoundManager::SeType::Cancel);
-		m_is_pause = false;
-		return;
+		m_config.Update(game_setting, p_sound_manager);
+
+		// 戻る選択がされた場合ポーズメニューに戻る
+		if (Keyboard::IsTrigger(KEY_INPUT_ESCAPE) || m_config.GetIsCloseSelected())
+		{
+			m_config.SetIsCloseSelectedFalse();
+			p_sound_manager->PlaySE(SoundManager::SeType::Cancel);
+			m_config.SetConfigStateDefault();
+			m_p_menu_pause->SetCurrentStateDefault();
+			m_is_config = false;
+
+			return;
+		}
 	}
 
 	// ポーズ中はポーズのみUpdateし、それ以外はUpdateしない
@@ -95,13 +96,21 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		// ポーズ中設定が選択された場合、設定を開く
 		if (m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedConfig)
 		{
-			m_config.Update(game_setting, p_sound_manager);
+			m_is_config = true;
 		}
 		// ポーズ中タイトルへ戻るが選択された場合、タイトルシーンへ遷移
 		if (m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedReturnToTitle)
 		{
 			m_scene_result = SceneResult::None;
 			m_is_scene_end = true;
+		}
+		// ポーズが閉じられたかどうか
+		if ((Keyboard::IsTrigger(KEY_INPUT_ESCAPE) ||
+			m_p_menu_pause->GetCurrentState() == MenuPause::MenuPauseState::SelectedReturnToGame))
+		{
+			p_sound_manager->PlaySE(SoundManager::SeType::Cancel);
+			m_is_pause = false;
+			return;
 		}
 
 		return;
@@ -116,12 +125,6 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 	m_p_item_manager->Update();
 	m_p_camera->Update();
 	
-	// ギミック接触判定
-	//for (auto& gimmick : m_p_gimmick_manager->GetGimmicks())
-	//{
-	//	HitPlayerGimmick(m_p_player->GetRect(), gimmick->GetRect());
-	//}
-
 	// アイテム接触判定
 	for (auto& item : m_p_item_manager->GetItems())
 	{
@@ -176,12 +179,6 @@ void SceneMain::Draw()
 			m_p_menu_pause->Draw();
 		}
 	}
-	
-
-	//for (auto& piece : m_p_pieces)
-	//{
-	//	piece->Draw(m_p_camera->GetCameraPos());
-	//}
 }
 
 void SceneMain::HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect)
@@ -192,42 +189,6 @@ void SceneMain::HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect)
 		m_p_player->SetIsAlive(false);
 	}
 }
-
-//void SceneMain::HitPlayerGimmick(const Rect& player_rect, const Rect& gimmick_rect)
-//{
-//	// プレイヤーがギミックに接している場合プレイヤー座標をセット
-//	if (player_rect.IsCollision(gimmick_rect))
-//	{
-//		// プレイヤーが右から接した場合
-//		if (m_p_player->GetPlayerMove().x < 0.0f)
-//		{
-//			m_p_player->SetPlayerPos(
-//				gimmick_rect.GetRightEdge() + m_p_player->GetPlayerWidth() * 0.5f,
-//				m_p_player->GetPlayerPos().y);
-//		}
-//		// プレイヤーが左から接した場合
-//		else if (m_p_player->GetPlayerMove().x > 0.0f)
-//		{
-//			m_p_player->SetPlayerPos(
-//				gimmick_rect.GetLeftEdge() - m_p_player->GetPlayerWidth() * 0.5f,
-//				m_p_player->GetPlayerPos().y);
-//		}
-//	}
-//
-//	if (player_rect.IsCollision(gimmick_rect))
-//	{
-//		// プレイヤーが上から接した場合
-//		if (m_p_player->GetPlayerMove().y > 0.0f)
-//		{
-//			m_p_player->SetPlayerPos(
-//				m_p_player->GetPlayerPos().x,
-//				gimmick_rect.GetTopEdge() - m_p_player->GetPlayerHeight() * 0.5f);
-//
-//			m_p_player->SetPlayerMoveY(0.0f);
-//			m_p_player->SetIsGround(true);
-//		}
-//	}
-//}
 
 void SceneMain::HitPlayerItem(const Rect& player_rect, const Rect& item_rect,
 	std::shared_ptr<Piece> item, std::shared_ptr<SoundManager> p_sound_manager)

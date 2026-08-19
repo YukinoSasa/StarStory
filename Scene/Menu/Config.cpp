@@ -5,7 +5,7 @@
 #include "Config.h"
 
 Config::Config()
-	:m_handle_width(0.0f), m_handle_height(0.0f), m_is_close_selected(false), m_volume_bgm(-1), m_volume_se(-1)
+	:m_handle_width(0.0f), m_handle_height(0.0f), m_is_close_selected(false), m_slider_bgm_pos_x(0.0f), m_slider_se_pos_x(0.0f), m_volume_bgm(-1), m_volume_se(-1)
 {
 	m_current_state = ConfigState::BGM;
 	m_handle_background = LoadGraph("Data/UI/config_background.png");
@@ -33,6 +33,9 @@ Config::~Config()
 void Config::Init()
 {
 	GetGraphSizeF(m_handle_background, &m_handle_width, &m_handle_height);
+	// スライダーハンドルの位置を設定
+	m_slider_bgm_pos_x = 1248.0f;
+	m_slider_se_pos_x = 1248.0f;
 }
 
 void Config::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager)
@@ -44,19 +47,32 @@ void Config::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_s
 		if (Keyboard::IsTrigger(KEY_INPUT_RIGHT))
 		{
 			game_setting.m_volume_bgm += 15;
+			// (1248.f(slider右端) - 800.f(slider左端)) / 17(soundの変化段階)
+			m_slider_bgm_pos_x += 26.0f;
 
 			if (game_setting.m_volume_bgm > 255)
 			{
 				game_setting.m_volume_bgm = 255;
 			}
+
+			if (m_slider_bgm_pos_x > 1248.0f)
+			{
+				m_slider_bgm_pos_x = 1248.0f;
+			}
 		}
 		else if (Keyboard::IsTrigger(KEY_INPUT_LEFT))
 		{
 			game_setting.m_volume_bgm -= 15;
+			m_slider_bgm_pos_x -= 26.0f;
 
 			if (game_setting.m_volume_bgm < 0)
 			{
 				game_setting.m_volume_bgm = 0;
+			}
+
+			if (m_slider_bgm_pos_x < 800.0f)
+			{
+				m_slider_bgm_pos_x = 800.0f;
 			}
 		}
 		else if (Keyboard::IsTrigger(KEY_INPUT_UP))
@@ -77,20 +93,36 @@ void Config::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_s
 		if (Keyboard::IsTrigger(KEY_INPUT_RIGHT))
 		{
 			game_setting.m_volume_se += 15;
+			m_slider_se_pos_x += 26.0f;
 
 			if (game_setting.m_volume_se > 255)
 			{
 				game_setting.m_volume_se = 255;
 			}
+
+			if (m_slider_se_pos_x > 1248.0f)
+			{
+				m_slider_se_pos_x = 1248.0f;
+			}
+
+			p_sound_manager->PlaySE(SoundManager::SeType::Item);
 		}
 		else if (Keyboard::IsTrigger(KEY_INPUT_LEFT))
 		{
 			game_setting.m_volume_se -= 15;
+			m_slider_se_pos_x -= 26.0f;
 
 			if (game_setting.m_volume_se < 0)
 			{
 				game_setting.m_volume_se = 0;
 			}
+
+			if (m_slider_se_pos_x < 800.0f)
+			{
+				m_slider_se_pos_x = 800.0f;
+			}
+
+			p_sound_manager->PlaySE(SoundManager::SeType::Item);
 		}
 		else if (Keyboard::IsTrigger(KEY_INPUT_UP))
 		{
@@ -211,17 +243,17 @@ void Config::Draw()
 
 		DrawFormatStringToHandle(draw_x, draw_y, GetColor(255, 255, 255), m_font_item_handle, "もどる");
 
-		// ハンドルの描画座標を計算
-		float draw_handle_x = 900.0f;
+		// BGMハンドルの描画座標を計算
+		//float draw_handle_x = 1248.0f;
 		float draw_handle_y = 470.0f;
 
-		DrawGraphF(draw_handle_x, draw_handle_y, m_slider_selected_handle, true);
+		DrawGraphF(m_slider_bgm_pos_x, draw_handle_y, m_slider_selected_handle, true);
 
-		// ハンドルの描画座標を計算
-		draw_handle_x = 900.0f;
+		// SEハンドルの描画座標を計算
+		//draw_handle_x = 900.0f;
 		draw_handle_y = 570.0f;
 
-		DrawGraphF(draw_handle_x, draw_handle_y, m_slider_handle, true);
+		DrawGraphF(m_slider_se_pos_x, draw_handle_y, m_slider_handle, true);
 
 		break;
 	}
@@ -235,17 +267,17 @@ void Config::Draw()
 
 		DrawFormatStringToHandle(draw_x, draw_y, GetColor(255, 255, 255), m_font_item_handle, "もどる");
 
-		// ハンドルの描画座標を計算
-		float draw_handle_x = 900.0f;
+		// BGMハンドルの描画座標を計算
+		//float draw_handle_x = 900.0f;
 		float draw_handle_y = 470.0f;
 
-		DrawGraphF(draw_handle_x, draw_handle_y, m_slider_handle, true);
+		DrawGraphF(m_slider_bgm_pos_x, draw_handle_y, m_slider_handle, true);
 
-		// ハンドルの描画座標を計算
-		draw_handle_x = 900.0f;
+		// SEハンドルの描画座標を計算
+		//draw_handle_x = 900.0f;
 		draw_handle_y = 570.0f;
 
-		DrawGraphF(draw_handle_x, draw_handle_y, m_slider_selected_handle, true);
+		DrawGraphF(m_slider_se_pos_x, draw_handle_y, m_slider_selected_handle, true);
 
 		break;
 	}
@@ -259,63 +291,22 @@ void Config::Draw()
 
 		DrawFormatStringToHandle(draw_x, draw_y, GetColor(0, 105, 148), m_font_item_handle, "もどる");
 
-		// ハンドルの描画座標を計算
-		float draw_handle_x = 900.0f;
+		// BGMハンドルの描画座標を計算
+		//float draw_handle_x = 900.0f;
 		float draw_handle_y = 470.0f;
 
-		DrawGraphF(draw_handle_x, draw_handle_y, m_slider_handle, true);
+		DrawGraphF(m_slider_bgm_pos_x, draw_handle_y, m_slider_handle, true);
 
 		// ハンドルの描画座標を計算
-		draw_handle_x = 900.0f;
+		//draw_handle_x = 900.0f;
 		draw_handle_y = 570.0f;
 
-		DrawGraphF(draw_handle_x, draw_handle_y, m_slider_handle, true);
+		DrawGraphF(m_slider_se_pos_x, draw_handle_y, m_slider_handle, true);
 
 		break;
 	}
 	}
 
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "BGM : %d", m_volume_bgm);
-	DrawFormatString(0, 30, GetColor(255, 255, 255), "SE : %d", m_volume_se);
-
-	//// BGMスライダーの描画座標を計算
-	//float draw_slider_x = 800.0f;
-	//float draw_slider_y = 470.0f;
-	//int draw_index = 8;
-
-	//for (int i = 0; i < draw_index; i++)
-	//{
-	//	if (i == 0)
-	//	{
-	//		DrawGraphF(draw_slider_x + (64.0f * i), draw_slider_y, m_slider_l_handle, true);
-	//	}
-	//	else if (i == draw_index - 1)
-	//	{
-	//		DrawGraphF(draw_slider_x + (64.0f * i), draw_slider_y, m_slider_r_handle, true);
-	//	}
-	//	else
-	//	{
-	//		DrawGraphF(draw_slider_x + (64.0f * i), draw_slider_y, m_slider_m_handle, true);
-	//	}
-	//}
-
-	//// SEスライダーの描画座標を計算
-	//draw_slider_x = 800.0f;
-	//draw_slider_y = 570.0f;
-
-	//for (int i = 0; i < draw_index; i++)
-	//{
-	//	if (i == 0)
-	//	{
-	//		DrawGraphF(draw_slider_x + (64.0f * i), draw_slider_y, m_slider_l_handle, true);
-	//	}
-	//	else if (i == draw_index - 1)
-	//	{
-	//		DrawGraphF(draw_slider_x + (64.0f * i), draw_slider_y, m_slider_r_handle, true);
-	//	}
-	//	else
-	//	{
-	//		DrawGraphF(draw_slider_x + (64.0f * i), draw_slider_y, m_slider_m_handle, true);
-	//	}
-	//}
+	//DrawFormatString(0, 0, GetColor(255, 255, 255), "BGM : %d", m_volume_bgm);
+	//DrawFormatString(0, 30, GetColor(255, 255, 255), "SE : %d", m_volume_se);
 }

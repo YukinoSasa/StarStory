@@ -80,7 +80,7 @@ void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneSt
 		}
 	}
 
-	// シーンによって調整するBGMを変更
+	// BGMの音量調整(シーンによって調整するBGMを変更)
 	switch (current_scene)
 	{
 	case SceneManager::SceneState::Title:
@@ -94,6 +94,12 @@ void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneSt
 		break;
 	}
 	}
+
+	// SEの音量調整
+	ChangeVolumeSoundMem(game_setting.m_volume_se, m_enter_handle);
+	ChangeVolumeSoundMem(game_setting.m_volume_se, m_cancel_handle);
+	ChangeVolumeSoundMem(game_setting.m_volume_se, m_select_handle);
+	ChangeVolumeSoundMem(game_setting.m_volume_se, m_item_handle);
 }
 
 void SoundManager::PlaySE(SeType se_type)

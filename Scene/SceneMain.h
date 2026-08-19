@@ -80,6 +80,9 @@ private:
 	// İ’è
 	Config m_config;
 
+	// İ’è’†‚©‚Ç‚¤‚©
+	bool m_is_config;
+
 	// ƒ|[ƒY’†‚©‚Ç‚¤‚©
 	bool m_is_pause;
 

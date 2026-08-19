@@ -72,6 +72,10 @@ private:
 	int m_slider_handle;
 	int m_slider_selected_handle;
 
+	// スライダーハンドルの位置
+	float m_slider_bgm_pos_x;
+	float m_slider_se_pos_x;
+
 	// BGM大きさ仮
 	int m_volume_bgm;
 	int m_volume_se;
