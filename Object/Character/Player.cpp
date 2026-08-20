@@ -59,8 +59,6 @@ void Player::Init()
 	m_collision_height = 48.0f;
 
 	m_handle_offset.y = 12.0f;
-
-	SetDrawScreen(m_glow_screen);
 }
 
 void Player::Update()
@@ -141,15 +139,39 @@ void Player::Draw(Vec2 camera_pos)
 	// 当たり判定矩形に合うように高さ調整
 	if (m_is_right)
 	{
-		SetDrawBlendMode(DX_BLENDMODE_ADD,100);
-		DrawGraphF(screen_x, screen_y, m_glow_small_handle, true);
+		// 描画スクリーンを光用に変更
+		SetDrawScreen(m_glow_screen);
+		// 前フレームの内容を消す
+		ClearDrawScreen();
+		// 加算で光を描画
+		SetDrawBlendMode(DX_BLENDMODE_ADD,255);
+		DrawGraphF(0, 0, m_glow_small_handle, true);
+
+		// 描画スクリーンを通常に戻す
+		SetDrawScreen(DX_SCREEN_BACK);
+		// 光スクリーンの描画
+		DrawGraphF(screen_x, screen_y, m_glow_screen, true);
+
+		// ブレンドモードを通常に戻しプレイヤーを描画
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		DrawGraphF(screen_x, screen_y, m_handle, true);
 	}
 	else
 	{
-		SetDrawBlendMode(DX_BLENDMODE_ADD, 100);
-		DrawTurnGraphF(screen_x, screen_y, m_glow_small_handle, true);
+		// 描画スクリーンを光用に変更
+		SetDrawScreen(m_glow_screen);
+		// 前フレームの内容を消す
+		ClearDrawScreen();
+		// 加算で光を描画
+		SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+		DrawTurnGraphF(0, 0, m_glow_small_handle, true);
+
+		// 描画スクリーンを通常に戻す
+		SetDrawScreen(DX_SCREEN_BACK);
+		// 光スクリーンの描画
+		DrawGraphF(screen_x, screen_y, m_glow_screen, true);
+		
+		// ブレンドモードを通常に戻しプレイヤーを描画
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		DrawTurnGraphF(screen_x, screen_y, m_handle, true);
 	}

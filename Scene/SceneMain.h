@@ -83,6 +83,11 @@ private:
 	// 設定中かどうか
 	bool m_is_config;
 
+	// 集めたアイテムのカウントUIの背景
+	int m_collect_bg_handle;
+	// アイテムカウントのフォント
+	int m_collect_font_handle;
+
 	// ポーズ中かどうか
 	bool m_is_pause;
 

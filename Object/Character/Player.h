@@ -41,6 +41,9 @@ public:
 	// 動く床(横)に乗っているかどうかのゲッタ
 	bool GetIsOnMovingPratform() const { return m_is_on_moving_pratform; }
 
+	// 集めたアイテムのゲッタ
+	int GetPlayerCollectItem() const { return m_collected_item; }
+
 	// プレイヤー座標のセッタ
 	void SetPlayerPosX(float pos_x) { m_pos.x = pos_x; }
 	void SetPlayerPosY(float pos_y) { m_pos.y = pos_y; }

@@ -39,11 +39,14 @@ SceneMain::SceneMain()
 	m_p_camera->SetPlayer(m_p_player);
 	m_p_stage->SetCamera(m_p_camera);
 	
+	m_collect_bg_handle = LoadGraph("Data/UI/collect_background.png");
+	m_collect_font_handle = CreateFontToHandle("クラフト明朝", 64, -1);
 }
 
 SceneMain::~SceneMain()
 {
-	
+	DeleteGraph(m_collect_bg_handle);
+	DeleteFontToHandle(m_collect_font_handle);
 }
 
 void SceneMain::Init()
@@ -167,6 +170,10 @@ void SceneMain::Draw()
 	m_p_item_manager->Draw(m_p_camera->GetCameraPos());
 	m_p_enemy_manager->Draw(m_p_camera->GetCameraPos());
 	m_p_player->Draw(m_p_camera->GetCameraPos());
+
+	DrawGraphF(1600.0f, 0.0f, m_collect_bg_handle, true);
+	DrawFormatStringToHandle(1800.0f, 50.0f, GetColor(0, 105,148), 
+		m_collect_font_handle, "%d", m_p_player->GetPlayerCollectItem());
 
 	// ポーズ中で設定が開かれた場合最前面に設定を描画、それ以外はポーズメニューを描画
 	if (m_is_pause)
