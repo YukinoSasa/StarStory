@@ -5,8 +5,8 @@
 
 namespace
 {
-	// プレイヤーの初期スポーン
-	Vec2 PLAYER_INIT_POS (130.0f, 4008.0f);
+	//// プレイヤーの初期スポーン
+	//Vec2 PLAYER_INIT_POS (130.0f, 4008.0f);
 
 	// プレイヤーの速度
 	constexpr float PLAYER_SPEED = 5.0f;

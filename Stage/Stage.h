@@ -14,7 +14,7 @@ class Mapchip;
 class Stage
 {
 public:
-	Stage();
+	Stage(int current_stage_num);
 
 	~Stage();
 

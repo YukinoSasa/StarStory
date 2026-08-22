@@ -48,6 +48,9 @@ private:
 	void HitPlayerItem(const Rect& player_rect, const Rect& item_rect,
 		std::shared_ptr<Piece> item, std::shared_ptr<SoundManager> p_sound_manager);
 
+	// 次のステージを読み込む
+	void LoadNextStage();
+
 	// プレイヤーのポインタ
 	std::shared_ptr<Player> m_p_player = nullptr;
 
@@ -77,6 +80,9 @@ private:
 	// ポーズメニューのポインタ
 	std::shared_ptr<MenuPause> m_p_menu_pause = nullptr;
 
+	// 現在のステージ番号
+	int m_current_stage_num;
+
 	// 設定
 	Config m_config;
 
@@ -85,6 +91,8 @@ private:
 
 	// 集めたアイテムのカウントUIの背景
 	int m_collect_bg_handle;
+	// UI星のかけらのハンドル
+	int m_piece_ui_handle;
 	// アイテムカウントのフォント
 	int m_collect_font_handle;
 

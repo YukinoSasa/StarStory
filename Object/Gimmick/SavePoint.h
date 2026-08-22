@@ -13,4 +13,7 @@ public:
 
 	// ‰Šú‰»
 	void Init() override;
+
+	//// XV
+	//void Update(Rect player_rect, Vec2 player_move) override;
 };

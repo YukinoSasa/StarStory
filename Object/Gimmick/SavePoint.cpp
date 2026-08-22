@@ -16,3 +16,8 @@ void SavePoint::Init()
 	m_collision_width = 96.0f;
 	m_collision_height = 96.0f;
 }
+
+//void SavePoint::Update(Rect player_rect, Vec2 player_move)
+//{
+//
+//}

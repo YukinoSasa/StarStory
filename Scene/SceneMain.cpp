@@ -16,13 +16,13 @@
 #include "../Sound/SoundManager.h"
 
 SceneMain::SceneMain()
-	:m_is_config(false), m_is_pause(false), m_is_goal(false)
+	:m_current_stage_num(1), m_is_config(false), m_is_pause(false), m_is_goal(false)
 {
 	m_p_player = std::make_shared<Player>(m_game_data.m_spawn_pos);
 	m_p_enemy_manager = std::make_shared<EnemyManager>();
 	m_p_background = std::make_shared<BackGround>();
 	m_p_collision_manager = std::make_shared<CollisionManager>();
-	m_p_stage = std::make_shared<Stage>();
+	m_p_stage = std::make_shared<Stage>(m_current_stage_num);
 	m_p_camera = std::make_shared<Camera>();
 	m_p_gimmick_manager = std::make_shared<GimmickManager>();
 	m_p_item_manager = std::make_shared<ItemManager>();
@@ -35,11 +35,11 @@ SceneMain::SceneMain()
 	{
 		enemy->SetStage(m_p_stage);
 	}
-	//m_p_piece->SetStage(m_p_stage);
 	m_p_camera->SetPlayer(m_p_player);
 	m_p_stage->SetCamera(m_p_camera);
 	
 	m_collect_bg_handle = LoadGraph("Data/UI/collect_background.png");
+	m_piece_ui_handle = LoadGraph("Data/UI/piece_ui.png");
 	m_collect_font_handle = CreateFontToHandle("クラフト明朝", 64, -1);
 }
 
@@ -47,6 +47,7 @@ SceneMain::~SceneMain()
 {
 	DeleteGraph(m_collect_bg_handle);
 	DeleteFontToHandle(m_collect_font_handle);
+	DeleteFontToHandle(m_piece_ui_handle);
 }
 
 void SceneMain::Init()
@@ -153,8 +154,15 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		return;
 	}
 
-	// クリア判定後シーン遷移のトリガーオン
-	if (m_p_stage->GetIsGoal())
+
+	// クリア判定後次のステージへ
+	if (m_current_stage_num != 2 && m_p_stage->GetIsGoal())
+	{
+		m_current_stage_num++;
+		LoadNextStage();
+	}
+	// 最終ステージクリア判定後シーン遷移のトリガーオン
+	else if (m_current_stage_num == 2 && m_p_stage->GetIsGoal())
 	{
 		m_is_goal = true;
 		m_scene_result = SceneResult::Clear;
@@ -171,7 +179,9 @@ void SceneMain::Draw()
 	m_p_enemy_manager->Draw(m_p_camera->GetCameraPos());
 	m_p_player->Draw(m_p_camera->GetCameraPos());
 
+	// 星のかけらカウントUIの描画
 	DrawGraphF(1600.0f, 0.0f, m_collect_bg_handle, true);
+	DrawGraphF(1680.0f, 30.0f, m_piece_ui_handle, true);
 	DrawFormatStringToHandle(1800.0f, 50.0f, GetColor(0, 105,148), 
 		m_collect_font_handle, "%d", m_p_player->GetPlayerCollectItem());
 
@@ -212,4 +222,25 @@ void SceneMain::HitPlayerItem(const Rect& player_rect, const Rect& item_rect,
 		}
 		item->Collect();
 	}
+}
+
+void SceneMain::LoadNextStage()
+{
+	// 新しいステージポインタを生成
+	m_p_stage = std::make_shared<Stage>(m_current_stage_num);
+
+	// プレイヤーにステージポインタをセット
+	m_p_player->SetStage(m_p_stage);
+
+	// エネミーそれぞれにステージポインタをセット
+	for (auto& enemy : m_p_enemy_manager->GetEnemies())
+	{
+		enemy->SetStage(m_p_stage);
+	}
+
+	m_p_stage->Init();
+
+	// プレイヤーをステージの初期スポーンへ移動
+	m_p_player->SetPlayerPosX(m_game_data.m_spawn_pos.x);
+	m_p_player->SetPlayerPosY(m_game_data.m_spawn_pos.y);
 }
