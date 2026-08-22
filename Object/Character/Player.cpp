@@ -181,6 +181,7 @@ void Player::Draw(Vec2 camera_pos)
 	m_rect.Draw(camera_pos);
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
 	DrawFormatString(1100, 0, GetColor(255, 255, 255), "èWÇﬂÇΩÇ©ÇØÇÁ : %d", m_collected_item);
+	DrawFormatString(0, 90, GetColor(255, 255, 255), "ê⁄ín : %d", m_is_ground);
 
 #endif
 }

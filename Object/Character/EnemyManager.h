@@ -30,7 +30,7 @@ using EnemyDatas = std::vector<EnemyData>;
 class EnemyManager
 {
 public:
-	EnemyManager();
+	EnemyManager(int current_stage_num);
 
 	~EnemyManager() = default;
 

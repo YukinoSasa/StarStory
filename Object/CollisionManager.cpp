@@ -197,6 +197,14 @@ void CollisionManager::CheckGimmickY(
 
 			p_player->SetPlayerMoveY(0.0f);
 			p_player->SetIsGround(true);
+
+			// 当たったギミックがスプリングかどうか
+			if (p_gimmick->GetGimmickType() == 4)
+			{
+				p_player->SetPlayerMoveY(-14.0f);
+				p_player->SetIsGround(false);
+			}
+
 			p_player->SetIsOnMovingPratform(false);
 
 			 // 当たったギミックが横に動く床かどうか

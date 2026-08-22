@@ -151,6 +151,7 @@
     <ClCompile Include="Object\Gimmick\GimmickManager.cpp" />
     <ClCompile Include="Object\Gimmick\MovingPlatform.cpp" />
     <ClCompile Include="Object\Gimmick\SavePoint.cpp" />
+    <ClCompile Include="Object\Gimmick\Spring.cpp" />
     <ClCompile Include="Object\Item\ItemManager.cpp" />
     <ClCompile Include="Object\Item\Piece.cpp" />
     <ClCompile Include="Object\ObjectBase.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Object\Gimmick\GimmickManager.h" />
     <ClInclude Include="Object\Gimmick\MovingPlatform.h" />
     <ClInclude Include="Object\Gimmick\SavePoint.h" />
+    <ClInclude Include="Object\Gimmick\Spring.h" />
     <ClInclude Include="Object\Item\ItemManager.h" />
     <ClInclude Include="Object\Item\Piece.h" />
     <ClInclude Include="Object\ObjectBase.h" />

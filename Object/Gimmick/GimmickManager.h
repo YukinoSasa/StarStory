@@ -34,7 +34,7 @@ using GimmickDatas = std::vector<GimmickData>;
 class GimmickManager
 {
 public:
-	GimmickManager();
+	GimmickManager(int current_stage_num);
 
 	~GimmickManager() = default;
 

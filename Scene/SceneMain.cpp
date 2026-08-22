@@ -16,15 +16,15 @@
 #include "../Sound/SoundManager.h"
 
 SceneMain::SceneMain()
-	:m_current_stage_num(1), m_is_config(false), m_is_pause(false), m_is_goal(false)
+	:m_current_stage_num(2), m_is_config(false), m_is_pause(false), m_is_goal(false)
 {
 	m_p_player = std::make_shared<Player>(m_game_data.m_spawn_pos);
-	m_p_enemy_manager = std::make_shared<EnemyManager>();
+	m_p_enemy_manager = std::make_shared<EnemyManager>(m_current_stage_num);
 	m_p_background = std::make_shared<BackGround>();
 	m_p_collision_manager = std::make_shared<CollisionManager>();
 	m_p_stage = std::make_shared<Stage>(m_current_stage_num);
 	m_p_camera = std::make_shared<Camera>();
-	m_p_gimmick_manager = std::make_shared<GimmickManager>();
+	m_p_gimmick_manager = std::make_shared<GimmickManager>(m_current_stage_num);
 	m_p_item_manager = std::make_shared<ItemManager>();
 	m_p_menu_pause = std::make_shared<MenuPause>();
 
@@ -226,8 +226,10 @@ void SceneMain::HitPlayerItem(const Rect& player_rect, const Rect& item_rect,
 
 void SceneMain::LoadNextStage()
 {
-	// 新しいステージポインタを生成
+	// 新しいステージ、エネミー、ギミックポインタを生成
 	m_p_stage = std::make_shared<Stage>(m_current_stage_num);
+	m_p_enemy_manager = std::make_shared<EnemyManager>(m_current_stage_num);
+	m_p_gimmick_manager = std::make_shared<GimmickManager>(m_current_stage_num);
 
 	// プレイヤーにステージポインタをセット
 	m_p_player->SetStage(m_p_stage);
@@ -238,7 +240,10 @@ void SceneMain::LoadNextStage()
 		enemy->SetStage(m_p_stage);
 	}
 
+	// 初期化
 	m_p_stage->Init();
+	m_p_enemy_manager->Init();
+	m_p_gimmick_manager->Init();
 
 	// プレイヤーをステージの初期スポーンへ移動
 	m_p_player->SetPlayerPosX(m_game_data.m_spawn_pos.x);

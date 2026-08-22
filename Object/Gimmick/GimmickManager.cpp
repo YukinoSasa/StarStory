@@ -4,15 +4,22 @@
 #include "SavePoint.h"
 #include "Box.h"
 #include "MovingPlatform.h"
+#include "Spring.h"
 #include <DxLib.h>
 
-GimmickManager::GimmickManager()
+GimmickManager::GimmickManager(int current_stage_num)
 {
 	// csv読み込み
 	m_gimmick_datas = LoadGimmick("csv/Gimmick.csv");
 
 	for (auto& gimmick_data : m_gimmick_datas)
 	{
+		// 現在のステージのギミックのみ生成する
+		if (gimmick_data.m_stage != current_stage_num)
+		{
+			continue;
+		}
+
 		std::shared_ptr<GimmickBase> gimmick;
 
 		// 各ギミックのポインタを生成する
@@ -40,6 +47,12 @@ GimmickManager::GimmickManager()
 		case 3:
 		{
 			gimmick = std::make_shared<MovingPlatform>(gimmick_data);
+			break;
+		}
+		// スプリング
+		case 4:
+		{
+			gimmick = std::make_shared<Spring>(gimmick_data);
 			break;
 		}
 		}
@@ -70,7 +83,4 @@ void GimmickManager::Draw(Vec2 camera_pos)
 	{
 		gimmick->Draw(camera_pos);
 	}
-	DrawFormatString(0, 60, GetColor(255, 255, 255), "Platpos_x : %f", m_p_gimmicks[3]);
-	//DrawFormatString(0, 90, GetColor(255, 255, 255), "Platpos_x : %f", m_p_gimmicks[3]->GetGimmickMove().x);
-
 }
