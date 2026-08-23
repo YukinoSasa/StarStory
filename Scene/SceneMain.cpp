@@ -25,7 +25,7 @@ SceneMain::SceneMain()
 	m_p_stage = std::make_shared<Stage>(m_current_stage_num);
 	m_p_camera = std::make_shared<Camera>();
 	m_p_gimmick_manager = std::make_shared<GimmickManager>(m_current_stage_num);
-	m_p_item_manager = std::make_shared<ItemManager>();
+	m_p_item_manager = std::make_shared<ItemManager>(m_current_stage_num);
 	m_p_menu_pause = std::make_shared<MenuPause>();
 
 	m_p_player->SetStage(m_p_stage);

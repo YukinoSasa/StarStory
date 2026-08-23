@@ -1,11 +1,11 @@
 #pragma once
-#include "CharacterBase.h"
+#include "EnemyBase.h"
 #include "EnemyManager.h"
 
 /// <summary>
 /// キャラクタークラスを継承したエネミークラス
 /// </summary>
-class Enemy : public CharacterBase
+class Enemy : public EnemyBase
 {
 public:
 	Enemy(EnemyData enemy_data);

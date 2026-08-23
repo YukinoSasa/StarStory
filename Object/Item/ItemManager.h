@@ -28,7 +28,7 @@ using ItemDatas = std::vector<ItemData>;
 class ItemManager
 {
 public:
-	ItemManager();
+	ItemManager(int current_stage_num);
 
 	~ItemManager() = default;
 

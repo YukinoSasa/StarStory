@@ -12,12 +12,12 @@ namespace
 }
 
 Enemy::Enemy(EnemyData enemy_data)
-	:m_animation_frame(0), m_animation_timer(0)
+	:EnemyBase(enemy_data), m_animation_frame(0), m_animation_timer(0)
 {
 	LoadDivGraph(enemy_data.m_file_pass.c_str(), 9, 9, 1, 64, 64, m_handle_array);
-	m_pos = enemy_data.m_spawn;
-	m_handle_width = enemy_data.m_size;
-	m_handle_height = enemy_data.m_size;
+	//m_pos = enemy_data.m_spawn;
+	//m_handle_width = enemy_data.m_size;
+	//m_handle_height = enemy_data.m_size;
 }
 
 Enemy::~Enemy()
@@ -30,7 +30,7 @@ Enemy::~Enemy()
 
 void Enemy::Init()
 {
-	CharacterBase::Init();
+	EnemyBase::Init();
 
 	// “–‚½‚è”»’èƒTƒCƒY
 	m_collision_width = 46.0f;
