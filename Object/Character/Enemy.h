@@ -18,8 +18,8 @@ public:
 	// XV
 	void Update() override;
 
-	// •`‰æ
-	void Draw(Vec2 camera_pos) override;
+	//// •`‰æ
+	//void Draw(Vec2 camera_pos) override;
 
 private:
 	void UpdateAnimation();

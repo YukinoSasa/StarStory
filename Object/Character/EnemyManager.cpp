@@ -2,6 +2,7 @@
 #include "../../csv/LoadCsv.h"
 #include "EnemyManager.h"
 #include "Enemy.h"
+#include "Bat.h"
 
 EnemyManager::EnemyManager(int current_stage_num)
 {
@@ -16,8 +17,25 @@ EnemyManager::EnemyManager(int current_stage_num)
 			continue;
 		}
 
+		std::shared_ptr<EnemyBase> enemy = nullptr;
+
 		// 各エネミーのポインタを生成する
-		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>(enemy_data);
+		switch (enemy_data.m_type)
+		{
+		// 巡回タイプの敵
+		case 0:
+		{
+			enemy = std::make_shared<Enemy>(enemy_data);
+			break;
+		}
+		// 追跡タイプの敵
+		case 1:
+		{
+			enemy = std::make_shared<Bat>(enemy_data);
+			break;
+		}
+		}
+
 		m_p_enemies.push_back(enemy);
 	}
 }

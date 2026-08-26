@@ -105,7 +105,7 @@ EnemyDatas LoadEnemy(const std::string& file_path)
 	// 2行目以降をデータとして読み込む
 	while (std::getline(file, line))
 	{
-		EnemyData enemy_data{ 0, Vec2(0.0f, 0.0f), 0.0f, "graph_data" };
+		EnemyData enemy_data{ 0, 0, Vec2(0.0f, 0.0f), 0.0f, "graph_data" };
 
 		// 空行を飛ばす
 		if (line.empty())
@@ -130,10 +130,11 @@ EnemyDatas LoadEnemy(const std::string& file_path)
 		
 		// データをエネミー構造体に変換
 		enemy_data.m_stage = std::stoi(row[0]);
-		enemy_data.m_spawn.x = std::stof(row[1]);
-		enemy_data.m_spawn.y = std::stof(row[2]);
-		enemy_data.m_size = std::stof(row[3]);
-		enemy_data.m_file_pass = row[4];
+		enemy_data.m_type = std::stoi(row[1]);
+		enemy_data.m_spawn.x = std::stof(row[2]);
+		enemy_data.m_spawn.y = std::stof(row[3]);
+		enemy_data.m_size = std::stof(row[4]);
+		enemy_data.m_file_pass = row[5];
 
 		enemy_datas.push_back(enemy_data);
 	}
@@ -251,4 +252,57 @@ ItemDatas LoadItem(const std::string& file_path)
 	}
 
 	return item_datas;
+}
+
+StoryDatas LoadStory(const std::string& file_path)
+{
+	StoryDatas story_datas;
+	std::ifstream file(file_path);
+
+	// ファイルが読み込めない場合、以降の処理を行わない
+	if (!file)
+	{
+		return story_datas;
+	}
+
+	std::string line;
+
+	// 1行目ヘッダ部分を読み込む
+	std::getline(file, line);
+
+	// 2行目以降をデータとして読み込む
+	while (std::getline(file, line))
+	{
+		StoryData story_data{ 0, 0, "text_data" };
+
+		// 空行を飛ばす
+		if (line.empty())
+		{
+			continue;
+		}
+
+		std::vector<std::string> row;
+		std::stringstream ss(line);
+		std::string cell;
+
+		while (std::getline(ss, cell, ','))
+		{
+			// Windows環境の'\r'を除去
+			if (!cell.empty() && cell.back() == '\r')
+			{
+				cell.pop_back();
+			}
+
+			row.push_back(cell);
+		}
+
+		// データをストーリー構造体に変換
+		story_data.m_story_id = std::stoi(row[0]);
+		story_data.m_speaker = std::stoi(row[1]);
+		story_data.m_text = row[2];
+
+		story_datas.push_back(story_data);
+	}
+
+	return story_datas;
 }

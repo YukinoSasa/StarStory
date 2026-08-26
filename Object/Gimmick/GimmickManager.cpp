@@ -20,7 +20,7 @@ GimmickManager::GimmickManager(int current_stage_num)
 			continue;
 		}
 
-		std::shared_ptr<GimmickBase> gimmick;
+		std::shared_ptr<GimmickBase> gimmick = nullptr;
 
 		// 各ギミックのポインタを生成する
 		switch (gimmick_data.m_gimmick_type)

@@ -6,6 +6,7 @@
 #include "../Math/Rect.h"
 #include "Menu/Config.h"
 #include "../GameData.h"
+#include "../Story/StoryManager.h"
 
 class Player;
 class EnemyManager;
@@ -79,6 +80,12 @@ private:
 
 	// ポーズメニューのポインタ
 	std::shared_ptr<MenuPause> m_p_menu_pause = nullptr;
+
+	// ストーリーマネージャー
+	StoryManager m_story_manager;
+
+	// ストーリー中かどうか
+	bool m_is_story;
 
 	// 現在のステージ番号
 	int m_current_stage_num;

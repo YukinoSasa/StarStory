@@ -16,7 +16,7 @@
 #include "../Sound/SoundManager.h"
 
 SceneMain::SceneMain()
-	:m_current_stage_num(2), m_is_config(false), m_is_pause(false), m_is_goal(false)
+	:m_current_stage_num(2), m_is_story(false), m_is_config(false), m_is_pause(false), m_is_goal(false)
 {
 	m_p_player = std::make_shared<Player>(m_game_data.m_spawn_pos);
 	m_p_enemy_manager = std::make_shared<EnemyManager>(m_current_stage_num);
@@ -136,9 +136,20 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		HitPlayerItem(m_p_player->GetRect(), item->GetRect(), item, p_sound_manager);
 	}
 
-	// 死亡判定(敵接触)
+	// 敵接触判定
 	for (auto& enemy : m_p_enemy_manager->GetEnemies())
 	{
+		// プレイヤーが敵の索敵範囲と接触している場合、敵の追跡処理
+		if (m_p_player->GetRect().IsCollision(enemy->GetSearchRange()))
+		{
+			enemy->TrackPlayer(m_p_player->GetPlayerPos());
+		}
+		else
+		{
+			enemy->ReturnToInitPos();
+		}
+
+		// 敵本体との接触判定
 		HitPlayerEnemy(m_p_player->GetRect(), enemy->GetRect());
 	}
 
@@ -184,6 +195,12 @@ void SceneMain::Draw()
 	DrawGraphF(1680.0f, 30.0f, m_piece_ui_handle, true);
 	DrawFormatStringToHandle(1800.0f, 50.0f, GetColor(0, 105,148), 
 		m_collect_font_handle, "%d", m_p_player->GetPlayerCollectItem());
+
+	// ストーリー中の場合ストーリーのテキストboxを描画
+	if (m_is_story)
+	{
+		m_story_manager.Draw();
+	}
 
 	// ポーズ中で設定が開かれた場合最前面に設定を描画、それ以外はポーズメニューを描画
 	if (m_is_pause)
