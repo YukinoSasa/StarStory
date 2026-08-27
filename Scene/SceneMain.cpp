@@ -15,8 +15,15 @@
 #include "../Input/Keyboard.h"
 #include "../Sound/SoundManager.h"
 
+namespace
+{
+	// ストーリーのイントロを開始するフレームカウント
+	int intro_count = 0;
+}
+
 SceneMain::SceneMain()
-	:m_current_stage_num(2), m_is_story(false), m_is_config(false), m_is_pause(false), m_is_goal(false)
+	:m_current_stage_num(2), m_is_story(false), m_is_played_intro(false),
+	m_is_config(false), m_is_pause(false), m_is_goal(false)
 {
 	m_p_player = std::make_shared<Player>(m_game_data.m_spawn_pos);
 	m_p_enemy_manager = std::make_shared<EnemyManager>(m_current_stage_num);
@@ -61,6 +68,7 @@ void SceneMain::Init()
 	m_p_gimmick_manager->Init();
 	m_p_menu_pause->Init();
 	m_config.Init();
+	m_story_manager.Init();
 }
 
 void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager)
@@ -121,6 +129,26 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		return;
 	}
 
+	if (!m_is_played_intro)
+	{
+		intro_count++;
+		// SceneMainに遷移後1フレーム待ってからイントロストーリー再生
+		if (intro_count > 1)
+		{
+			// イントロストーリーを開始
+			m_story_manager.PlayStory(StoryManager::Story::Intro);
+
+			m_is_played_intro = true;
+		}
+	}
+
+	if (m_story_manager.GetIsPlayingStory())
+	{
+		m_story_manager.Update();
+
+		return;
+	}
+
 	m_p_gimmick_manager->Update(m_p_player->GetRect(), m_p_player->GetPlayerMove());
 	m_p_collision_manager->CheckBoxCollisionY(m_p_gimmick_manager, m_p_stage);
 	m_p_player->Update();
@@ -129,6 +157,14 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 	m_p_enemy_manager->Update();
 	m_p_item_manager->Update();
 	m_p_camera->Update();
+
+	//if (m_story_manager.GetIsPlayingStory())
+	//{
+	//	m_story_manager.Update();
+
+	//	return;
+	//}
+
 	
 	// アイテム接触判定
 	for (auto& item : m_p_item_manager->GetItems())
@@ -197,7 +233,7 @@ void SceneMain::Draw()
 		m_collect_font_handle, "%d", m_p_player->GetPlayerCollectItem());
 
 	// ストーリー中の場合ストーリーのテキストboxを描画
-	if (m_is_story)
+	if (m_story_manager.GetIsPlayingStory())
 	{
 		m_story_manager.Draw();
 	}

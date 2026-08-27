@@ -84,6 +84,9 @@ private:
 	// ストーリーマネージャー
 	StoryManager m_story_manager;
 
+	// イントロストーリーを再生済みかどうか
+	bool m_is_played_intro;
+
 	// ストーリー中かどうか
 	bool m_is_story;
 
