@@ -128,7 +128,7 @@ void MenuTitle::Draw()
 	case MenuTitleItem::NewGame:
 	{
 
-		DrawFormatStringToHandle(900, 475, GetColor(0, 0, 255), m_font_selected_handle, "Å‰‚©‚ç‚Í‚¶‚ß‚é");
+		DrawFormatStringToHandle(900, 475, GetColor(0, 105, 148), m_font_selected_handle, "Å‰‚©‚ç‚Í‚¶‚ß‚é");
 		DrawFormatStringToHandle(900, 550, GetColor(255, 255, 255), m_font_item_handle, "‘±‚«‚©‚ç‚Í‚¶‚ß‚é");
 		DrawFormatStringToHandle(900, 625, GetColor(255, 255, 255), m_font_item_handle, "‚¹‚Á‚Ä‚¢");
 		DrawFormatStringToHandle(900, 700, GetColor(255, 255, 255), m_font_item_handle, "ƒQ[ƒ€‚ğ‚¨‚í‚é");
@@ -138,7 +138,7 @@ void MenuTitle::Draw()
 	case MenuTitleItem::Load:
 	{
 		DrawFormatStringToHandle(900, 475, GetColor(255, 255, 255), m_font_item_handle, "Å‰‚©‚ç‚Í‚¶‚ß‚é");
-		DrawFormatStringToHandle(900, 550, GetColor(0, 0, 255), m_font_selected_handle, "‘±‚«‚©‚ç‚Í‚¶‚ß‚é");
+		DrawFormatStringToHandle(900, 550, GetColor(0, 105, 148), m_font_selected_handle, "‘±‚«‚©‚ç‚Í‚¶‚ß‚é");
 		DrawFormatStringToHandle(900, 625, GetColor(255, 255, 255), m_font_item_handle, "‚¹‚Á‚Ä‚¢");
 		DrawFormatStringToHandle(900, 700, GetColor(255, 255, 255), m_font_item_handle, "ƒQ[ƒ€‚ğ‚¨‚í‚é");
 
@@ -148,7 +148,7 @@ void MenuTitle::Draw()
 	{
 		DrawFormatStringToHandle(900, 475, GetColor(255, 255, 255), m_font_item_handle, "Å‰‚©‚ç‚Í‚¶‚ß‚é");
 		DrawFormatStringToHandle(900, 550, GetColor(255, 255, 255), m_font_item_handle, "‘±‚«‚©‚ç‚Í‚¶‚ß‚é");
-		DrawFormatStringToHandle(900, 625, GetColor(0, 0, 255), m_font_selected_handle, "‚¹‚Á‚Ä‚¢");
+		DrawFormatStringToHandle(900, 625, GetColor(0, 105, 148), m_font_selected_handle, "‚¹‚Á‚Ä‚¢");
 		DrawFormatStringToHandle(900, 700, GetColor(255, 255, 255), m_font_item_handle, "ƒQ[ƒ€‚ğ‚¨‚í‚é");
 
 		break;
@@ -158,7 +158,7 @@ void MenuTitle::Draw()
 		DrawFormatStringToHandle(900, 475, GetColor(255, 255, 255), m_font_item_handle, "Å‰‚©‚ç‚Í‚¶‚ß‚é");
 		DrawFormatStringToHandle(900, 550, GetColor(255, 255, 255), m_font_item_handle, "‘±‚«‚©‚ç‚Í‚¶‚ß‚é");
 		DrawFormatStringToHandle(900, 625, GetColor(255, 255, 255), m_font_item_handle, "‚¹‚Á‚Ä‚¢");
-		DrawFormatStringToHandle(900, 700, GetColor(0, 0, 255), m_font_selected_handle, "ƒQ[ƒ€‚ğ‚¨‚í‚é");
+		DrawFormatStringToHandle(900, 700, GetColor(0, 105, 148), m_font_selected_handle, "ƒQ[ƒ€‚ğ‚¨‚í‚é");
 
 		break;
 	}

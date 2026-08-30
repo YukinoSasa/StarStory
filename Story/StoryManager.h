@@ -51,6 +51,9 @@ public:
 	void PlayStory(Story play_story);
 
 private:
+	// ストーリーが再生済みかどうか
+	bool IsPlayed(Story play_story);
+
 	// テキストボックスのハンドル
 	int m_box_handle;
 
@@ -60,6 +63,9 @@ private:
 
 	// ストーリーデータをまとめた配列
 	StoryDatas m_story_datas;
+
+	// 再生済みのストーリーをまとめる配列
+	std::vector<Story> m_played_story_datas;
 
 	// 表示するストーリーテキスト
 	std::string m_current_text;

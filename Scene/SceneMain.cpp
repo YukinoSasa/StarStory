@@ -129,25 +129,19 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		return;
 	}
 
-	if (!m_is_played_intro)
+	// SceneMainに遷移後1フレーム待ってからイントロストーリー再生
+	intro_count++;
+	if (intro_count > 1)
 	{
-		intro_count++;
-		// SceneMainに遷移後1フレーム待ってからイントロストーリー再生
-		if (intro_count > 1)
-		{
-			// イントロストーリーを開始
-			m_story_manager.PlayStory(StoryManager::Story::Intro);
-
-			m_is_played_intro = true;
-		}
+		m_story_manager.PlayStory(StoryManager::Story::Intro);
 	}
 
-	if (m_p_player->GetPlayerCollectItem() == 10)
+	if (m_p_player->GetPlayerCollectItem() >= 10)
 	{
 		m_story_manager.PlayStory(StoryManager::Story::One);
 	}
 
-	if (m_p_player->GetPlayerCollectItem() == 35)
+	if (m_p_player->GetPlayerCollectItem() >= 35)
 	{
 		m_story_manager.PlayStory(StoryManager::Story::Two);
 	}

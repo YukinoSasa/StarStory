@@ -129,7 +129,7 @@ void MenuPause::Draw()
 		draw_x = (Game::SCREEN_WIDTH - width) * 0.5f;
 		draw_y += 125.0f;
 
-		DrawFormatStringToHandle(draw_x, draw_y, GetColor(255, 0, 0), m_font_item_selected_handle, "ゲームへもどる");
+		DrawFormatStringToHandle(draw_x, draw_y, GetColor(182, 0, 51), m_font_item_selected_handle, "ゲームへもどる");
 
 		// 文字列のサイズを取得
 		width = GetDrawFormatStringWidthToHandle(m_font_item_handle, "せってい");
@@ -165,7 +165,7 @@ void MenuPause::Draw()
 		draw_x = (Game::SCREEN_WIDTH - width) * 0.5f;
 		draw_y += 80.0f;
 
-		DrawFormatStringToHandle(draw_x, draw_y, GetColor(255, 0, 0), m_font_item_selected_handle, "せってい");
+		DrawFormatStringToHandle(draw_x, draw_y, GetColor(182, 0, 51), m_font_item_selected_handle, "せってい");
 
 		// 文字列のサイズを取得
 		width = GetDrawFormatStringWidthToHandle(m_font_item_handle, "タイトルへ");
@@ -201,7 +201,7 @@ void MenuPause::Draw()
 		draw_x = (Game::SCREEN_WIDTH - width) * 0.5f;
 		draw_y += 80.0f;
 
-		DrawFormatStringToHandle(draw_x, draw_y, GetColor(255, 0, 0), m_font_item_selected_handle, "タイトルへ");
+		DrawFormatStringToHandle(draw_x, draw_y, GetColor(182, 0, 51), m_font_item_selected_handle, "タイトルへ");
 
 		break;
 	}

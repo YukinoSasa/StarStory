@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include <algorithm>
 #include "../GameConst.h"
 #include "../csv/LoadCsv.h"
 #include "../Input/Keyboard.h"
@@ -54,15 +55,62 @@ void StoryManager::Draw()
 	float draw_y = Game::SCREEN_HEIGHT - m_box_height;
 	DrawGraphF(draw_x, draw_y, m_box_handle, true);
 
-	// テキストの描画位置を計算
-	float draw_text_x = draw_x + 100.0f;
-	float draw_text_y = draw_y + 150.0f;
-	DrawFormatStringToHandle(draw_text_x, draw_text_y, GetColor(0, 105, 148),
-		m_story_font_handle, m_current_text.c_str());
+	//// テキストの描画位置を計算
+	//float draw_text_x = draw_x + 100.0f;
+	//float draw_text_y = draw_y + 150.0f;
+	//DrawFormatStringToHandle(draw_text_x, draw_text_y, GetColor(0, 105, 148),
+	//	m_story_font_handle, m_current_text.c_str());
+
+	DrawFormatStringToHandle(1400, 925, GetColor(0, 105, 148),
+		m_story_font_handle, "Enter");
+
+	// 話者によってフォントの色を変更
+	switch (m_current_story_list[m_story_index].m_speaker)
+	{
+	// 主人公の場合
+	case 0:
+	{
+		// [話者]の描画位置を計算
+		float draw_speaker_x = draw_x + 100.0f;
+		float draw_speaker_y = draw_y + 150.0f;
+		DrawFormatStringToHandle(draw_speaker_x, draw_speaker_y, GetColor(0, 105, 148),
+			m_story_font_handle, "【あなた】");
+
+		// テキストの描画位置を計算
+		float draw_text_x = draw_speaker_x;
+		float draw_text_y = draw_speaker_y + 70.0f;
+		DrawFormatStringToHandle(draw_text_x, draw_text_y, GetColor(0, 105, 148),
+			m_story_font_handle, m_current_text.c_str());
+
+		break;
+	}
+	// 王様の場合
+	case 1:
+	{
+		// [話者]の描画位置を計算
+		float draw_speaker_x = draw_x + 100.0f;
+		float draw_speaker_y = draw_y + 150.0f;
+		DrawFormatStringToHandle(draw_speaker_x, draw_speaker_y, GetColor(182, 0, 51),
+			m_story_font_handle, "【王様】");
+
+		// テキストの描画位置を計算
+		float draw_text_x = draw_speaker_x;
+		float draw_text_y = draw_speaker_y + 70.0f;
+		DrawFormatStringToHandle(draw_text_x, draw_text_y, GetColor(182, 0, 51),
+			m_story_font_handle, m_current_text.c_str());
+
+		break;
+	}
+	}
 }
 
 void StoryManager::PlayStory(Story play_story)
 {
+	if (IsPlayed(play_story))
+	{
+		return;
+	}
+
 	m_is_playing_story = true;
 
 	// 指定されたストーリーを設定する
@@ -83,6 +131,8 @@ void StoryManager::PlayStory(Story play_story)
 		m_story_index = 0;
 		m_current_text = m_current_story_list[m_story_index].m_text;
 
+		m_played_story_datas.push_back(Story::Intro);
+
 		break;
 	}
 	case Story::One:
@@ -99,6 +149,8 @@ void StoryManager::PlayStory(Story play_story)
 
 		m_story_index = 0;
 		m_current_text = m_current_story_list[m_story_index].m_text;
+
+		m_played_story_datas.push_back(Story::One);
 
 		break;
 	}
@@ -117,6 +169,8 @@ void StoryManager::PlayStory(Story play_story)
 		m_story_index = 0;
 		m_current_text = m_current_story_list[m_story_index].m_text;
 
+		m_played_story_datas.push_back(Story::Two);
+
 		break;
 	}
 	case Story::End:
@@ -129,12 +183,31 @@ void StoryManager::PlayStory(Story play_story)
 			{
 				m_current_story_list.push_back(story_text);
 			}
+
+
 		}
 
 		m_story_index = 0;
 		m_current_text = m_current_story_list[m_story_index].m_text;
 
+		m_played_story_datas.push_back(Story::End);
+
 		break;
 	}
+	}
+}
+
+bool StoryManager::IsPlayed(Story play_story)
+{
+	// プレイ済みのリストに引数のストーリーがあるか検索
+	auto it = std::find(m_played_story_datas.begin(), m_played_story_datas.end(), play_story);
+
+	if (it != m_played_story_datas.end())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
 	}
 }

@@ -8,7 +8,8 @@ SoundManager::SoundManager()
 	m_title_bgm_handle = LoadSoundMem("Data/Sound/BGM/title.mp3");
 	m_play_bgm_handle = LoadSoundMem("Data/Sound/BGM/play.mp3");
 
-	m_current_state = SceneManager::SceneState::Title;
+	m_current_state = SceneManager::SceneState::Clear;
+	//m_current_state = SceneManager::SceneState::Title;
 	m_last_state = SceneManager::SceneState::Title;
 
 	// SEÉfÅ[É^ì«Ç›çûÇ›
@@ -67,6 +68,10 @@ void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneSt
 			{
 				StopSoundMem(m_play_bgm_handle);
 			}
+			else if (m_last_state == SceneManager::SceneState::Clear)
+			{
+				StopSoundMem(m_title_bgm_handle);
+			}
 
 			PlaySoundMem(m_title_bgm_handle, DX_PLAYTYPE_LOOP);
 			break;
@@ -75,6 +80,12 @@ void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneSt
 		{
 			StopSoundMem(m_title_bgm_handle);
 			PlaySoundMem(m_play_bgm_handle, DX_PLAYTYPE_LOOP);
+			break;
+		}
+		case SceneManager::SceneState::Clear:
+		{
+			StopSoundMem(m_title_bgm_handle);
+			PlaySoundMem(m_title_bgm_handle, DX_PLAYTYPE_LOOP);
 			break;
 		}
 		}
@@ -91,6 +102,11 @@ void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneSt
 	case SceneManager::SceneState::Play:
 	{
 		ChangeVolumeSoundMem(game_setting.m_volume_bgm, m_play_bgm_handle);
+		break;
+	}	
+	case SceneManager::SceneState::Clear:
+	{
+		ChangeVolumeSoundMem(game_setting.m_volume_bgm, m_title_bgm_handle);
 		break;
 	}
 	}
