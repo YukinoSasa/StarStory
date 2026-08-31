@@ -283,10 +283,11 @@ void SceneMain::HitPlayerItem(const Rect& player_rect, const Rect& item_rect,
 
 void SceneMain::LoadNextStage()
 {
-	// 新しいステージ、エネミー、ギミックポインタを生成
+	// 新しいステージ、エネミー、ギミック、アイテムポインタを生成
 	m_p_stage = std::make_shared<Stage>(m_current_stage_num);
 	m_p_enemy_manager = std::make_shared<EnemyManager>(m_current_stage_num);
 	m_p_gimmick_manager = std::make_shared<GimmickManager>(m_current_stage_num);
+	m_p_item_manager = std::make_shared<ItemManager>(m_current_stage_num);
 
 	// プレイヤーにステージポインタをセット
 	m_p_player->SetStage(m_p_stage);
@@ -301,8 +302,10 @@ void SceneMain::LoadNextStage()
 	m_p_stage->Init();
 	m_p_enemy_manager->Init();
 	m_p_gimmick_manager->Init();
+	m_p_item_manager->Init();
 
 	// プレイヤーをステージの初期スポーンへ移動
-	m_p_player->SetPlayerPosX(m_game_data.m_spawn_pos.x);
-	m_p_player->SetPlayerPosY(m_game_data.m_spawn_pos.y);
+	m_p_player->SetPlayerPosX(m_game_data.m_init_pos.x);
+	m_p_player->SetPlayerPosY(m_game_data.m_init_pos.y);
+	m_p_player->UpdateRect();
 }

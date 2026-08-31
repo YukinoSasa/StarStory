@@ -139,13 +139,34 @@ void Player::Draw(Vec2 camera_pos)
 	// 当たり判定矩形に合うように高さ調整
 	if (m_is_right)
 	{
-		// 描画スクリーンを光用に変更
-		SetDrawScreen(m_glow_screen);
-		// 前フレームの内容を消す
-		ClearDrawScreen();
-		// 加算で光を描画
-		SetDrawBlendMode(DX_BLENDMODE_ADD,255);
-		DrawGraphF(0, 0, m_glow_small_handle, true);
+		if (m_collected_item >= 10 && m_collected_item < 35)
+		{
+			// 描画スクリーンを光用に変更
+			SetDrawScreen(m_glow_screen);
+			// 前フレームの内容を消す
+			ClearDrawScreen();
+			// 加算で光を描画
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+			DrawGraphF(0, 0, m_glow_small_handle, true);
+
+		}
+		else if (m_collected_item >= 35)
+		{
+			// 描画スクリーンを光用に変更
+			SetDrawScreen(m_glow_screen);
+			// 前フレームの内容を消す
+			ClearDrawScreen();
+			// 加算で光を描画
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+			DrawGraphF(0, 0, m_glow_big_handle, true);
+		}
+		//// 描画スクリーンを光用に変更
+		//SetDrawScreen(m_glow_screen);
+		//// 前フレームの内容を消す
+		//ClearDrawScreen();
+		//// 加算で光を描画
+		//SetDrawBlendMode(DX_BLENDMODE_ADD,255);
+		//DrawGraphF(0, 0, m_glow_small_handle, true);
 
 		// 描画スクリーンを通常に戻す
 		SetDrawScreen(DX_SCREEN_BACK);
@@ -158,13 +179,35 @@ void Player::Draw(Vec2 camera_pos)
 	}
 	else
 	{
-		// 描画スクリーンを光用に変更
-		SetDrawScreen(m_glow_screen);
-		// 前フレームの内容を消す
-		ClearDrawScreen();
-		// 加算で光を描画
-		SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
-		DrawTurnGraphF(0, 0, m_glow_small_handle, true);
+		if (m_collected_item >= 10)
+		{
+			// 描画スクリーンを光用に変更
+			SetDrawScreen(m_glow_screen);
+			// 前フレームの内容を消す
+			ClearDrawScreen();
+			// 加算で光を描画
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+			DrawGraphF(0, 0, m_glow_small_handle, true);
+
+		}
+		else if (m_collected_item >= 35)
+		{
+			// 描画スクリーンを光用に変更
+			SetDrawScreen(m_glow_screen);
+			// 前フレームの内容を消す
+			ClearDrawScreen();
+			// 加算で光を描画
+			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+			DrawGraphF(0, 0, m_glow_big_handle, true);
+		}
+
+		//// 描画スクリーンを光用に変更
+		//SetDrawScreen(m_glow_screen);
+		//// 前フレームの内容を消す
+		//ClearDrawScreen();
+		//// 加算で光を描画
+		//SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+		//DrawTurnGraphF(0, 0, m_glow_small_handle, true);
 
 		// 描画スクリーンを通常に戻す
 		SetDrawScreen(DX_SCREEN_BACK);
@@ -177,11 +220,11 @@ void Player::Draw(Vec2 camera_pos)
 	}
 
 #ifdef _DEBUG
-	// デバック時のみ当たり判定の矩形を描画
-	m_rect.Draw(camera_pos);
-	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
-	DrawFormatString(1100, 0, GetColor(255, 255, 255), "集めたかけら : %d", m_collected_item);
-	DrawFormatString(0, 90, GetColor(255, 255, 255), "接地 : %d", m_is_ground);
+	//// デバック時のみ当たり判定の矩形を描画
+	//m_rect.Draw(camera_pos);
+	//DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
+	//DrawFormatString(1100, 0, GetColor(255, 255, 255), "集めたかけら : %d", m_collected_item);
+	//DrawFormatString(0, 90, GetColor(255, 255, 255), "接地 : %d", m_is_ground);
 
 #endif
 }

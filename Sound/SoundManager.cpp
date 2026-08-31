@@ -7,9 +7,9 @@ SoundManager::SoundManager()
 	// BGMデータ読み込み
 	m_title_bgm_handle = LoadSoundMem("Data/Sound/BGM/title.mp3");
 	m_play_bgm_handle = LoadSoundMem("Data/Sound/BGM/play.mp3");
+	m_end_bgm_handle = LoadSoundMem("Data/Sound/BGM/end.mp3");
 
-	m_current_state = SceneManager::SceneState::Clear;
-	//m_current_state = SceneManager::SceneState::Title;
+	m_current_state = SceneManager::SceneState::Title;
 	m_last_state = SceneManager::SceneState::Title;
 
 	// SEデータ読み込み
@@ -24,6 +24,7 @@ SoundManager::~SoundManager()
 {
 	DeleteSoundMem(m_title_bgm_handle);
 	DeleteSoundMem(m_play_bgm_handle);
+	DeleteSoundMem(m_end_bgm_handle);
 	DeleteSoundMem(m_enter_handle);
 	DeleteSoundMem(m_cancel_handle);
 	DeleteSoundMem(m_select_handle);
@@ -34,20 +35,6 @@ void SoundManager::Init(SceneManager::SceneState current_scene)
 {
 	// 最初のBGMはタイトル用を再生
 	PlaySoundMem(m_title_bgm_handle, DX_PLAYTYPE_LOOP);
-
-	//switch (current_scene)
-	//{
-	//case SceneManager::SceneState::Title:
-	//{
-	//	PlaySoundMem(m_title_bgm_handle, DX_PLAYTYPE_LOOP);
-	//	break;
-	//}
-	//case SceneManager::SceneState::Play:
-	//{
-	//	PlaySoundMem(m_play_bgm_handle, DX_PLAYTYPE_LOOP);
-	//	break;
-	//}
-	//}
 }
 
 void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneState current_scene)
@@ -70,7 +57,7 @@ void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneSt
 			}
 			else if (m_last_state == SceneManager::SceneState::Clear)
 			{
-				StopSoundMem(m_title_bgm_handle);
+				StopSoundMem(m_end_bgm_handle);
 			}
 
 			PlaySoundMem(m_title_bgm_handle, DX_PLAYTYPE_LOOP);
@@ -84,8 +71,8 @@ void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneSt
 		}
 		case SceneManager::SceneState::Clear:
 		{
-			StopSoundMem(m_title_bgm_handle);
-			PlaySoundMem(m_title_bgm_handle, DX_PLAYTYPE_LOOP);
+			StopSoundMem(m_play_bgm_handle);
+			PlaySoundMem(m_end_bgm_handle, DX_PLAYTYPE_LOOP);
 			break;
 		}
 		}
@@ -106,7 +93,7 @@ void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneSt
 	}	
 	case SceneManager::SceneState::Clear:
 	{
-		ChangeVolumeSoundMem(game_setting.m_volume_bgm, m_title_bgm_handle);
+		ChangeVolumeSoundMem(game_setting.m_volume_bgm, m_end_bgm_handle);
 		break;
 	}
 	}

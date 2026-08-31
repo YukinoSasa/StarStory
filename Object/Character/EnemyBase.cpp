@@ -48,8 +48,8 @@ void EnemyBase::Draw(Vec2 camera_pos)
 		DrawGraphF(screen_x, screen_y, m_handle, true);
 	}
 #ifdef _DEBUG
-	// デバック時のみ当たり判定の矩形を描画
-	m_rect.Draw(camera_pos);
+	//// デバック時のみ当たり判定の矩形を描画
+	//m_rect.Draw(camera_pos);
 #endif
 
 }

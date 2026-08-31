@@ -17,12 +17,8 @@ namespace
 SceneManager::SceneManager() :
 	m_wait_count(0.0f), m_is_game_end(false)
 {
-	//m_p_current_scene = std::make_unique<SceneTitle>();
-	//m_scene_state = SceneState::Title;
-
-	m_p_current_scene = std::make_unique<SceneClear>();
-	m_scene_state = SceneState::Clear;
-
+	m_p_current_scene = std::make_unique<SceneTitle>();
+	m_scene_state = SceneState::Title;
 
 	m_p_sound_manager = std::make_shared<SoundManager>();
 }

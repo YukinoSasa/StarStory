@@ -40,7 +40,7 @@ void GimmickBase::Draw(Vec2 camera_pos)
 	DrawGraphF(screen_x + m_handle_offset.x, screen_y + m_handle_offset.y, m_handle, true);
 
 #ifdef _DEBUG
-	m_rect.Draw(camera_pos);
+	//m_rect.Draw(camera_pos);
 #endif
 }
 

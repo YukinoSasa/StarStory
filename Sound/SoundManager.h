@@ -33,6 +33,7 @@ private:
 	// BGMのハンドル
 	int m_title_bgm_handle;
 	int m_play_bgm_handle;
+	int m_end_bgm_handle;
 
 	// SEのハンドル
 	int m_enter_handle;
