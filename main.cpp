@@ -2,11 +2,8 @@
 #include <memory>
 #include "GameConst.h"
 #include "GameSetting.h"
-#include "Scene/SceneManager.h"
-#include "Scene/SceneMain.h"
-//#include "Sound/SoundManager.h"
 #include "Input/Keyboard.h"
-
+#include "Scene/SceneManager.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	PSTR lpCmdLine, int nCmdShow)
@@ -20,9 +17,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	// ダブルバッファモード
 	SetDrawScreen(DX_SCREEN_BACK);
 	
-	//	デバッグ中はウィンドウモード、リリース版はフルスクリーン
+	// デバッグ中はウィンドウモード、リリース版はフルスクリーン
 #ifdef _DEBUG
-	ChangeWindowMode(FALSE);
+	ChangeWindowMode(TRUE);
 #else
 	ChangeWindowMode(FALSE);
 #endif
@@ -30,31 +27,26 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	if (DxLib_Init() == -1)
 		return -1;
 
-	// シーンマネージャーのポインタ
+	// シーンの生成、更新、遷移を管理
 	std::unique_ptr<SceneManager> p_scene_manager = std::make_unique<SceneManager>();
-
-	//// サウンドマネージャーのポインタ
-	//std::unique_ptr<SoundManager> p_sound_manager = std::make_unique<SoundManager>();
-
+	// ゲーム全体の設定
 	GameSetting game_setting;
 
-	// シーン、サウンドの初期化
+	// 現在のシーンを初期化
 	p_scene_manager->Init();
-	//p_sound_manager->Init(p_scene_manager->GetCurrentSceneState());
 
 	while (ProcessMessage() == 0)
 	{
 		LONGLONG time = GetNowHiPerformanceCount();
 
-		// 画面クリア
 		ClearDrawScreen();
 
 		// キーボードの入力を更新
 		Keyboard::Update();
-
+		// 現在のシーンを更新
 		p_scene_manager->Update(game_setting);
-		//p_sound_manager->Update(game_setting, p_scene_manager->GetCurrentSceneState());
 
+		// 現在のシーンを描画
 		p_scene_manager->Draw();
 
 		// 表画面と裏画面の入れ替え
@@ -78,7 +70,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			break;
 		}
 #endif
-
 	}
 
 	DxLib_End();

@@ -1,6 +1,8 @@
 #pragma once
 
-// シーンをまたぐゲームの設定
+/// <summary>
+/// ゲームの設定を扱う構造体
+/// </summary>
 struct GameSetting
 {
 	// BGMの音量
