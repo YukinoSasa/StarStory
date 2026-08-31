@@ -2,7 +2,7 @@
 #include "Vec2.h"
 
 /// <summary>
-/// 当たり判定の矩形クラス
+/// コリジョンの矩形クラス
 /// </summary>
 class Rect
 {
@@ -33,12 +33,6 @@ public:
 	// 矩形の下端yのゲッタ
 	float GetBottomEdge() const { return m_bottom_edge; }
 
-	// 実体かどうかのゲッタ
-	bool GetIsObject() const { return m_is_object; }
-
-	// 実体かどうかのセッタ
-	void SetIsObject(bool is_object) { m_is_object = is_object; }
-
 private:
 	// 矩形の左端x
 	float m_left_edge;
@@ -51,7 +45,4 @@ private:
 
 	// 矩形の下端y
 	float m_bottom_edge;
-
-	// 物体として実体を持つかどうか
-	bool m_is_object;
 };

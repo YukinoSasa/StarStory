@@ -10,6 +10,9 @@ namespace
 	int current_pad = 0;
 }
 
+/// <summary>
+/// コントローラー入力を扱う名前空間
+/// </summary>
 namespace Pad
 {
 	void Update()

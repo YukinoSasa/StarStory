@@ -2,8 +2,8 @@
 #include "../GameConst.h"
 #include "Rect.h"
 
-Rect::Rect() :
-	m_left_edge(0.0f), m_right_edge(0.0f), m_top_edge(0.0f), m_bottom_edge(0.0f), m_is_object(true)
+Rect::Rect()
+	:m_left_edge(0.0f), m_right_edge(0.0f), m_top_edge(0.0f), m_bottom_edge(0.0f)
 {
 
 }

@@ -5,7 +5,7 @@
 Spring::Spring(GimmickData gimmick_data) :
 	GimmickBase(gimmick_data), m_spring_power(14.0f)
 {
-	m_rect.SetIsObject(true);
+
 }
 
 Spring::~Spring()

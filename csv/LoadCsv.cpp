@@ -1,5 +1,5 @@
-#include "LoadCsv.h"
 #include "../Math/Vec2.h"
+#include "LoadCsv.h"
 
 MapData LoadMap(const std::string& file_path)
 {
@@ -184,7 +184,7 @@ GimmickDatas LoadGimmick(const std::string& file_path)
 			row.push_back(cell);
 		}
 
-		// データをエネミー構造体に変換
+		// データをギミック構造体に変換
 		gimmick_data.m_stage = std::stoi(row[0]);
 		gimmick_data.m_gimmick_type = std::stoi(row[1]);
 		gimmick_data.m_spawn.x = std::stof(row[2]);
@@ -241,7 +241,7 @@ ItemDatas LoadItem(const std::string& file_path)
 			row.push_back(cell);
 		}
 
-		// データをエネミー構造体に変換
+		// データをアイテム構造体に変換
 		item_data.m_stage = std::stoi(row[0]);
 		item_data.m_spawn.x = std::stof(row[1]);
 		item_data.m_spawn.y = std::stof(row[2]);

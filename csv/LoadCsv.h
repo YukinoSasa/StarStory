@@ -1,8 +1,8 @@
 #pragma once
-#include <vector>
 #include <fstream>
-#include <string>
 #include <sstream>
+#include <string>
+#include <vector>
 #include "../Object/Character/EnemyManager.h"
 #include "../Object/Gimmick/GimmickManager.h"
 #include "../Object/Item/ItemManager.h"

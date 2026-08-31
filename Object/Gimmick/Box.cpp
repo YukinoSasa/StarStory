@@ -5,7 +5,7 @@
 Box::Box(GimmickData gimmick_data) :
 	GimmickBase(gimmick_data)
 {
-	m_rect.SetIsObject(true);
+
 }
 
 Box::~Box()

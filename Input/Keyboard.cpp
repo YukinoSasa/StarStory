@@ -10,6 +10,9 @@ namespace
 	bool current_key[256] = {};
 }
 
+/// <summary>
+/// キーボード入力を扱う名前空間
+/// </summary>
 namespace Keyboard
 {
 	void Update()
