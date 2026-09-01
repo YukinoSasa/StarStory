@@ -1,5 +1,6 @@
 #include <DxLib.h>
 #include "../../GameConst.h"
+#include "../../GameData.h"
 #include "../../Input/Keyboard.h"
 #include "Player.h"
 
@@ -123,10 +124,9 @@ void Player::Draw(Vec2 camera_pos)
 	float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
 
 	// キャラクターの向きによって画像を反転
-	// コリジョン矩形に合うように高さ調整
 	if (m_is_right)
 	{
-		if (m_collected_item >= 10 && m_collected_item < 35)
+		if (m_collected_item >= GameData::STORY_ONE && m_collected_item < GameData::STORY_TWO)
 		{
 			// 描画スクリーンを光用に変更
 			SetDrawScreen(m_glow_screen);
@@ -135,9 +135,8 @@ void Player::Draw(Vec2 camera_pos)
 			// 加算で光を描画
 			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
 			DrawGraphF(0, 0, m_glow_small_handle, true);
-
 		}
-		else if (m_collected_item >= 35)
+		else if (m_collected_item >= GameData::STORY_TWO)
 		{
 			// 描画スクリーンを光用に変更
 			SetDrawScreen(m_glow_screen);
@@ -147,13 +146,6 @@ void Player::Draw(Vec2 camera_pos)
 			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
 			DrawGraphF(0, 0, m_glow_big_handle, true);
 		}
-		//// 描画スクリーンを光用に変更
-		//SetDrawScreen(m_glow_screen);
-		//// 前フレームの内容を消す
-		//ClearDrawScreen();
-		//// 加算で光を描画
-		//SetDrawBlendMode(DX_BLENDMODE_ADD,255);
-		//DrawGraphF(0, 0, m_glow_small_handle, true);
 
 		// 描画スクリーンを通常に戻す
 		SetDrawScreen(DX_SCREEN_BACK);
@@ -166,7 +158,7 @@ void Player::Draw(Vec2 camera_pos)
 	}
 	else
 	{
-		if (m_collected_item >= 10)
+		if (m_collected_item >= GameData::STORY_ONE && m_collected_item < GameData::STORY_TWO)
 		{
 			// 描画スクリーンを光用に変更
 			SetDrawScreen(m_glow_screen);
@@ -177,7 +169,7 @@ void Player::Draw(Vec2 camera_pos)
 			DrawGraphF(0, 0, m_glow_small_handle, true);
 
 		}
-		else if (m_collected_item >= 35)
+		else if (m_collected_item >= GameData::STORY_TWO)
 		{
 			// 描画スクリーンを光用に変更
 			SetDrawScreen(m_glow_screen);
@@ -187,14 +179,6 @@ void Player::Draw(Vec2 camera_pos)
 			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
 			DrawGraphF(0, 0, m_glow_big_handle, true);
 		}
-
-		//// 描画スクリーンを光用に変更
-		//SetDrawScreen(m_glow_screen);
-		//// 前フレームの内容を消す
-		//ClearDrawScreen();
-		//// 加算で光を描画
-		//SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
-		//DrawTurnGraphF(0, 0, m_glow_small_handle, true);
 
 		// 描画スクリーンを通常に戻す
 		SetDrawScreen(DX_SCREEN_BACK);
@@ -231,6 +215,7 @@ void Player::Move()
 	else if (Keyboard::IsPress(KEY_INPUT_RIGHT))
 	{
 		m_animation_state = Animation::Walk;
+
 		// プレイヤーの向きを変更
 		m_is_right = true;
 

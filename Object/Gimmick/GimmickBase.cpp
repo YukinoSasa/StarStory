@@ -36,11 +36,10 @@ void GimmickBase::Draw(Vec2 camera_pos)
 	float screen_x = draw_x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
 	float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
 
-	//DrawGraphF(screen_x, screen_y, m_handle, true);
 	DrawGraphF(screen_x + m_handle_offset.x, screen_y + m_handle_offset.y, m_handle, true);
 
 #ifdef _DEBUG
-	//m_rect.Draw(camera_pos);
+	m_rect.Draw(camera_pos);
 #endif
 }
 

@@ -2,7 +2,7 @@
 #include "Math/Vec2.h"
 
 /// <summary>
-/// 初期座標などゲームデータを扱う構造体
+/// ゲームデータを扱う構造体
 /// </summary>
 struct GameData
 {
@@ -11,4 +11,8 @@ struct GameData
 
 	// リスポーン座標(セーブポイント通過時に上書き)
 	Vec2 m_spawn_pos = Vec2(130.0f, 4008.0f);
+
+	// ストーリーを開始するアイテム数
+	static constexpr int STORY_ONE = 10;
+	static constexpr int STORY_TWO = 35;
 };

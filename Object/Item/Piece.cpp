@@ -2,6 +2,12 @@
 #include "../../GameConst.h"
 #include "Piece.h"
 
+namespace
+{
+	// アニメーションを更新するフレーム数
+	int animation_update_frame = 7;
+}
+
 Piece::Piece(ItemData item_data)
 	:m_is_collect(false), m_animation_timer(0), m_animation_frame(0)
 {
@@ -29,7 +35,7 @@ void Piece::Init()
 void Piece::Update()
 {
 	m_animation_timer++;
-	if (m_animation_timer >= 7)
+	if (m_animation_timer >= animation_update_frame)
 	{
 		UpdateAnimation();
 		m_animation_timer = 0;

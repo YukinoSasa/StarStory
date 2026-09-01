@@ -3,9 +3,9 @@
 #include "../Math/Rect.h"
 #include "../GameData.h"
 
+class Box;
 class Player;
 class Stage;
-class Box;
 
 /// <summary>
 /// コリジョンを管理するクラス
@@ -14,14 +14,6 @@ class CollisionManager
 {
 public:
 	CollisionManager();
-
-	~CollisionManager() = default;
-
-	// 初期化
-	void Init();
-
-	// 更新
-	void Update();
 
 	// プレイヤーとオブジェクトの横方向衝突判定
 	void CheckPlayerCollisionX(

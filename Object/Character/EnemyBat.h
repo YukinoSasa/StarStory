@@ -17,9 +17,6 @@ public:
 	// XV
 	void Update() override;
 
-	// •`‰æ
-	void Draw(Vec2 camera_pos) override;
-
 private:
 	// õ“G
 	void TrackPlayer(Vec2 player_pos) override;

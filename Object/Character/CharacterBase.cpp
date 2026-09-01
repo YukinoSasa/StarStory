@@ -38,11 +38,11 @@ void CharacterBase::Draw(Vec2 camera_pos)
 	// キャラクターの向きによって画像を反転
 	if (m_is_right)
 	{
-		DrawGraphF(screen_x, screen_y, m_handle, true);
+		DrawTurnGraphF(screen_x, screen_y, m_handle, true);
 	}
 	else
 	{
-		DrawTurnGraphF(screen_x, screen_y, m_handle, true);
+		DrawGraphF(screen_x, screen_y, m_handle, true);
 	}
 
 #ifdef _DEBUG

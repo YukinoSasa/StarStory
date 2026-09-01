@@ -4,6 +4,9 @@ namespace
 {
 	// “®‚­‘¬‚³
 	float MOVE_SPEED = 1.0f;
+
+	// ˆÚ“®‹——£
+	float MOVE_DISTANCE = 200.0f;
 }
 
 MovingPlatform::MovingPlatform(GimmickData gimmick_data)
@@ -47,11 +50,11 @@ void MovingPlatform::Update(Rect player_rect, Vec2 player_last_move)
 	// cˆÚ“®‚Ì°
 	case 2:
 	{
-		if (m_pos.y <= m_init_pos.y - 200.0f)
+		if (m_pos.y <= m_init_pos.y - MOVE_DISTANCE)
 		{
 			m_move.y = +MOVE_SPEED;
 		}
-		else if (m_pos.y >= m_init_pos.y + 200.0f)
+		else if (m_pos.y >= m_init_pos.y + MOVE_DISTANCE)
 		{
 			m_move.y = -MOVE_SPEED;
 		}
@@ -63,11 +66,11 @@ void MovingPlatform::Update(Rect player_rect, Vec2 player_last_move)
 	// ‰¡ˆÚ“®‚Ì°
 	case 3:
 	{
-		if (m_pos.x <= m_init_pos.x - 200.0f)
+		if (m_pos.x <= m_init_pos.x - MOVE_DISTANCE)
 		{
 			m_move.x = +MOVE_SPEED;
 		}
-		else if (m_pos.x >= m_init_pos.x + 200.0f)
+		else if (m_pos.x >= m_init_pos.x + MOVE_DISTANCE)
 		{
 			m_move.x = -MOVE_SPEED;
 		}

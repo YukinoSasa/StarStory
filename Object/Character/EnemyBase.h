@@ -12,14 +12,11 @@ public:
 
 	virtual ~EnemyBase() = 0;
 
-	// 初期化
-	virtual void Init();
-
 	// 更新
 	virtual void Update();
 
 	// 描画
-	virtual void Draw(Vec2 camera_pos);
+	void Draw(Vec2 camera_pos) override;
 
 	// 索敵範囲の矩形のゲッタ
 	Rect GetSearchRange() const { return m_search_range; }

@@ -1,11 +1,11 @@
-#include "GimmickManager.h"
+#include <DxLib.h>
 #include "../../csv/LoadCsv.h"
 #include "GimmickBase.h"
-#include "SavePoint.h"
 #include "Box.h"
 #include "MovingPlatform.h"
+#include "SavePoint.h"
 #include "Spring.h"
-#include <DxLib.h>
+#include "GimmickManager.h"
 
 GimmickManager::GimmickManager(int current_stage_num)
 {

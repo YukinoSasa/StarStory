@@ -11,16 +11,6 @@ CollisionManager::CollisionManager()
 
 }
 
-void CollisionManager::Init()
-{
-
-}
-
-void CollisionManager::Update()
-{
-
-}
-
 void CollisionManager::CheckPlayerCollisionX(
 	std::shared_ptr<Player> p_player, std::shared_ptr<Stage> p_stage,
 	std::shared_ptr<GimmickManager> p_gimmick_manager, GameData& game_data)
@@ -210,10 +200,7 @@ void CollisionManager::CheckGimmickY(
 			 // 当たったギミックが横に動く床かどうか
 			if (p_gimmick->GetGimmickType() == 3)
 			{
-				//p_player->MoveWithPratform(p_gimmick->GetGimmickMove().x);
-				//m_is_ride_pratform = true;
 				p_player->SetIsOnMovingPratform(true);
-
 			}
 		}
 		// プレイヤーが下から接した場合
@@ -250,9 +237,6 @@ void CollisionManager::CheckBoxCollisionY(
 
 		// 位置補正後座標
 		float pos_y = gimmick->GetGimmickPos().y;
-
-		//// 縦移動の更新、コリジョンの更新
-		//p_player->MovePlayerY();
 
 		// ステージと衝突した場合 //
 		if (p_stage->IsCollisionY(gimmick->GetRect(), chip_rect))

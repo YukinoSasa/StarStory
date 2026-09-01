@@ -120,12 +120,3 @@ void EnemyBat::ReturnToInitPos()
 
 	m_pos += m_move;
 }
-
-void EnemyBat::Draw(Vec2 camera_pos)
-{
-	EnemyBase::Draw(camera_pos);
-
-#ifdef _DEBUG
-	m_search_range.Draw(camera_pos);
-#endif
-}

@@ -15,11 +15,6 @@ EnemyBase::~EnemyBase()
 
 }
 
-void EnemyBase::Init()
-{
-	CharacterBase::Init();
-}
-
 void EnemyBase::Update()
 {
 	// アニメーションの更新
@@ -34,27 +29,11 @@ void EnemyBase::Update()
 
 void EnemyBase::Draw(Vec2 camera_pos)
 {
+	CharacterBase::Draw(camera_pos);
 
-	// キャラクター画像の左上の座標
-	float draw_x = m_pos.x - m_handle_width * 0.5f;
-	float draw_y = m_pos.y - m_handle_height * 0.5f;
-
-	// キャラクター描画のスクリーン座標
-	float screen_x = draw_x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
-	float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
-
-	// キャラクターの向きによって画像を反転
-	if (m_is_right)
-	{
-		DrawTurnGraphF(screen_x, screen_y, m_handle, true);
-	}
-	else
-	{
-		DrawGraphF(screen_x, screen_y, m_handle, true);
-	}
 #ifdef _DEBUG
-	// デバック時のみコリジョンの矩形を描画
-	m_rect.Draw(camera_pos);
+	// デバック時のみ索敵範囲を描画
+	m_search_range.Draw(camera_pos);
 #endif
 }
 

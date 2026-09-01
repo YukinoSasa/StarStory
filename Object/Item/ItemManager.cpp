@@ -1,6 +1,6 @@
 #include "../../csv/LoadCsv.h"
-#include "ItemManager.h"
 #include "Piece.h"
+#include "ItemManager.h"
 
 ItemManager::ItemManager(int current_stage_num)
 {

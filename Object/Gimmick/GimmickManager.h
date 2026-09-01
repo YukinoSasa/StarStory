@@ -1,8 +1,7 @@
 #pragma once
-
+#include <memory>
 #include <string>
 #include <vector>
-#include <memory>
 #include "../../Math/Rect.h"
 #include "../../Math/Vec2.h"
 
@@ -35,8 +34,6 @@ class GimmickManager
 {
 public:
 	GimmickManager(int current_stage_num);
-
-	~GimmickManager() = default;
 
 	// ‰Šú‰»
 	void Init();

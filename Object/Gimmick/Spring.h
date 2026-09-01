@@ -1,5 +1,4 @@
 #pragma once
-
 #include "GimmickBase.h"
 
 class Player;
@@ -16,9 +15,6 @@ public:
 
 	// 初期化
 	void Init() override;
-
-	// 更新
-	void Update(Rect player_rect, Vec2 player_last_move);
 
 	// スプリングのジャンプ力のゲッタ
 	float GetSpringPower() const { return m_spring_power; }

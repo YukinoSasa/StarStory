@@ -47,5 +47,4 @@ private:
 
 	// アニメーション画像の更新
 	void UpdateAnimation();
-
 };

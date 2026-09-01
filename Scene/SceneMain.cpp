@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include "../GameData.h"
 #include "SceneMain.h"
 #include "../Object/Character/Player.h"
 #include "../Object/Character/EnemyManager.h"
@@ -136,12 +137,13 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		m_story_manager.PlayStory(StoryManager::Story::Intro);
 	}
 
-	if (m_p_player->GetPlayerCollectItem() >= 10 && m_p_player->GetIsGround())
+	// ストーリー開始判定
+	if (m_p_player->GetPlayerCollectItem() >= GameData::STORY_ONE && m_p_player->GetIsGround())
 	{
 		m_story_manager.PlayStory(StoryManager::Story::One);
 	}
 
-	if (m_p_player->GetPlayerCollectItem() >= 35 && m_p_player->GetIsGround())
+	if (m_p_player->GetPlayerCollectItem() >= GameData::STORY_TWO && m_p_player->GetIsGround())
 	{
 		m_story_manager.PlayStory(StoryManager::Story::Two);
 	}

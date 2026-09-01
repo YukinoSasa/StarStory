@@ -26,6 +26,7 @@ public:
 	// 生きているかどうかのゲッタ
 	bool GetIsAlive() const { return m_is_alive; }
 
+	// 接地しているかどうかのゲッタ
 	bool GetIsGround() const { return m_is_ground; }
 
 	// ステージポインタのセッタ
