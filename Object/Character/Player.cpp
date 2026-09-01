@@ -5,10 +5,7 @@
 
 namespace
 {
-	//// プレイヤーの初期スポーン
-	//Vec2 PLAYER_INIT_POS (130.0f, 4008.0f);
-
-	// プレイヤーの速度
+	// プレイヤーの移動速度
 	constexpr float PLAYER_SPEED = 5.0f;
 
 	// ジャンプ力
@@ -25,35 +22,27 @@ Player::Player(Vec2 spawn_pos)
 
 	// 光描画用のスクリーン作成
 	m_glow_screen = MakeScreen(72, 72, true);
-	//m_pos.x = 130.0f;
-	//m_pos.y = 4008.0f;
 
 	m_pos = spawn_pos;
 
 	m_animation_state = Animation::Idle;
-	m_animation_timer = 0;
-	m_animation_frame = 0;
 }
 
 Player::~Player()
 {
-	DeleteGraph(m_glow_small_handle);
-	DeleteGraph(m_glow_big_handle);
-	DeleteGraph(m_glow_screen);
 	for (int i = 0; i < sizeof(m_handle_array) / sizeof(m_handle_array[0]); i++)
 	{
 		DeleteGraph(m_handle_array[i]);
 	}
 
-	
+	DeleteGraph(m_glow_small_handle);
+	DeleteGraph(m_glow_big_handle);
+	DeleteGraph(m_glow_screen);
 }
 
 void Player::Init()
 {
 	CharacterBase::Init();
-
-	//m_handle_width = 3.0f;
-	//m_handle_height = 3.0f;
 
 	m_collision_width = 26.0f;
 	m_collision_height = 48.0f;
@@ -71,48 +60,49 @@ void Player::Update()
 
 	m_animation_state = Animation::Idle;
 
-
 	Move();
 	Jump();
 
-	//if (!m_is_ground)
-	//{
-	//	m_animation_state = Animation::Jamp;
-	//}
-
 	CharacterBase::Update();
-
-	m_handle = m_handle_array[m_animation_frame];
 
 	m_animation_timer++;
 
-	// 5フレーム経ったらアニメーションを進める
+	// アニメーションによって異なるフレーム数で更新
+	int animation_update_frame;
+
 	switch (m_animation_state)
 	{
 	case Animation::Idle:
 	{
-		if (m_animation_timer >= 15)
+		animation_update_frame = 15;
+		if (m_animation_timer >= animation_update_frame)
 		{
 			UpdateAnimation();
 			m_animation_timer = 0;
 		}
+
 		break;
 	}
 	case Animation::Walk:
 	{
-		if (m_animation_timer >= 5)
+		animation_update_frame = 5;
+		if (m_animation_timer >= animation_update_frame)
 		{
 			UpdateAnimation();
 			m_animation_timer = 0;
 		}
+
 		break;
 	}
 	case Animation::Jamp:
 	{
 		UpdateAnimation();
+
 		break;
 	}
 	}
+
+	m_handle = m_handle_array[m_animation_frame];
 }
 
 void Player::Draw(Vec2 camera_pos)
@@ -123,12 +113,9 @@ void Player::Draw(Vec2 camera_pos)
 		return;
 	}
 
-	//CharacterBase::Draw(camera_pos);
-
 	// キャラクター画像の左上の座標
 	float draw_x = m_pos.x - m_handle_width * 0.5f;
-	//float draw_y = m_pos.y - 48.0f;
-	// 画像の下端と当たり判定の下端を合わせる
+	// 画像の下端とコリジョンの下端を合わせる
 	float draw_y = m_pos.y - m_handle_height * 0.5f - (m_handle_height - m_collision_height) * 0.5f;
 
 	// キャラクター描画のスクリーン座標
@@ -136,7 +123,7 @@ void Player::Draw(Vec2 camera_pos)
 	float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
 
 	// キャラクターの向きによって画像を反転
-	// 当たり判定矩形に合うように高さ調整
+	// コリジョン矩形に合うように高さ調整
 	if (m_is_right)
 	{
 		if (m_collected_item >= 10 && m_collected_item < 35)
@@ -220,10 +207,10 @@ void Player::Draw(Vec2 camera_pos)
 	}
 
 #ifdef _DEBUG
-	//// デバック時のみ当たり判定の矩形を描画
-	//m_rect.Draw(camera_pos);
-	//DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
-	//DrawFormatString(1100, 0, GetColor(255, 255, 255), "集めたかけら : %d", m_collected_item);
+	// デバック時のみコリジョンの矩形を描画
+	m_rect.Draw(camera_pos);
+	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
+	DrawFormatString(1100, 0, GetColor(255, 255, 255), "集めたかけら : %d", m_collected_item);
 	//DrawFormatString(0, 90, GetColor(255, 255, 255), "接地 : %d", m_is_ground);
 
 #endif

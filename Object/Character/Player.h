@@ -4,7 +4,7 @@
 /// <summary>
 /// キャラクタークラスを継承したプレイヤークラス
 /// </summary>
-class Player : public CharacterBase
+class Player final : public CharacterBase
 {
 public:
 	Player(Vec2 spawn_pos);
@@ -58,7 +58,7 @@ public:
 
 	// 横移動処理
 	void MovePlayerX();
-	// 縦移動処理
+	// 上下移動処理
 	void MovePlayerY();
 
 	// コリジョンの更新
@@ -77,8 +77,14 @@ private:
 	// ジャンプ
 	void Jump();
 
-	// 画像データ配列
+	// 画像データの配列
 	int m_handle_array[42];
+	// 光の画像ハンドル
+	int m_glow_small_handle;
+	int m_glow_big_handle;
+
+	// 光の画像の描画先
+	int m_glow_screen;
 
 	// ギミックによって動いた移動量
 	Vec2 m_move_by_gimmick;
@@ -88,9 +94,6 @@ private:
 
 	// 集めたアイテムの数
 	int m_collected_item;
-
-	//// 敵との当たり判定
-	//void CheckHitEnemy(Rect& enemy_rect);
 
 	// アニメーションの状態
 	enum class Animation
@@ -105,19 +108,6 @@ private:
 	// アニメーションの状態を保存する変数
 	Animation m_animation_state;
 
-	// アニメーションのタイマー
-	int m_animation_timer;
-
-	// アニメーションのフレーム
-	int m_animation_frame;
-
 	// アニメーション画像の更新
 	void UpdateAnimation();
-
-	// 光のハンドル
-	int m_glow_small_handle;
-	int m_glow_big_handle;
-
-	// 光の描画先
-	int m_glow_screen;
 };

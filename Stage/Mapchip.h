@@ -24,14 +24,14 @@ public:
 	// コリジョンを持つかどうかのゲッタ
 	bool GetIsCollision() const { return m_is_collision; }
 
-	// 当たり判定矩形のゲッタ
+	// コリジョン矩形のゲッタ
 	Rect GetRect() const { return m_rect; }
 
 private:
 	// 座標
 	Vec2 m_pos;
 
-	// 当たり判定矩形
+	// コリジョン矩形
 	Rect m_rect;
 
 	//// マップチップの画像データ配列
@@ -40,6 +40,6 @@ private:
 	// 描画するタイル番号
 	int m_tile;
 
-	// 当たり判定を持つかどうか
+	// コリジョンを持つかどうか
 	bool m_is_collision;
 };

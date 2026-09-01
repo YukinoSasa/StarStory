@@ -39,7 +39,7 @@ public:
 	// ギミックの移動量のセッタ
 	void SetGimmickMove(float move_x, float move_y) { m_move.x = move_x; m_move.y = move_y; }
 
-	// 当たり判定の更新
+	// コリジョンの更新
 	void UpdateRect();
 
 	// 押されたら動く

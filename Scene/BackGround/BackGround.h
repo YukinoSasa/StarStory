@@ -18,7 +18,7 @@ public:
 	void Draw(Vec2 camera_pos, float stage_height);
 
 private:
-	// カメラの位置をもとに描画時のfor文のiの値を計算する
+	// カメラの座標をもとに描画時のfor文のiの値を計算する
 	int CalculateBackgroundIndex(float camera_pos_y);
 
 	// 画像を読み込む変数
@@ -27,7 +27,7 @@ private:
 	// 空背景1
 	int m_handle_sky1;
 
-	// 描画する位置
+	// 描画する座標
 	Vec2 m_pos;
 
 	// 画像の幅

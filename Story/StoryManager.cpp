@@ -50,12 +50,12 @@ void StoryManager::Update()
 
 void StoryManager::Draw()
 {
-	// テキストボックスの描画位置を計算
+	// テキストボックスの描画座標を計算
 	float draw_x = (Game::SCREEN_WIDTH - m_box_width) * 0.5f;
 	float draw_y = Game::SCREEN_HEIGHT - m_box_height;
 	DrawGraphF(draw_x, draw_y, m_box_handle, true);
 
-	//// テキストの描画位置を計算
+	//// テキストの描画座標を計算
 	//float draw_text_x = draw_x + 100.0f;
 	//float draw_text_y = draw_y + 150.0f;
 	//DrawFormatStringToHandle(draw_text_x, draw_text_y, GetColor(0, 105, 148),
@@ -70,13 +70,13 @@ void StoryManager::Draw()
 	// 主人公の場合
 	case 0:
 	{
-		// [話者]の描画位置を計算
+		// [話者]の描画座標を計算
 		float draw_speaker_x = draw_x + 100.0f;
 		float draw_speaker_y = draw_y + 150.0f;
 		DrawFormatStringToHandle(draw_speaker_x, draw_speaker_y, GetColor(0, 105, 148),
 			m_story_font_handle, "【あなた】");
 
-		// テキストの描画位置を計算
+		// テキストの描画座標を計算
 		float draw_text_x = draw_speaker_x;
 		float draw_text_y = draw_speaker_y + 70.0f;
 		DrawFormatStringToHandle(draw_text_x, draw_text_y, GetColor(0, 105, 148),
@@ -87,13 +87,13 @@ void StoryManager::Draw()
 	// 王様の場合
 	case 1:
 	{
-		// [話者]の描画位置を計算
+		// [話者]の描画座標を計算
 		float draw_speaker_x = draw_x + 100.0f;
 		float draw_speaker_y = draw_y + 150.0f;
 		DrawFormatStringToHandle(draw_speaker_x, draw_speaker_y, GetColor(182, 0, 51),
 			m_story_font_handle, "【王様】");
 
-		// テキストの描画位置を計算
+		// テキストの描画座標を計算
 		float draw_text_x = draw_speaker_x;
 		float draw_text_y = draw_speaker_y + 70.0f;
 		DrawFormatStringToHandle(draw_text_x, draw_text_y, GetColor(182, 0, 51),

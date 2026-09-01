@@ -131,8 +131,8 @@ EnemyDatas LoadEnemy(const std::string& file_path)
 		// データをエネミー構造体に変換
 		enemy_data.m_stage = std::stoi(row[0]);
 		enemy_data.m_type = std::stoi(row[1]);
-		enemy_data.m_spawn.x = std::stof(row[2]);
-		enemy_data.m_spawn.y = std::stof(row[3]);
+		enemy_data.m_spawn_pos.x = std::stof(row[2]);
+		enemy_data.m_spawn_pos.y = std::stof(row[3]);
 		enemy_data.m_size = std::stof(row[4]);
 		enemy_data.m_file_pass = row[5];
 

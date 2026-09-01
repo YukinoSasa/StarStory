@@ -10,7 +10,7 @@ class EnemyBase : public CharacterBase
 public:
 	EnemyBase(EnemyData enemy_data);
 
-	virtual ~EnemyBase();
+	virtual ~EnemyBase() = 0;
 
 	// 初期化
 	virtual void Init();
@@ -27,12 +27,18 @@ public:
 	// プレイヤーを追跡
 	virtual void TrackPlayer(Vec2 player_pos);
 
-	// 初期位置に帰る
+	// 初期座標に帰る
 	virtual void ReturnToInitPos();
 
 protected:
-	//// 分割前の元の画像データ
-	//int m_original_handle;
+	// アニメーションの更新
+	virtual void UpdateAnimation();
+
+	// アニメーションの要素数
+	int m_animation_elements;
+
+	// アニメーションを更新するフレーム数
+	int m_animation_update_frame;
 
 	// 索敵範囲の矩形
 	Rect m_search_range;

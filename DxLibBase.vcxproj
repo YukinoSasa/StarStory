@@ -140,10 +140,10 @@
     <ClCompile Include="Input\Pad.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math\Rect.cpp" />
-    <ClCompile Include="Object\Character\Bat.cpp" />
+    <ClCompile Include="Object\Character\EnemyBat.cpp" />
     <ClCompile Include="Object\Character\Camera.cpp" />
     <ClCompile Include="Object\Character\CharacterBase.cpp" />
-    <ClCompile Include="Object\Character\Enemy.cpp" />
+    <ClCompile Include="Object\Character\EnemyGhost.cpp" />
     <ClCompile Include="Object\Character\EnemyBase.cpp" />
     <ClCompile Include="Object\Character\EnemyManager.cpp" />
     <ClCompile Include="Object\Character\Player.cpp" />
@@ -187,10 +187,10 @@
     <ClInclude Include="Input\Pad.h" />
     <ClInclude Include="Math\Rect.h" />
     <ClInclude Include="Math\Vec2.h" />
-    <ClInclude Include="Object\Character\Bat.h" />
+    <ClInclude Include="Object\Character\EnemyBat.h" />
     <ClInclude Include="Object\Character\Camera.h" />
     <ClInclude Include="Object\Character\CharacterBase.h" />
-    <ClInclude Include="Object\Character\Enemy.h" />
+    <ClInclude Include="Object\Character\EnemyGhost.h" />
     <ClInclude Include="Object\Character\EnemyBase.h" />
     <ClInclude Include="Object\Character\EnemyManager.h" />
     <ClInclude Include="Object\Character\Player.h" />

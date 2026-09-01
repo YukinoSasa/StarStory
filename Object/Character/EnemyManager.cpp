@@ -1,8 +1,8 @@
 #include <DxLib.h>
 #include "../../csv/LoadCsv.h"
+#include "EnemyBat.h"
+#include "EnemyGhost.h"
 #include "EnemyManager.h"
-#include "Enemy.h"
-#include "Bat.h"
 
 EnemyManager::EnemyManager(int current_stage_num)
 {
@@ -25,13 +25,13 @@ EnemyManager::EnemyManager(int current_stage_num)
 		// 巡回タイプの敵
 		case 0:
 		{
-			enemy = std::make_shared<Enemy>(enemy_data);
+			enemy = std::make_shared<EnemyGhost>(enemy_data);
 			break;
 		}
 		// 追跡タイプの敵
 		case 1:
 		{
-			enemy = std::make_shared<Bat>(enemy_data);
+			enemy = std::make_shared<EnemyBat>(enemy_data);
 			break;
 		}
 		}
@@ -46,7 +46,6 @@ void EnemyManager::Init()
 	{
 		enemy->Init();
 	}
-	
 }
 
 void EnemyManager::Update()
@@ -59,8 +58,6 @@ void EnemyManager::Update()
 
 void EnemyManager::Draw(Vec2 camera_pos)
 {
-	//DrawFormatString(0, 30, GetColor(255, 255, 255), m_enemy_datas[0].m_file_pass.c_str());
-
 	for (auto& enemy : m_p_enemies)
 	{
 		enemy->Draw(camera_pos);

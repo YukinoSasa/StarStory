@@ -9,7 +9,7 @@ namespace
 MovingPlatform::MovingPlatform(GimmickData gimmick_data)
 	:GimmickBase(gimmick_data)
 {
-	// ‰ŠúˆÊ’u‚ğ•Û‘¶
+	// ‰ŠúÀ•W‚ğ•Û‘¶
 	m_init_pos = m_pos;
 
 	// c‚É“®‚­°

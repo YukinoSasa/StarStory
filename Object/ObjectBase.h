@@ -12,7 +12,7 @@ public:
 
 	virtual ~ObjectBase() = 0;
 
-	// 当たり判定用矩形のゲッタ
+	// コリジョン矩形のゲッタ
 	const Rect GetRect() const { return m_rect; }
 
 protected:
@@ -25,13 +25,13 @@ protected:
 	// 画像の高さを保存する変数
 	float m_handle_height;
 
-	// 当たり判定の幅を保存する変数
+	// コリジョンの幅を保存する変数
 	float m_collision_width;
 
-	// 当たり判定の高さを保存する変数
+	// コリジョンの高さを保存する変数
 	float m_collision_height;
 
-	// 画像と当たり判定のオフセット
+	// 画像とコリジョンのオフセット
 	Vec2 m_handle_offset;
 
 	// オブジェクトの中心座標
@@ -39,6 +39,6 @@ protected:
 	// オブジェクトの移動量
 	Vec2 m_move;
 
-	// 当たり判定用矩形
+	// コリジョン用矩形
 	Rect m_rect;
 };

@@ -8,7 +8,7 @@ class Stage;
 class Box;
 
 /// <summary>
-/// 当たり判定を管理するクラス
+/// コリジョンを管理するクラス
 /// </summary>
 class CollisionManager
 {

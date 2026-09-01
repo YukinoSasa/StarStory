@@ -60,7 +60,7 @@
     <ClCompile Include="Object\Character\CharacterBase.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Character\Enemy.cpp">
+    <ClCompile Include="Object\Character\EnemyGhost.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Object\Character\EnemyManager.cpp">
@@ -117,7 +117,7 @@
     <ClCompile Include="Object\Gimmick\Spring.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Character\Bat.cpp">
+    <ClCompile Include="Object\Character\EnemyBat.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="Object\Character\EnemyBase.cpp">
@@ -191,7 +191,7 @@
     <ClInclude Include="Object\Character\CharacterBase.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Character\Enemy.h">
+    <ClInclude Include="Object\Character\EnemyGhost.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Object\Character\EnemyManager.h">
@@ -254,7 +254,7 @@
     <ClInclude Include="Object\Gimmick\Spring.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Character\Bat.h">
+    <ClInclude Include="Object\Character\EnemyBat.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Object\Character\EnemyBase.h">

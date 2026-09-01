@@ -4,7 +4,7 @@
 #include "CharacterBase.h"
 
 CharacterBase::CharacterBase()
-	:m_is_right(true), m_is_ground(false), m_is_alive(true)
+	:m_is_right(true), m_is_ground(false), m_is_alive(true), m_animation_frame(0), m_animation_timer(0)
 {
 
 }
@@ -23,10 +23,6 @@ void CharacterBase::Init()
 void CharacterBase::Update()
 {
 	Game::Gravity(m_move.y);
-
-	//// 当たったマップチップの矩形
-	//Rect chip_rect;
-	//CheckHitStage(chip_rect);
 }
 
 void CharacterBase::Draw(Vec2 camera_pos)
@@ -50,74 +46,7 @@ void CharacterBase::Draw(Vec2 camera_pos)
 	}
 
 #ifdef _DEBUG
-	// デバック時のみ当たり判定の矩形を描画
+	// デバック時のみコリジョンの矩形を描画
 	m_rect.Draw(camera_pos);
 #endif
 }
-
-//void CharacterBase::CheckHitStage(Rect& chip_rect)
-//{
-//	// 横から当たったかチェック
-//	m_pos.x += m_move.x;
-//	// 移動量を保存
-//	m_last_move.x = m_move.x;
-//
-//	// 横画面外に行けないようにする
-//	if (m_pos.x < 0.0f - (m_handle_width * 0.5f))
-//	{
-//		m_pos.x = 0;
-//	}
-//	else if (m_pos.x + (m_handle_width * 0.5f) > static_cast<float>(Game::SCREEN_WIDTH))
-//	{
-//		m_pos.x = static_cast<float>(Game::SCREEN_WIDTH);
-//	}
-//
-//	// 矩形の端をセット
-//	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y- 1.0f, m_collision_width, m_collision_height);
-//
-//	if (m_p_stage->IsCollision(m_rect, chip_rect))
-//	{
-//		if (m_move.x > 0.0f)
-//		{
-//			m_pos.x = chip_rect.GetLeftEdge() - m_collision_width * 0.5f;
-//		}
-//		else if (m_move.x < 0.0f)
-//		{
-//			m_pos.x = chip_rect.GetRightEdge() + m_collision_width * 0.5f;
-//		}
-//
-//		m_move.x = 0.0f;
-//	}
-//
-//	m_p_stage->IsTrigger(m_rect, chip_rect);
-//
-//	// 縦から当たったかチェック
-//	m_pos.y += m_move.y;
-//	// 移動量を保存
-//	m_last_move.y = m_move.y;
-//
-//	// 矩形の端をセット
-//	m_rect.CalculateEdges(m_pos.x - 1.0f, m_pos.y - 1.0f, m_collision_width, m_collision_height);
-//
-//	if (m_p_stage->IsCollision(m_rect, chip_rect))
-//	{
-//		if (m_move.y > 0.0f)
-//		{
-//			m_pos.y = chip_rect.GetTopEdge() - m_collision_height * 0.5f;
-//			m_move.y = 0.0f;
-//			m_is_ground = true;
-//		}
-//		else if (m_move.y < 0.0f)
-//		{
-//			m_pos.y = chip_rect.GetBottomEdge() + m_collision_height * 0.5f;
-//			m_move.y *= -1.0f;
-//		}
-//	}
-//
-//	m_p_stage->IsTrigger(m_rect, chip_rect);
-//}
-
-//void CharacterBase::Gravity()
-//{
-//	m_move.y += Game::GRAVITY;
-//}

@@ -2,7 +2,7 @@
 #include "SceneMain.h"
 #include "../Object/Character/Player.h"
 #include "../Object/Character/EnemyManager.h"
-#include "../Object/Character/Enemy.h"
+#include "../Object/Character/EnemyBase.h"
 #include "../Object/Item/Piece.h"
 #include "BackGround/BackGround.h"
 #include "../Object/CollisionManager.h"
@@ -22,7 +22,7 @@ namespace
 }
 
 SceneMain::SceneMain()
-	:m_current_stage_num(1), m_is_story(false), m_is_played_intro(false),
+	:m_current_stage_num(2), m_is_story(false), m_is_played_intro(false),
 	m_is_config(false), m_is_pause(false), m_is_goal(false)
 {
 	m_p_player = std::make_shared<Player>(m_game_data.m_spawn_pos);
@@ -136,12 +136,12 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		m_story_manager.PlayStory(StoryManager::Story::Intro);
 	}
 
-	if (m_p_player->GetPlayerCollectItem() >= 10)
+	if (m_p_player->GetPlayerCollectItem() >= 10 && m_p_player->GetIsGround())
 	{
 		m_story_manager.PlayStory(StoryManager::Story::One);
 	}
 
-	if (m_p_player->GetPlayerCollectItem() >= 35)
+	if (m_p_player->GetPlayerCollectItem() >= 35 && m_p_player->GetIsGround())
 	{
 		m_story_manager.PlayStory(StoryManager::Story::Two);
 	}

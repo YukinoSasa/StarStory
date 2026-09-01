@@ -26,6 +26,8 @@ public:
 	// 生きているかどうかのゲッタ
 	bool GetIsAlive() const { return m_is_alive; }
 
+	bool GetIsGround() const { return m_is_ground; }
+
 	// ステージポインタのセッタ
 	void SetStage(std::shared_ptr<Stage> stage) { m_p_stage = stage; }
 
@@ -36,14 +38,8 @@ public:
 	void SetIsGround(bool is_ground) { m_is_ground = is_ground; }
 
 protected:
-	// ステージとの当たり判定
-	void CheckHitStage(Rect& chip_rect);
-
 	// キャラクターが右向きかどうか
 	bool m_is_right;
-
-	// キャラクターの移動量を保存しておく変数
-	Vec2 m_last_move;
 
 	// 接地しているかどうか
 	bool m_is_ground;
@@ -53,4 +49,10 @@ protected:
 
 	// 生きているかどうか
 	bool m_is_alive;
+
+	// 現在のフレームで表示するアニメーションのフレーム番号
+	int m_animation_frame;
+
+	// アニメーションタイマー
+	int m_animation_timer;
 };

@@ -164,7 +164,7 @@ void Config::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_s
 
 void Config::Draw()
 {
-	// •`‰æˆÊ’u‚ğŒvZ
+	// •`‰æÀ•W‚ğŒvZ
 	float draw_x = (Game::SCREEN_WIDTH - m_handle_width) * 0.5f;
 	float draw_y = (Game::SCREEN_HEIGHT - m_handle_height) * 0.5f;
 

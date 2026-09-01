@@ -11,7 +11,7 @@ Stage::Stage(int current_stage_num) :
 	std::string path = "csv/Stage" + std::to_string(current_stage_num) + ".csv";
 	m_map_data = LoadMap(path);
 
-	// マップチップの当たり判定読み込み
+	// マップチップのコリジョン読み込み
 	m_collision_data = LoadCollision("csv/MapCollision.csv");
 
 	// マップチップの画像データ読み込み
@@ -81,7 +81,7 @@ bool Stage::IsCollisionX(const Rect& rect, Rect& chip_rect)
 {
 	for (auto& mapchip : m_p_mapchips)
 	{
-		// 当たり判定がないマップチップは飛ばす
+		// コリジョンがないマップチップは飛ばす
 		if (!mapchip->GetIsCollision())
 		{
 			continue;
@@ -112,7 +112,7 @@ bool Stage::IsCollisionY(const Rect& rect, Rect& chip_rect)
 {
 	for (auto& mapchip : m_p_mapchips)
 	{
-		// 当たり判定がないマップチップは飛ばす
+		// コリジョンがないマップチップは飛ばす
 		if (!mapchip->GetIsCollision())
 		{
 			continue;
@@ -151,7 +151,7 @@ bool Stage::IsTrigger(const Rect& rect, Rect& chip_rect)
 				continue;
 			}
 
-			// マップチップ3(ゴール),4(足場)の時当たり判定の矩形を持つ
+			// マップチップ3(ゴール),4(足場)の時コリジョンの矩形を持つ
 			Rect check_chip_rect;
 			// 矩形の中心座標を計算
 			float chip_x = (x * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);
@@ -165,7 +165,7 @@ bool Stage::IsTrigger(const Rect& rect, Rect& chip_rect)
 				// ぶつかったマップチップの矩形を設定
 				chip_rect.CalculateEdges(chip_x, chip_y, Game::MAPCHIP_SIZE, Game::MAPCHIP_SIZE);
 
-				// ゴールと接触時は当たり判定処理を行わない
+				// ゴールと接触時はコリジョン処理を行わない
 				if (m_map_data[y][x] == 7)
 				{
 					m_is_goal = true;
@@ -180,19 +180,19 @@ bool Stage::IsTrigger(const Rect& rect, Rect& chip_rect)
 bool Stage::IsGroundFoward(Rect& rect)
 {
 	// rectの位置に床があるかどうかを確認
-	// 当たり判定のあるチップだったらtrueを返す
+	// コリジョンのあるチップだったらtrueを返す
 	// それ以外だったらfalseを返す
 	for (int y = 0; y < (int)m_map_data.size(); y++)
 	{
 		for (int x = 0; x < (int)m_map_data[y].size(); x++)
 		{
-			// 当たり判定がないマップチップは飛ばす
+			// コリジョンがないマップチップは飛ばす
 			if (!IsCollisionChip(m_map_data[y][x]))
 			{
 				continue;
 			}
 
-			// 当たり判定ありのチップの場合矩形をもつ
+			// コリジョンありのチップの場合矩形をもつ
 			Rect check_chip_rect;
 			// 矩形の中心座標を計算
 			float chip_x = (x * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);

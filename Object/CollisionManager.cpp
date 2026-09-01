@@ -182,7 +182,7 @@ void CollisionManager::CheckGimmickY(
 	// プレイヤーがギミックに接している場合プレイヤー座標をセット
 	if (p_player->GetRect().IsCollisionY(p_gimmick->GetRect()))
 	{
-		// セーブポイントの場合スポーン位置を保存し、衝突処理をしない
+		// セーブポイントの場合スポーン座標を保存し、衝突処理をしない
 		if (p_gimmick->GetGimmickType() == 0)
 		{
 			game_data.m_spawn_pos = p_gimmick->GetGimmickPos();

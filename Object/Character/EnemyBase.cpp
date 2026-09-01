@@ -3,11 +3,9 @@
 #include "EnemyBase.h"
 
 EnemyBase::EnemyBase(EnemyData enemy_data)
-	:m_search_range()
+	:m_animation_elements(0), m_animation_update_frame(0), m_search_range()
 {
-	//m_original_handle = LoadGraph(enemy_data.m_file_pass.c_str());
-	// 敵のタイプcsvにもスクリプトにも追加する！！！１
-	m_pos = enemy_data.m_spawn;
+	m_pos = enemy_data.m_spawn_pos;
 	m_handle_width = enemy_data.m_size;
 	m_handle_height = enemy_data.m_size;
 }
@@ -24,7 +22,14 @@ void EnemyBase::Init()
 
 void EnemyBase::Update()
 {
+	// アニメーションの更新
+	m_animation_timer++;
 
+	if (m_animation_timer >= m_animation_update_frame)
+	{
+		UpdateAnimation();
+		m_animation_timer = 0;
+	}
 }
 
 void EnemyBase::Draw(Vec2 camera_pos)
@@ -48,10 +53,9 @@ void EnemyBase::Draw(Vec2 camera_pos)
 		DrawGraphF(screen_x, screen_y, m_handle, true);
 	}
 #ifdef _DEBUG
-	//// デバック時のみ当たり判定の矩形を描画
-	//m_rect.Draw(camera_pos);
+	// デバック時のみコリジョンの矩形を描画
+	m_rect.Draw(camera_pos);
 #endif
-
 }
 
 void EnemyBase::TrackPlayer(Vec2 player_pos)
@@ -61,5 +65,16 @@ void EnemyBase::TrackPlayer(Vec2 player_pos)
 
 void EnemyBase::ReturnToInitPos()
 {
+
+}
+
+void EnemyBase::UpdateAnimation()
+{
+	m_animation_frame++;
+
+	if (m_animation_frame > m_animation_elements - 1)
+	{
+		m_animation_frame = 0;
+	}
 
 }
