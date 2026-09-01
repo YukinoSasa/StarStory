@@ -13,8 +13,6 @@ class SceneManager
 public:
 	SceneManager();
 
-	~SceneManager();
-
 	// 初期化
 	void Init();
 
@@ -27,6 +25,7 @@ public:
 	// シーンを切り替える
 	void ChangeScene(std::unique_ptr<SceneBase> next_scene);
 
+	// シーンが終わったかどうかのゲッタ
 	bool GetIsGameEnd() const { return m_is_game_end; }
 	
 	// シーンの状態を列挙
@@ -38,15 +37,13 @@ public:
 		Gameover,
 	};
 
-private:
-	// 現在のシーンを保存する変数
-	SceneState m_scene_state;
-
-public:
 	// 現在のシーンのゲッタ
 	SceneState GetCurrentSceneState() const { return m_scene_state; }
 
 private:
+	// 現在のシーンを保存する変数
+	SceneState m_scene_state;
+
 	// シーン遷移待機時間のカウント
 	float m_wait_count;
 

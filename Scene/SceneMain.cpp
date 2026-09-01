@@ -1,29 +1,42 @@
 #include <DxLib.h>
 #include "../GameData.h"
-#include "SceneMain.h"
-#include "../Object/Character/Player.h"
+#include "../Input/Keyboard.h"
+#include "../Object/Character/Camera.h"
 #include "../Object/Character/EnemyManager.h"
 #include "../Object/Character/EnemyBase.h"
-#include "../Object/Item/Piece.h"
-#include "BackGround/BackGround.h"
+#include "../Object/Character/Player.h"
 #include "../Object/CollisionManager.h"
-#include "../Stage/Stage.h"
-#include "../Object/Character/Camera.h"
 #include "../Object/Gimmick/GimmickManager.h"
 #include "../Object/Gimmick/GimmickBase.h"
 #include "../Object/Item/ItemManager.h"
-#include "Menu/MenuPause.h"
-#include "../Input/Keyboard.h"
+#include "../Object/Item/Piece.h"
 #include "../Sound/SoundManager.h"
+#include "../Stage/Stage.h"
+#include "BackGround/BackGround.h"
+#include "Menu/MenuPause.h"
+#include "SceneMain.h"
 
 namespace
 {
 	// ストーリーのイントロを開始するフレームカウント
 	int intro_count = 0;
+
+	// リスポーンの待機時間
+	float WAIT_TIME_RESPAWN = 60.0f;
+	// デス後フレームのカウント
+	int wait_count_respawn = 0;
+
+	// ステージ遷移の待機時間
+	float WAIT_TIME_NEXT_STAGE = 60.0f;
+	// ステージ遷移フレームのカウント
+	int wait_count_next_stage = 0;
+
+	// 最終ステージ
+	int LAST_STAGE = 2;
 }
 
 SceneMain::SceneMain()
-	:m_current_stage_num(2), m_is_story(false), m_is_played_intro(false),
+	:m_current_stage_num(1), m_is_story(false), m_is_played_intro(false),
 	m_is_config(false), m_is_pause(false), m_is_goal(false)
 {
 	m_p_player = std::make_shared<Player>(m_game_data.m_spawn_pos);
@@ -62,7 +75,6 @@ void SceneMain::Init()
 {
 	m_p_player->Init();
 	m_p_enemy_manager->Init();
-	//m_p_piece->Init();
 	m_p_background->Init();
 	m_p_stage->Init();
 	m_p_item_manager->Init();
@@ -138,16 +150,17 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 	}
 
 	// ストーリー開始判定
-	if (m_p_player->GetPlayerCollectItem() >= GameData::STORY_ONE && m_p_player->GetIsGround())
+	if (m_p_player->GetPlayerCollectItem() >= GameData::STORY_ONE && CanPlayStory())
 	{
 		m_story_manager.PlayStory(StoryManager::Story::One);
 	}
 
-	if (m_p_player->GetPlayerCollectItem() >= GameData::STORY_TWO && m_p_player->GetIsGround())
+	if (m_p_player->GetPlayerCollectItem() >= GameData::STORY_TWO && CanPlayStory())
 	{
 		m_story_manager.PlayStory(StoryManager::Story::Two);
 	}
 
+	// ストーリー再生中は以降のUpdateをしない
 	if (m_story_manager.GetIsPlayingStory())
 	{
 		m_story_manager.Update();
@@ -163,14 +176,6 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 	m_p_enemy_manager->Update();
 	m_p_item_manager->Update();
 	m_p_camera->Update();
-
-	//if (m_story_manager.GetIsPlayingStory())
-	//{
-	//	m_story_manager.Update();
-
-	//	return;
-	//}
-
 	
 	// アイテム接触判定
 	for (auto& item : m_p_item_manager->GetItems())
@@ -195,27 +200,41 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		HitPlayerEnemy(m_p_player->GetRect(), enemy->GetRect());
 	}
 
-	// 死亡後シーン遷移のトリガーオン
+	// デス後1秒後にリスポーン位置にリスポーン
 	if (!m_p_player->GetIsAlive())
 	{
+		wait_count_respawn++;
+		if (wait_count_respawn < WAIT_TIME_RESPAWN)
+		{
+			return;
+		}
+
 		m_p_player->SetPlayerPosX(m_game_data.m_spawn_pos.x);
 		m_p_player->SetPlayerPosY(m_game_data.m_spawn_pos.y);
 
 		m_p_player->SetIsAlive(true);
-		//m_scene_result = SceneResult::Gameover;
-		//m_is_scene_end = true;
+
+		wait_count_respawn = 0;
 		return;
 	}
 
 
 	// クリア判定後次のステージへ
-	if (m_current_stage_num != 2 && m_p_stage->GetIsGoal())
+	if (m_current_stage_num != LAST_STAGE && m_p_stage->GetIsGoal())
 	{
+		wait_count_next_stage++;
+		if (wait_count_next_stage < WAIT_TIME_NEXT_STAGE)
+		{
+			return;
+		}
+
 		m_current_stage_num++;
+		wait_count_next_stage = 0;
+
 		LoadNextStage();
 	}
 	// 最終ステージクリア判定後シーン遷移のトリガーオン
-	else if (m_current_stage_num == 2 && m_p_stage->GetIsGoal())
+	else if (m_current_stage_num == LAST_STAGE && m_p_stage->GetIsGoal())
 	{
 		m_is_goal = true;
 		m_scene_result = SceneResult::Clear;
@@ -310,4 +329,25 @@ void SceneMain::LoadNextStage()
 	m_p_player->SetPlayerPosX(m_game_data.m_init_pos.x);
 	m_p_player->SetPlayerPosY(m_game_data.m_init_pos.y);
 	m_p_player->UpdateRect();
+}
+
+bool SceneMain::CanPlayStory()
+{
+	// 敵の索敵範囲にいない かつ 接地しているときtrue
+	for (auto& enemy : m_p_enemy_manager->GetEnemies())
+	{
+		if (m_p_player->GetRect().IsCollision(enemy->GetSearchRange()))
+		{
+			return false;
+		}
+	}
+
+	if (m_p_player->GetIsGround())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

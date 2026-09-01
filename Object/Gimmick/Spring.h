@@ -6,7 +6,7 @@ class Player;
 /// <summary>
 /// ギミックベースクラスを継承したスプリングクラス
 /// </summary>
-class Spring : public GimmickBase
+class Spring final : public GimmickBase
 {
 public:
 	Spring(GimmickData gimmick_data);

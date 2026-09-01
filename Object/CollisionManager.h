@@ -3,7 +3,9 @@
 #include "../Math/Rect.h"
 #include "../GameData.h"
 
-class Box;
+//class Box;
+class GimmickBase;
+class GimmickManager;
 class Player;
 class Stage;
 

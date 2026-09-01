@@ -53,19 +53,6 @@ void Player::Init()
 
 void Player::Update()
 {
-	// プレイヤー死亡の場合以降の処理を行わない
-	if (!m_is_alive)
-	{
-		return;
-	}
-
-	m_animation_state = Animation::Idle;
-
-	Move();
-	Jump();
-
-	CharacterBase::Update();
-
 	m_animation_timer++;
 
 	// アニメーションによって異なるフレーム数で更新
@@ -101,19 +88,33 @@ void Player::Update()
 
 		break;
 	}
+	case Animation::Dead:
+	{
+		UpdateAnimation();
+
+		break;
+	}
 	}
 
 	m_handle = m_handle_array[m_animation_frame];
+
+	// プレイヤー死亡の場合以降の処理を行わない
+	if (!m_is_alive)
+	{
+		m_animation_state = Animation::Dead;
+		return;
+	}
+
+	m_animation_state = Animation::Idle;
+
+	Move();
+	Jump();
+
+	CharacterBase::Update();
 }
 
 void Player::Draw(Vec2 camera_pos)
 {
-	// プレイヤー死亡の場合以降の処理を行わない
-	if (!m_is_alive)
-	{
-		return;
-	}
-
 	// キャラクター画像の左上の座標
 	float draw_x = m_pos.x - m_handle_width * 0.5f;
 	// 画像の下端とコリジョンの下端を合わせる
@@ -302,6 +303,10 @@ void Player::UpdateAnimation()
 	{
 		m_animation_frame = 28;
 		break;
+	}
+	case Animation::Dead:
+	{
+		m_animation_frame = 39;
 	}
 	}
 }

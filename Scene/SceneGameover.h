@@ -9,8 +9,6 @@ class SceneGameover : public SceneBase
 public:
 	SceneGameover();
 
-	~SceneGameover() = default;
-
 	// ‰Šú‰»
 	void Init();
 

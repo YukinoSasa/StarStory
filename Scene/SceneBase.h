@@ -37,23 +37,13 @@ public:
 		Gameover,
 	};
 
-protected:
-	//// シーン終了時の結果
-	//enum class SceneResult
-	//{
-	//	None,
-	//	Clear,
-	//	Gameover,
-	//};
+	// シーンの終了状態のゲッタ
+	SceneResult GetSceneResult() { return m_scene_result; }
 
+protected:
 	// シーンが終了したかどうか
 	bool m_is_scene_end;
 
 	// シーンの終了結果を保存する変数
 	SceneResult m_scene_result;
-
-public:
-	// シーンの終了状態のゲッタ
-	SceneResult GetSceneResult() { return m_scene_result; }
-
 };

@@ -7,7 +7,7 @@ class Player;
 /// <summary>
 /// ギミックベースクラスを継承したボックスクラス
 /// </summary>
-class Box : public GimmickBase
+class Box final : public GimmickBase
 {
 public:
 	Box(GimmickData gimmick_data);

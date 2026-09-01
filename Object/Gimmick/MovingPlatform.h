@@ -4,7 +4,7 @@
 /// <summary>
 /// ギミックベースクラスを継承した動く床クラス
 /// </summary>
-class MovingPlatform : public GimmickBase
+class MovingPlatform final : public GimmickBase
 {
 public:
 	MovingPlatform(GimmickData gimmick_data);

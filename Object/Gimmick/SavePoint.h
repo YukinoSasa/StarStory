@@ -4,7 +4,7 @@
 /// <summary>
 /// ギミックベースクラスを継承したセーブポイントクラス
 /// </summary>
-class SavePoint : public GimmickBase
+class SavePoint final : public GimmickBase
 {
 public:
 	SavePoint(GimmickData gimmick_data);

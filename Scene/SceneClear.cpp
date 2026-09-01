@@ -7,6 +7,9 @@ namespace
 {
 	// ストーリーを開始するフレームカウント
 	int intro_count = 0;
+
+	// アニメーションを更新するフレーム
+	int animation_update_frame = 15;
 }
 
 SceneClear::SceneClear()
@@ -46,7 +49,7 @@ void SceneClear::Init()
 
 void SceneClear::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager)
 {
-	// SceneClearに遷移後1フレーム待ってからイントロストーリー再生
+	// SceneClearに遷移後1フレーム待ってからストーリー再生
 	intro_count++;
 	if (intro_count > 1)
 	{
@@ -56,7 +59,7 @@ void SceneClear::Update(GameSetting& game_setting, std::shared_ptr<SoundManager>
 
 	// キャラクターのアニメーション
 	m_animation_timer++;
-	if (m_animation_timer >= 15)
+	if (m_animation_timer >= animation_update_frame)
 	{
 		UpdateAnimation();
 		m_animation_timer = 0;
@@ -107,9 +110,6 @@ void SceneClear::Draw()
 
 		DrawFormatStringToHandle(draw_x, draw_y, GetColor(0, 105, 148), m_font_handle, "Enterでタイトルへ");
 	}
-
-	//DrawFormatString(500, 500, GetColor(255, 255, 255), "GAME CLEAR!!!");
-	//DrawFormatString(500, 600, GetColor(255, 255, 255), "Enter : Return to Title");
 }
 
 void SceneClear::UpdateAnimation()

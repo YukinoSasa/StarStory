@@ -1,16 +1,15 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include "SceneBase.h"
 #include "../csv/LoadCsv.h"
-#include "../Math/Rect.h"
-#include "Menu/Config.h"
 #include "../GameData.h"
+#include "../Math/Rect.h"
 #include "../Story/StoryManager.h"
+#include "Menu/Config.h"
+#include "SceneBase.h"
 
 class Player;
 class EnemyManager;
-//class Enemy;
 class BackGround;
 class Stage;
 class Camera;
@@ -52,13 +51,14 @@ private:
 	// 次のステージを読み込む
 	void LoadNextStage();
 
+	// ストーリーを再生できる状態かどうか
+	bool CanPlayStory();
+
 	// プレイヤーのポインタ
 	std::shared_ptr<Player> m_p_player = nullptr;
 
 	// エネミーマネージャーのポインタ
 	std::shared_ptr<EnemyManager> m_p_enemy_manager = nullptr;
-
-	//std::vector<std::shared_ptr<Piece>> m_p_pieces;
 
 	// 背景のポインタ
 	std::shared_ptr<BackGround> m_p_background = nullptr;
@@ -81,6 +81,9 @@ private:
 	// ポーズメニューのポインタ
 	std::shared_ptr<MenuPause> m_p_menu_pause = nullptr;
 
+	// 設定
+	Config m_config;
+
 	// ストーリーマネージャー
 	StoryManager m_story_manager;
 
@@ -92,9 +95,6 @@ private:
 
 	// 現在のステージ番号
 	int m_current_stage_num;
-
-	// 設定
-	Config m_config;
 
 	// 設定中かどうか
 	bool m_is_config;
@@ -112,6 +112,6 @@ private:
 	// ゴールしたかどうか
 	bool m_is_goal;
 
-	// 仮！！！ゲームデータ
+	// ゲームデータ
 	struct GameData m_game_data;
 };
