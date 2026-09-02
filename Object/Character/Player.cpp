@@ -101,6 +101,7 @@ void Player::Update()
 	// プレイヤー死亡の場合以降の処理を行わない
 	if (!m_is_alive)
 	{
+		m_move = Vec2(0.0f, 0.0f);
 		m_animation_state = Animation::Dead;
 		return;
 	}
@@ -127,31 +128,35 @@ void Player::Draw(Vec2 camera_pos)
 	// キャラクターの向きによって画像を反転
 	if (m_is_right)
 	{
-		if (m_collected_item >= GameData::STORY_ONE && m_collected_item < GameData::STORY_TWO)
+		if (m_is_alive)
 		{
-			// 描画スクリーンを光用に変更
-			SetDrawScreen(m_glow_screen);
-			// 前フレームの内容を消す
-			ClearDrawScreen();
-			// 加算で光を描画
-			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
-			DrawGraphF(0, 0, m_glow_small_handle, true);
-		}
-		else if (m_collected_item >= GameData::STORY_TWO)
-		{
-			// 描画スクリーンを光用に変更
-			SetDrawScreen(m_glow_screen);
-			// 前フレームの内容を消す
-			ClearDrawScreen();
-			// 加算で光を描画
-			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
-			DrawGraphF(0, 0, m_glow_big_handle, true);
-		}
+			if (m_collected_item >= GameData::STORY_ONE && m_collected_item < GameData::STORY_TWO && m_is_alive)
+			{
+				// 描画スクリーンを光用に変更
+				SetDrawScreen(m_glow_screen);
+				// 前フレームの内容を消す
+				ClearDrawScreen();
+				// 加算で光を描画
+				SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+				DrawGraphF(0, 0, m_glow_small_handle, true);
+			}
+			else if (m_collected_item >= GameData::STORY_TWO && m_is_alive)
+			{
+				// 描画スクリーンを光用に変更
+				SetDrawScreen(m_glow_screen);
+				// 前フレームの内容を消す
+				ClearDrawScreen();
+				// 加算で光を描画
+				SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+				DrawGraphF(0, 0, m_glow_big_handle, true);
+			}
 
-		// 描画スクリーンを通常に戻す
-		SetDrawScreen(DX_SCREEN_BACK);
-		// 光スクリーンの描画
-		DrawGraphF(screen_x, screen_y, m_glow_screen, true);
+			// 描画スクリーンを通常に戻す
+			SetDrawScreen(DX_SCREEN_BACK);
+			// 光スクリーンの描画
+			DrawGraphF(screen_x, screen_y, m_glow_screen, true);
+
+		}
 
 		// ブレンドモードを通常に戻しプレイヤーを描画
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -159,32 +164,36 @@ void Player::Draw(Vec2 camera_pos)
 	}
 	else
 	{
-		if (m_collected_item >= GameData::STORY_ONE && m_collected_item < GameData::STORY_TWO)
+		if (m_is_alive)
 		{
-			// 描画スクリーンを光用に変更
-			SetDrawScreen(m_glow_screen);
-			// 前フレームの内容を消す
-			ClearDrawScreen();
-			// 加算で光を描画
-			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
-			DrawGraphF(0, 0, m_glow_small_handle, true);
+			if (m_collected_item >= GameData::STORY_ONE && m_collected_item < GameData::STORY_TWO && m_is_alive)
+			{
+				// 描画スクリーンを光用に変更
+				SetDrawScreen(m_glow_screen);
+				// 前フレームの内容を消す
+				ClearDrawScreen();
+				// 加算で光を描画
+				SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+				DrawGraphF(0, 0, m_glow_small_handle, true);
+
+			}
+			else if (m_collected_item >= GameData::STORY_TWO && m_is_alive)
+			{
+				// 描画スクリーンを光用に変更
+				SetDrawScreen(m_glow_screen);
+				// 前フレームの内容を消す
+				ClearDrawScreen();
+				// 加算で光を描画
+				SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
+				DrawGraphF(0, 0, m_glow_big_handle, true);
+			}
+
+			// 描画スクリーンを通常に戻す
+			SetDrawScreen(DX_SCREEN_BACK);
+			// 光スクリーンの描画
+			DrawGraphF(screen_x, screen_y, m_glow_screen, true);
 
 		}
-		else if (m_collected_item >= GameData::STORY_TWO)
-		{
-			// 描画スクリーンを光用に変更
-			SetDrawScreen(m_glow_screen);
-			// 前フレームの内容を消す
-			ClearDrawScreen();
-			// 加算で光を描画
-			SetDrawBlendMode(DX_BLENDMODE_ADD, 255);
-			DrawGraphF(0, 0, m_glow_big_handle, true);
-		}
-
-		// 描画スクリーンを通常に戻す
-		SetDrawScreen(DX_SCREEN_BACK);
-		// 光スクリーンの描画
-		DrawGraphF(screen_x, screen_y, m_glow_screen, true);
 		
 		// ブレンドモードを通常に戻しプレイヤーを描画
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
@@ -196,7 +205,7 @@ void Player::Draw(Vec2 camera_pos)
 	m_rect.Draw(camera_pos);
 	DrawFormatString(0, 30, GetColor(255, 255, 255), "PlayerPos : %f , %f", m_pos.x, m_pos.y);
 	DrawFormatString(1100, 0, GetColor(255, 255, 255), "集めたかけら : %d", m_collected_item);
-	//DrawFormatString(0, 90, GetColor(255, 255, 255), "接地 : %d", m_is_ground);
+	//DrawFormatString(0, 90, GetColor(255, 255, 255), "生きているか : %d", m_is_alive);
 
 #endif
 }

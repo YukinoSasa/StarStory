@@ -76,7 +76,7 @@ private:
 	float m_slider_bgm_pos_x;
 	float m_slider_se_pos_x;
 
-	// BGM‘å‚«‚³‰¼
+	// Œ»İ‚Ì‰¹—Ê‚Ì‘å‚«‚³
 	int m_volume_bgm;
 	int m_volume_se;
 };

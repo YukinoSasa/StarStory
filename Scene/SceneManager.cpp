@@ -23,6 +23,11 @@ SceneManager::SceneManager() :
 	m_p_sound_manager = std::make_shared<SoundManager>();
 }
 
+SceneManager::~SceneManager()
+{
+
+}
+
 void SceneManager::Init()
 {
 	m_p_current_scene->Init();

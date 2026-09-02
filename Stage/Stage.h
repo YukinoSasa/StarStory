@@ -5,8 +5,8 @@
 #include "../Math/Rect.h"
 
 class Camera;
-class Piece;
 class Mapchip;
+class Piece;
 
 /// <summary>
 /// マップのデータを持つステージクラス
@@ -20,9 +20,6 @@ public:
 
 	// 初期化
 	void Init();
-
-	// 更新
-	void Update();
 
 	// 描画
 	void Draw(Vec2 camera_pos);

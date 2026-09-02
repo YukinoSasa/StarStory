@@ -21,11 +21,10 @@ private:
 	// ƒJƒƒ‰‚ÌÀ•W‚ğ‚à‚Æ‚É•`‰æ‚Ìfor•¶‚Ìi‚Ì’l‚ğŒvZ‚·‚é
 	int CalculateBackgroundIndex(float camera_pos_y);
 
-	// ‰æ‘œ‚ğ“Ç‚İ‚Ş•Ï”
-	// ’nã”wŒi
-	int m_handle_ground;
-	// ‹ó”wŒi1
-	int m_handle_sky1;
+	//// ’nã”wŒi
+	//int m_handle_ground;
+	// ”wŒi‰æ‘œ‚Ìƒnƒ“ƒhƒ‹
+	int m_bg_handle;
 
 	// •`‰æ‚·‚éÀ•W
 	Vec2 m_pos;

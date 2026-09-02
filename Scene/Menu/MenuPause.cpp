@@ -82,7 +82,6 @@ void MenuPause::Update(std::shared_ptr<SoundManager> p_sound_manager)
 		{
 			p_sound_manager->PlaySE(SoundManager::SeType::Enter);
 			// 内容を保存しタイトルシーンへ遷移
-			//m_is_selected_title = true;
 			m_current_state = MenuPauseState::SelectedReturnToTitle;
 		}
 		// 下を押したとき選択状態をゲームへ戻るに変更
@@ -206,30 +205,6 @@ void MenuPause::Draw()
 		break;
 	}
 	}
-	
-	//// 文字列のサイズを取得
-	//width = GetDrawFormatStringWidthToHandle(m_font_item_handle, "ゲームへもどる");
-	//// 文字列の描画座標を計算
-	//draw_x = (Game::SCREEN_WIDTH - width) * 0.5f;
-	//draw_y += 125.0f;
-
-	//DrawFormatStringToHandle(draw_x, draw_y, GetColor(255, 255, 255), m_font_item_handle, "ゲームにもどる");
-
-	//// 文字列のサイズを取得
-	//width = GetDrawFormatStringWidthToHandle(m_font_item_handle, "せってい");
-	//// 文字列の描画座標を計算
-	//draw_x = (Game::SCREEN_WIDTH - width) * 0.5f;
-	//draw_y += 80.0f;
-
-	//DrawFormatStringToHandle(draw_x, draw_y, GetColor(255, 255, 255), m_font_item_handle, "せってい");
-
-	//// 文字列のサイズを取得
-	//width = GetDrawFormatStringWidthToHandle(m_font_item_handle, "タイトルへ");
-	//// 文字列の描画座標を計算
-	//draw_x = (Game::SCREEN_WIDTH - width) * 0.5f;
-	//draw_y += 80.0f;
-
-	//DrawFormatStringToHandle(draw_x, draw_y, GetColor(255, 255, 255), m_font_item_handle, "タイトルへ");
 }
 
 void MenuPause::SetSelectedItem()

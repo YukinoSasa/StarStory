@@ -18,6 +18,7 @@ public:
 	// XV
 	void Update(const GameSetting& game_setting, SceneManager::SceneState current_scene);
 
+	// SE‚Ìí—Ş
 	enum class SeType
 	{
 		Enter,

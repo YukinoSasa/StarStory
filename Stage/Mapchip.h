@@ -15,9 +15,6 @@ public:
 	// 初期化
 	void Init();
 
-	// 更新
-	void Update();
-
 	// 描画
 	void Draw(Vec2 camera_pos, int* handle_array);
 
@@ -33,9 +30,6 @@ private:
 
 	// コリジョン矩形
 	Rect m_rect;
-
-	//// マップチップの画像データ配列
-	//int m_handle_array[190];
 
 	// 描画するタイル番号
 	int m_tile;

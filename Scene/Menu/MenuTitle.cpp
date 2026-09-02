@@ -18,11 +18,6 @@ MenuTitle::~MenuTitle()
 	DeleteFontToHandle(m_font_selected_handle);
 }
 
-void MenuTitle::Init()
-{
-
-}
-
 void MenuTitle::Update(std::shared_ptr<SoundManager> p_sound_manager)
 {
 	switch (m_selected_item)
@@ -34,40 +29,17 @@ void MenuTitle::Update(std::shared_ptr<SoundManager> p_sound_manager)
 			p_sound_manager->PlaySE(SoundManager::SeType::Enter);
 			m_current_state = MenuTitleState::SelectedNewGame;
 		}
-		// 下を押したとき選択状態をロードに変更
-		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
-		{
-			p_sound_manager->PlaySE(SoundManager::SeType::Select);
-			m_selected_item = MenuTitleItem::Load;
-		}
-		// 上を押したとき選択状態をゲーム終了に変更
-		if (Keyboard::IsTrigger(KEY_INPUT_UP))
-		{
-			p_sound_manager->PlaySE(SoundManager::SeType::Select);
-			m_selected_item = MenuTitleItem::Exit;
-		}
-
-		break;
-	}
-	case MenuTitleItem::Load:
-	{
-		if (Keyboard::IsTrigger(KEY_INPUT_RETURN))
-		{
-			p_sound_manager->PlaySE(SoundManager::SeType::Enter);
-			// メインシーンへ遷移し、保存された箇所からスタートする
-			m_current_state = MenuTitleState::SelectedLoad;
-		}
 		// 下を押したとき選択状態を設定に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_DOWN))
 		{
 			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuTitleItem::Config;
 		}
-		// 上を押したとき選択状態をゲーム開始に変更
+		// 上を押したとき選択状態をゲーム終了に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_UP))
 		{
 			p_sound_manager->PlaySE(SoundManager::SeType::Select);
-			m_selected_item = MenuTitleItem::NewGame;
+			m_selected_item = MenuTitleItem::Exit;
 		}
 
 		break;
@@ -86,11 +58,11 @@ void MenuTitle::Update(std::shared_ptr<SoundManager> p_sound_manager)
 			p_sound_manager->PlaySE(SoundManager::SeType::Select);
 			m_selected_item = MenuTitleItem::Exit;
 		}
-		// 上を押したとき選択状態をロードに変更
+		// 上を押したとき選択状態をゲーム開始に変更
 		if (Keyboard::IsTrigger(KEY_INPUT_UP))
 		{
 			p_sound_manager->PlaySE(SoundManager::SeType::Select);
-			m_selected_item = MenuTitleItem::Load;
+			m_selected_item = MenuTitleItem::NewGame;
 		}
 
 		break;
@@ -128,37 +100,25 @@ void MenuTitle::Draw()
 	case MenuTitleItem::NewGame:
 	{
 
-		DrawFormatStringToHandle(900, 475, GetColor(0, 105, 148), m_font_selected_handle, "最初からはじめる");
-		DrawFormatStringToHandle(900, 550, GetColor(255, 255, 255), m_font_item_handle, "続きからはじめる");
-		DrawFormatStringToHandle(900, 625, GetColor(255, 255, 255), m_font_item_handle, "せってい");
-		DrawFormatStringToHandle(900, 700, GetColor(255, 255, 255), m_font_item_handle, "ゲームをおわる");
-
-		break;
-	}
-	case MenuTitleItem::Load:
-	{
-		DrawFormatStringToHandle(900, 475, GetColor(255, 255, 255), m_font_item_handle, "最初からはじめる");
-		DrawFormatStringToHandle(900, 550, GetColor(0, 105, 148), m_font_selected_handle, "続きからはじめる");
-		DrawFormatStringToHandle(900, 625, GetColor(255, 255, 255), m_font_item_handle, "せってい");
-		DrawFormatStringToHandle(900, 700, GetColor(255, 255, 255), m_font_item_handle, "ゲームをおわる");
+		DrawFormatStringToHandle(1100, 475, GetColor(182, 0, 51), m_font_selected_handle, "最初からはじめる");
+		DrawFormatStringToHandle(1100, 550, GetColor(255, 255, 255), m_font_item_handle, "せってい");
+		DrawFormatStringToHandle(1100, 625, GetColor(255, 255, 255), m_font_item_handle, "ゲームをおわる");
 
 		break;
 	}
 	case MenuTitleItem::Config:
 	{
-		DrawFormatStringToHandle(900, 475, GetColor(255, 255, 255), m_font_item_handle, "最初からはじめる");
-		DrawFormatStringToHandle(900, 550, GetColor(255, 255, 255), m_font_item_handle, "続きからはじめる");
-		DrawFormatStringToHandle(900, 625, GetColor(0, 105, 148), m_font_selected_handle, "せってい");
-		DrawFormatStringToHandle(900, 700, GetColor(255, 255, 255), m_font_item_handle, "ゲームをおわる");
+		DrawFormatStringToHandle(1100, 475, GetColor(255, 255, 255), m_font_item_handle, "最初からはじめる");
+		DrawFormatStringToHandle(1100, 550, GetColor(182, 0, 51), m_font_selected_handle, "せってい");
+		DrawFormatStringToHandle(1100, 625, GetColor(255, 255, 255), m_font_item_handle, "ゲームをおわる");
 
 		break;
 	}
 	case MenuTitleItem::Exit:
 	{
-		DrawFormatStringToHandle(900, 475, GetColor(255, 255, 255), m_font_item_handle, "最初からはじめる");
-		DrawFormatStringToHandle(900, 550, GetColor(255, 255, 255), m_font_item_handle, "続きからはじめる");
-		DrawFormatStringToHandle(900, 625, GetColor(255, 255, 255), m_font_item_handle, "せってい");
-		DrawFormatStringToHandle(900, 700, GetColor(0, 105, 148), m_font_selected_handle, "ゲームをおわる");
+		DrawFormatStringToHandle(1100, 475, GetColor(255, 255, 255), m_font_item_handle, "最初からはじめる");
+		DrawFormatStringToHandle(1100, 550, GetColor(255, 255, 255), m_font_item_handle, "せってい");
+		DrawFormatStringToHandle(1100, 625, GetColor(182, 0, 51), m_font_selected_handle, "ゲームをおわる");
 
 		break;
 	}

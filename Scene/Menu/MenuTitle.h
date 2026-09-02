@@ -11,9 +11,6 @@ public:
 
 	~MenuTitle() override;
 
-	// ‰Šú‰»
-	void Init() override;
-
 	// XV
 	void Update(std::shared_ptr<SoundManager> p_sound_manager) override;
 
@@ -25,7 +22,6 @@ public:
 	{
 		None,
 		SelectedNewGame,
-		SelectedLoad,
 		SelectedConfig,
 		SelectedExit,
 	};
@@ -41,7 +37,6 @@ private:
 	enum class MenuTitleItem
 	{
 		NewGame,
-		Load,
 		Config,
 		Exit,
 	};

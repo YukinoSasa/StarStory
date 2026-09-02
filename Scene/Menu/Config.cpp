@@ -4,6 +4,16 @@
 #include "../../Sound/SoundManager.h"
 #include "Config.h"
 
+namespace
+{
+	// 1段階で変化する音量(17段階で0～255へ変化)
+	int volume_change = 15;
+
+	// スライダーの1段階の間隔
+	// (1248.f(slider右端) - 800.f(slider左端)) / 17(soundの変化段階)
+	float slider_interval = 26.0f;
+}
+
 Config::Config()
 	:m_handle_width(0.0f), m_handle_height(0.0f), m_is_close_selected(false), m_slider_bgm_pos_x(0.0f), m_slider_se_pos_x(0.0f), m_volume_bgm(-1), m_volume_se(-1)
 {
@@ -46,9 +56,8 @@ void Config::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_s
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RIGHT))
 		{
-			game_setting.m_volume_bgm += 15;
-			// (1248.f(slider右端) - 800.f(slider左端)) / 17(soundの変化段階)
-			m_slider_bgm_pos_x += 26.0f;
+			game_setting.m_volume_bgm += volume_change;
+			m_slider_bgm_pos_x += slider_interval;
 
 			if (game_setting.m_volume_bgm > 255)
 			{
@@ -62,8 +71,8 @@ void Config::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_s
 		}
 		else if (Keyboard::IsTrigger(KEY_INPUT_LEFT))
 		{
-			game_setting.m_volume_bgm -= 15;
-			m_slider_bgm_pos_x -= 26.0f;
+			game_setting.m_volume_bgm -= volume_change;
+			m_slider_bgm_pos_x -= slider_interval;
 
 			if (game_setting.m_volume_bgm < 0)
 			{
@@ -92,8 +101,8 @@ void Config::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_s
 	{
 		if (Keyboard::IsTrigger(KEY_INPUT_RIGHT))
 		{
-			game_setting.m_volume_se += 15;
-			m_slider_se_pos_x += 26.0f;
+			game_setting.m_volume_se += volume_change;
+			m_slider_se_pos_x += slider_interval;
 
 			if (game_setting.m_volume_se > 255)
 			{
@@ -109,8 +118,8 @@ void Config::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_s
 		}
 		else if (Keyboard::IsTrigger(KEY_INPUT_LEFT))
 		{
-			game_setting.m_volume_se -= 15;
-			m_slider_se_pos_x -= 26.0f;
+			game_setting.m_volume_se -= volume_change;
+			m_slider_se_pos_x -= slider_interval;
 
 			if (game_setting.m_volume_se < 0)
 			{
@@ -243,14 +252,12 @@ void Config::Draw()
 
 		DrawFormatStringToHandle(draw_x, draw_y, GetColor(255, 255, 255), m_font_item_handle, "もどる");
 
-		// BGMハンドルの描画座標を計算
-		//float draw_handle_x = 1248.0f;
+		// BGMハンドルの描画座標
 		float draw_handle_y = 470.0f;
 
 		DrawGraphF(m_slider_bgm_pos_x, draw_handle_y, m_slider_selected_handle, true);
 
-		// SEハンドルの描画座標を計算
-		//draw_handle_x = 900.0f;
+		// SEハンドルの描画座標
 		draw_handle_y = 570.0f;
 
 		DrawGraphF(m_slider_se_pos_x, draw_handle_y, m_slider_handle, true);
@@ -267,14 +274,12 @@ void Config::Draw()
 
 		DrawFormatStringToHandle(draw_x, draw_y, GetColor(255, 255, 255), m_font_item_handle, "もどる");
 
-		// BGMハンドルの描画座標を計算
-		//float draw_handle_x = 900.0f;
+		// BGMハンドルの描画座標
 		float draw_handle_y = 470.0f;
 
 		DrawGraphF(m_slider_bgm_pos_x, draw_handle_y, m_slider_handle, true);
 
-		// SEハンドルの描画座標を計算
-		//draw_handle_x = 900.0f;
+		// SEハンドルの描画座標
 		draw_handle_y = 570.0f;
 
 		DrawGraphF(m_slider_se_pos_x, draw_handle_y, m_slider_selected_handle, true);
@@ -291,14 +296,12 @@ void Config::Draw()
 
 		DrawFormatStringToHandle(draw_x, draw_y, GetColor(0, 105, 148), m_font_item_handle, "もどる");
 
-		// BGMハンドルの描画座標を計算
-		//float draw_handle_x = 900.0f;
+		// BGMハンドルの描画座標
 		float draw_handle_y = 470.0f;
 
 		DrawGraphF(m_slider_bgm_pos_x, draw_handle_y, m_slider_handle, true);
 
-		// ハンドルの描画座標を計算
-		//draw_handle_x = 900.0f;
+		// ハンドルの描画座標
 		draw_handle_y = 570.0f;
 
 		DrawGraphF(m_slider_se_pos_x, draw_handle_y, m_slider_handle, true);
@@ -306,7 +309,4 @@ void Config::Draw()
 		break;
 	}
 	}
-
-	//DrawFormatString(0, 0, GetColor(255, 255, 255), "BGM : %d", m_volume_bgm);
-	//DrawFormatString(0, 30, GetColor(255, 255, 255), "SE : %d", m_volume_se);
 }

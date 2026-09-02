@@ -52,28 +52,11 @@ void Stage::Init()
 	}
 }
 
-void Stage::Update()
-{
-
-}
-
 void Stage::Draw(Vec2 camera_pos)
 {
 	for (auto& mapchip : m_p_mapchips)
 	{
 		mapchip->Draw(camera_pos, m_handle_array);
-	}
-
-	//DrawFormatString(0, 30, GetColor(255, 255, 255), "cameraX : %f", camera_pos.x);
-	//DrawFormatString(0, 60, GetColor(255, 255, 255), "stage_height : %f", m_stage_height);
-	//float width1, height1;
-	//GetGraphSizeF(m_handle1, &width1, &height1);
-
-	//DrawFormatString(0, 90, GetColor(255, 255, 255), "block w x h : %f x %f", width1, height1);
-
-	if (m_is_goal)
-	{
-		DrawFormatString(1200, 50, GetColor(0, 255, 255), "GOAL!!!");
 	}
 }
 
@@ -145,13 +128,13 @@ bool Stage::IsTrigger(const Rect& rect, Rect& chip_rect)
 	{
 		for (int x = 0; x < (int)m_map_data[y].size(); x++)
 		{
-			// マップチップ0,1(床),2(足場)はTrigger判定がないので飛ばす
-			if (m_map_data[y][x] == 0 || m_map_data[y][x] == 1 || m_map_data[y][x] == 2)
+			// コリジョンがあるマップチップはTrigger判定がないので飛ばす
+			if (IsCollisionChip(m_map_data[y][x]))
 			{
 				continue;
 			}
 
-			// マップチップ3(ゴール),4(足場)の時コリジョンの矩形を持つ
+			// マップチップ7(ゴール)の時、矩形を持つ
 			Rect check_chip_rect;
 			// 矩形の中心座標を計算
 			float chip_x = (x * Game::MAPCHIP_SIZE) + (Game::MAPCHIP_SIZE * 0.5f);

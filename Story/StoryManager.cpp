@@ -1,7 +1,7 @@
 #include <DxLib.h>
 #include <algorithm>
-#include "../GameConst.h"
 #include "../csv/LoadCsv.h"
+#include "../GameConst.h"
 #include "../Input/Keyboard.h"
 #include "StoryManager.h"
 
@@ -54,12 +54,6 @@ void StoryManager::Draw()
 	float draw_x = (Game::SCREEN_WIDTH - m_box_width) * 0.5f;
 	float draw_y = Game::SCREEN_HEIGHT - m_box_height;
 	DrawGraphF(draw_x, draw_y, m_box_handle, true);
-
-	//// テキストの描画座標を計算
-	//float draw_text_x = draw_x + 100.0f;
-	//float draw_text_y = draw_y + 150.0f;
-	//DrawFormatStringToHandle(draw_text_x, draw_text_y, GetColor(0, 105, 148),
-	//	m_story_font_handle, m_current_text.c_str());
 
 	DrawFormatStringToHandle(1400, 925, GetColor(0, 105, 148),
 		m_story_font_handle, "Enter");
@@ -118,6 +112,7 @@ void StoryManager::PlayStory(Story play_story)
 	{
 	case Story::Intro:
 	{
+		// 現在のストーリーリストに追加する
 		m_current_story_list.clear();
 
 		for (auto& story_text : m_story_datas)
@@ -128,6 +123,7 @@ void StoryManager::PlayStory(Story play_story)
 			}
 		}
 
+		// 初めの文を現在のテキストに設定
 		m_story_index = 0;
 		m_current_text = m_current_story_list[m_story_index].m_text;
 
@@ -137,6 +133,7 @@ void StoryManager::PlayStory(Story play_story)
 	}
 	case Story::One:
 	{
+		// 現在のストーリーリストに追加する
 		m_current_story_list.clear();
 
 		for (auto& story_text : m_story_datas)
@@ -147,6 +144,7 @@ void StoryManager::PlayStory(Story play_story)
 			}
 		}
 
+		// 初めの文を現在のテキストに設定
 		m_story_index = 0;
 		m_current_text = m_current_story_list[m_story_index].m_text;
 
@@ -156,6 +154,7 @@ void StoryManager::PlayStory(Story play_story)
 	}
 	case Story::Two:
 	{
+		// 現在のストーリーリストに追加する
 		m_current_story_list.clear();
 
 		for (auto& story_text : m_story_datas)
@@ -166,6 +165,7 @@ void StoryManager::PlayStory(Story play_story)
 			}
 		}
 
+		// 初めの文を現在のテキストに設定
 		m_story_index = 0;
 		m_current_text = m_current_story_list[m_story_index].m_text;
 
@@ -175,6 +175,7 @@ void StoryManager::PlayStory(Story play_story)
 	}
 	case Story::End:
 	{
+		// 現在のストーリーリストに追加する
 		m_current_story_list.clear();
 
 		for (auto& story_text : m_story_datas)
@@ -183,10 +184,9 @@ void StoryManager::PlayStory(Story play_story)
 			{
 				m_current_story_list.push_back(story_text);
 			}
-
-
 		}
 
+		// 初めの文を現在のテキストに設定
 		m_story_index = 0;
 		m_current_text = m_current_story_list[m_story_index].m_text;
 

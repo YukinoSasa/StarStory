@@ -13,6 +13,8 @@ class SceneManager
 public:
 	SceneManager();
 
+	~SceneManager();
+
 	// ‰Šú‰»
 	void Init();
 
