@@ -12,6 +12,7 @@
 #include "../Object/Item/Piece.h"
 #include "../Sound/SoundManager.h"
 #include "../Stage/Stage.h"
+#include "../UI/UIManager.h"
 #include "BackGround/BackGround.h"
 #include "Menu/MenuPause.h"
 #include "SceneMain.h"
@@ -48,6 +49,7 @@ SceneMain::SceneMain()
 	m_p_gimmick_manager = std::make_shared<GimmickManager>(m_current_stage_num);
 	m_p_item_manager = std::make_shared<ItemManager>(m_current_stage_num);
 	m_p_menu_pause = std::make_shared<MenuPause>();
+	m_p_ui_manager = std::make_shared<UIManager>();
 
 	m_p_player->SetStage(m_p_stage);
 
@@ -58,17 +60,11 @@ SceneMain::SceneMain()
 	}
 	m_p_camera->SetPlayer(m_p_player);
 	m_p_stage->SetCamera(m_p_camera);
-	
-	m_collect_bg_handle = LoadGraph("Data/UI/collect_background.png");
-	m_piece_ui_handle = LoadGraph("Data/UI/piece_ui.png");
-	m_collect_font_handle = CreateFontToHandle("クラフト明朝", 64, -1);
 }
 
 SceneMain::~SceneMain()
 {
-	DeleteGraph(m_collect_bg_handle);
-	DeleteFontToHandle(m_collect_font_handle);
-	DeleteFontToHandle(m_piece_ui_handle);
+
 }
 
 void SceneMain::Init()
@@ -169,6 +165,13 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 	}
 
 	m_p_gimmick_manager->Update(m_p_player->GetRect(), m_p_player->GetPlayerMove());
+
+	// 箱ギミックリセット判定
+	if (Keyboard::IsTrigger(KEY_INPUT_R))
+	{
+		m_p_gimmick_manager->ResetGimmickPos();
+	}
+
 	m_p_collision_manager->CheckBoxCollisionY(m_p_gimmick_manager, m_p_stage);
 	m_p_player->Update();
 	m_p_collision_manager->CheckPlayerCollisionX(m_p_player, m_p_stage, m_p_gimmick_manager, m_game_data);
@@ -249,13 +252,14 @@ void SceneMain::Draw()
 	m_p_gimmick_manager->Draw(m_p_camera->GetCameraPos());
 	m_p_item_manager->Draw(m_p_camera->GetCameraPos());
 	m_p_enemy_manager->Draw(m_p_camera->GetCameraPos());
-	m_p_player->Draw(m_p_camera->GetCameraPos());
+	m_p_ui_manager->Draw(m_p_camera->GetCameraPos(), m_p_player->GetPlayerCollectItem());
 
-	// 星のかけらカウントUIの描画
-	DrawGraphF(1600.0f, 0.0f, m_collect_bg_handle, true);
-	DrawGraphF(1680.0f, 30.0f, m_piece_ui_handle, true);
-	DrawFormatStringToHandle(1800.0f, 50.0f, GetColor(0, 105,148), 
-		m_collect_font_handle, "%d", m_p_player->GetPlayerCollectItem());
+	if (m_current_stage_num == 1)
+	{
+		m_p_ui_manager->DrawGuideUI(m_p_camera->GetCameraPos());
+	}
+
+	m_p_player->Draw(m_p_camera->GetCameraPos());
 
 	// ストーリー中の場合ストーリーのテキストboxを描画
 	if (m_story_manager.GetIsPlayingStory())

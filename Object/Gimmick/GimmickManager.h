@@ -47,6 +47,9 @@ public:
 	// ギミックのゲッタ
 	std::vector<std::shared_ptr<GimmickBase>> GetGimmicks() { return m_p_gimmicks; }
 
+	// ギミックの座標をリセット
+	void ResetGimmickPos();
+
 private:
 	// ギミックデータをまとめた配列
 	GimmickDatas m_gimmick_datas;

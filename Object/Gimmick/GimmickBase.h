@@ -42,10 +42,16 @@ public:
 	// コリジョンの更新
 	void UpdateRect();
 
+	// 座標をリセット
+	virtual void ResetPos();
+
 	// 押されたら動く
 	virtual void MoveByPush(Vec2 move);
 
 protected:
 	// ギミックタイプ(0:セーブポイント、1:箱、2:動く床(縦)、3:動く床(横))
 	int m_gimmick_type;
+
+	// 初期座標
+	Vec2 m_init_pos;
 };

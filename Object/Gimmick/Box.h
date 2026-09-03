@@ -1,5 +1,4 @@
 #pragma once
-
 #include "GimmickBase.h"
 
 class Player;

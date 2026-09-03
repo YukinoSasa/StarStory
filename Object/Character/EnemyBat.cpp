@@ -1,4 +1,5 @@
 #include <DxLib.h>
+#include "../../GameConst.h"
 #include "EnemyBat.h"
 
 namespace
@@ -15,6 +16,7 @@ EnemyBat::EnemyBat(EnemyData enemy_data)
 	:EnemyBase(enemy_data), m_is_tracking(false)
 {
 	LoadDivGraph(enemy_data.m_file_pass.c_str(), 9, 9, 1, 64, 64, m_handle_array);
+	m_search_handle = LoadGraph("Data/bat_search.png");
 
 	// 初期座標を保存
 	m_init_pos = m_pos;
@@ -26,6 +28,8 @@ EnemyBat::~EnemyBat()
 	{
 		DeleteGraph(m_handle_array[i]);
 	}
+
+	DeleteGraph(m_search_handle);
 }
 
 void EnemyBat::Init()
@@ -53,6 +57,26 @@ void EnemyBat::Update()
 	// コリジョン矩形、索敵範囲の更新
 	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
 	m_search_range.CalculateEdges(m_pos.x, m_pos.y, SEARCH_RANGE_WIDTH, SEARCH_RANGE_HEIGHT);
+}
+
+void EnemyBat::Draw(Vec2 camera_pos)
+{
+	if (m_is_tracking)
+	{
+		// 索敵範囲画像の左上の座標
+		float draw_x = m_pos.x - SEARCH_RANGE_WIDTH * 0.5f;
+		float draw_y = m_pos.y - SEARCH_RANGE_HEIGHT * 0.5f;
+
+		// 索敵範囲描画のスクリーン座標
+		float screen_x = draw_x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
+		float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
+
+		// 索敵範囲を描画
+		DrawGraphF(screen_x, screen_y, m_search_handle, true);
+
+	}
+
+	EnemyBase::Draw(camera_pos);
 }
 
 void EnemyBat::TrackPlayer(Vec2 player_pos)

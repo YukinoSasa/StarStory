@@ -32,8 +32,8 @@ void EnemyBase::Draw(Vec2 camera_pos)
 	CharacterBase::Draw(camera_pos);
 
 #ifdef _DEBUG
-	// デバック時のみ索敵範囲を描画
-	m_search_range.Draw(camera_pos);
+	//// デバック時のみ索敵範囲を描画
+	//m_search_range.Draw(camera_pos);
 #endif
 }
 

@@ -172,6 +172,7 @@
     <ClCompile Include="Stage\Mapchip.cpp" />
     <ClCompile Include="Stage\Stage.cpp" />
     <ClCompile Include="Story\StoryManager.cpp" />
+    <ClCompile Include="UI\UIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Character\Camera.h" />
@@ -219,6 +220,7 @@
     <ClInclude Include="Stage\Mapchip.h" />
     <ClInclude Include="Stage\Stage.h" />
     <ClInclude Include="Story\StoryManager.h" />
+    <ClInclude Include="UI\UIManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

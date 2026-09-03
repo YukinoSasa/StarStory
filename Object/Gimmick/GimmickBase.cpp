@@ -9,6 +9,8 @@ GimmickBase::GimmickBase(GimmickData gimmick_data)
 	m_pos = gimmick_data.m_spawn;
 	m_handle_width = gimmick_data.m_width;
 	m_handle_height = gimmick_data.m_height;
+
+	m_init_pos = m_pos;
 }
 
 GimmickBase::~GimmickBase()
@@ -46,6 +48,16 @@ void GimmickBase::Draw(Vec2 camera_pos)
 void GimmickBase::UpdateRect()
 {
 	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
+}
+
+void GimmickBase::ResetPos()
+{
+	if (m_gimmick_type != 1)
+	{
+		return;
+	}
+
+	m_pos = m_init_pos;
 }
 
 void GimmickBase::MoveByPush(Vec2 move)

@@ -84,3 +84,12 @@ void GimmickManager::Draw(Vec2 camera_pos)
 		gimmick->Draw(camera_pos);
 	}
 }
+
+void GimmickManager::ResetGimmickPos()
+{
+	// 箱ギミックのみ座標をリセット
+	for (auto& gimmick : m_p_gimmicks)
+	{
+		gimmick->ResetPos();
+	}
+}

@@ -17,6 +17,7 @@ class GimmickManager;
 class ItemManager;
 class CollisionManager;
 class MenuPause;
+class UIManager;
 
 /// <summary>
 /// シーンクラスを継承したメインシーンクラス
@@ -81,6 +82,9 @@ private:
 	// ポーズメニューのポインタ
 	std::shared_ptr<MenuPause> m_p_menu_pause = nullptr;
 
+	// UIマネージャーのポインタ
+	std::shared_ptr<UIManager> m_p_ui_manager = nullptr;
+
 	// 設定
 	Config m_config;
 
@@ -98,13 +102,6 @@ private:
 
 	// 設定中かどうか
 	bool m_is_config;
-
-	// 集めたアイテムのカウントUIの背景
-	int m_collect_bg_handle;
-	// UI星のかけらのハンドル
-	int m_piece_ui_handle;
-	// アイテムカウントのフォント
-	int m_collect_font_handle;
 
 	// ポーズ中かどうか
 	bool m_is_pause;

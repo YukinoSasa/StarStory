@@ -1,3 +1,4 @@
+#include <DxLib.h>
 #include "../GameConst.h"
 #include "../Stage/Stage.h"
 #include "Character/Player.h"

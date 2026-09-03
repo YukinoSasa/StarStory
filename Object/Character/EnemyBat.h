@@ -17,6 +17,9 @@ public:
 	// 更新
 	void Update() override;
 
+	// 描画
+	void Draw(Vec2 camera_pos) override;
+
 private:
 	// 索敵
 	void TrackPlayer(Vec2 player_pos) override;
@@ -26,6 +29,9 @@ private:
 
 	// 画像データの配列
 	int m_handle_array[9];
+
+	// 索敵範囲の画像ハンドル
+	int m_search_handle;
 
 	// 初期座標
 	Vec2 m_init_pos;

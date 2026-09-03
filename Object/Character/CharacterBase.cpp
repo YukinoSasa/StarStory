@@ -46,7 +46,7 @@ void CharacterBase::Draw(Vec2 camera_pos)
 	}
 
 #ifdef _DEBUG
-	// デバック時のみコリジョンの矩形を描画
-	m_rect.Draw(camera_pos);
+	//// デバック時のみコリジョンの矩形を描画
+	//m_rect.Draw(camera_pos);
 #endif
 }
