@@ -1,6 +1,8 @@
 #include <DxLib.h>
 #include "../GameConst.h"
+#include "../GameData.h"
 #include "../Input/Keyboard.h"
+#include "../Story/StoryManager.h"
 #include "SceneClear.h"
 
 namespace
@@ -12,15 +14,19 @@ namespace
 	int animation_update_frame = 15;
 }
 
-SceneClear::SceneClear()
-	:m_animation_timer(0), m_animation_frame(0), m_is_played_story(false)
+SceneClear::SceneClear(GameData& game_data, std::shared_ptr<StoryManager> p_story_manager)
+	:SceneBase(game_data, p_story_manager), m_animation_timer(0), m_animation_frame(0), m_is_played_story(false)
 {
+	m_p_story_manager = p_story_manager;
+
 	m_background_handle = LoadGraph("Data/clear_bg.png");
 	m_end_handle = LoadGraph("Data/end_bg.png");
 	LoadDivGraph("Data/player_story.png", 2, 2, 1, 72, 72, m_player_handle);
 	LoadDivGraph("Data/king.png", 2, 2, 1, 72, 72, m_king_handle);
 	m_endfont_handle = CreateFontToHandle("クラフト明朝", 48, -1);
 	m_font_handle = CreateFontToHandle("クラフト明朝", 32, -1);
+
+	m_item_result = game_data.m_item_result;
 }
 
 SceneClear::~SceneClear()
@@ -44,7 +50,7 @@ SceneClear::~SceneClear()
 
 void SceneClear::Init()
 {
-	m_story_manager.Init();
+	m_p_story_manager->Init();
 }
 
 void SceneClear::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager)
@@ -53,7 +59,7 @@ void SceneClear::Update(GameSetting& game_setting, std::shared_ptr<SoundManager>
 	intro_count++;
 	if (intro_count > 1)
 	{
-		m_story_manager.PlayStory(StoryManager::Story::End);
+		m_p_story_manager->PlayStory(StoryManager::Story::End);
 		m_is_played_story = true;
 	}
 
@@ -65,13 +71,13 @@ void SceneClear::Update(GameSetting& game_setting, std::shared_ptr<SoundManager>
 		m_animation_timer = 0;
 	}
 
-	if (m_story_manager.GetIsPlayingStory())
+	if (m_p_story_manager->GetIsPlayingStory())
 	{
-		m_story_manager.Update();
+		m_p_story_manager->Update();
 		return;
 	}
 
-	if (!m_story_manager.GetIsPlayingStory() && m_is_played_story && Keyboard::IsTrigger(KEY_INPUT_RETURN))
+	if (!m_p_story_manager->GetIsPlayingStory() && m_is_played_story && Keyboard::IsTrigger(KEY_INPUT_RETURN))
 	{
 		m_is_scene_end = true;
 	}
@@ -84,9 +90,9 @@ void SceneClear::Draw()
 	DrawGraphF(300.0f, 500.0f, m_player_handle[m_animation_frame], true);
 	DrawGraphF(1500.0f, 500.0f, m_king_handle[m_animation_frame], true);
 
-	if (m_story_manager.GetIsPlayingStory())
+	if (m_p_story_manager->GetIsPlayingStory())
 	{
-		m_story_manager.Draw();
+		m_p_story_manager->Draw();
 		return;
 	}
 

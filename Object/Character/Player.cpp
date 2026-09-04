@@ -330,3 +330,8 @@ void Player::CountItem()
 {
 	m_collected_item++;
 }
+
+void Player::LoseItem()
+{
+	m_collected_item--;
+}

@@ -34,11 +34,17 @@ public:
 	// ステージ高さのゲッタ
 	float GetStageHeight() const { return m_stage_height; }
 
+	// ステージ外かどうかのゲッタ
+	bool GetIsOut() const { return m_is_out; }
+
 	// ゴールしたかどうかのゲッタ
 	bool GetIsGoal() const { return m_is_goal; }
 
 	// カメラポインタのセッタ
 	void SetCamera(std::shared_ptr<Camera> p_camera) { m_p_camera = p_camera; }
+
+	// ステージ外かどうかのセッタ
+	void SetIsOut(bool is_out) { m_is_out = is_out; }
 
 	// 前方に床があるかどうか
 	bool IsGroundFoward(Rect& rect);
@@ -64,6 +70,9 @@ private:
 
 	// ステージの高さ
 	float m_stage_height;
+
+	// ステージ外に落下したかどうか
+	bool m_is_out;
 
 	// ゴールしたかどうか
 	bool m_is_goal;

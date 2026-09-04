@@ -5,9 +5,9 @@
 #include "../Input/Keyboard.h"
 #include "StoryManager.h"
 
-StoryManager::StoryManager()
+StoryManager::StoryManager(GameData& game_data)
 	:m_box_width(0.0f), m_box_height(0.0f), m_current_text("null"), m_story_index(0),
-	m_is_playing_story(false)
+	m_is_playing_story(false), m_game_data(game_data)
 {
 	// 画像データの読み込み
 	m_box_handle = LoadGraph("Data/UI/textbox.png");
@@ -27,6 +27,7 @@ StoryManager::~StoryManager()
 
 void StoryManager::Init()
 {
+	m_played_story_datas.clear();
 	GetGraphSizeF(m_box_handle, &m_box_width, &m_box_height);
 }
 
@@ -91,7 +92,7 @@ void StoryManager::Draw()
 		float draw_text_x = draw_speaker_x;
 		float draw_text_y = draw_speaker_y + 70.0f;
 		DrawFormatStringToHandle(draw_text_x, draw_text_y, GetColor(182, 0, 51),
-			m_story_font_handle, m_current_text.c_str());
+			m_story_font_handle, m_current_text.c_str(), m_game_data.m_item_result);
 
 		break;
 	}
@@ -180,11 +181,13 @@ void StoryManager::PlayStory(Story play_story)
 
 		for (auto& story_text : m_story_datas)
 		{
-			if (story_text.m_story_id == 3)
+			if (story_text.m_story_id == 3 && story_text.m_end_branch == 0)
 			{
 				m_current_story_list.push_back(story_text);
 			}
 		}
+
+		AddEndStory(m_current_story_list);
 
 		// 初めの文を現在のテキストに設定
 		m_story_index = 0;
@@ -209,5 +212,85 @@ bool StoryManager::IsPlayed(Story play_story)
 	else
 	{
 		return false;
+	}
+}
+
+StoryManager::EndBranch StoryManager::DecisionEndBranch()
+{
+	// 星のかけら50個収集の場合
+	if (m_game_data.m_item_result == GameData::STAR_MAX)
+	{
+		return EndBranch::Excellent;
+	}
+	// 星のかけら35～49個収集の場合
+	else if (m_game_data.m_item_result >= GameData::STORY_TWO && m_game_data.m_item_result < GameData::STAR_MAX)
+	{
+		return EndBranch::Great;
+	}
+	// 星のかけら10～34個収集の場合
+	else if (m_game_data.m_item_result >= GameData::STORY_ONE && m_game_data.m_item_result < GameData::STORY_TWO)
+	{
+		return EndBranch::Good;
+	}
+	// 星のかけら0～9個収集の場合
+	else
+	{
+		return EndBranch::Nice;
+	}
+}
+
+void StoryManager::AddEndStory(StoryDatas& current_story_list)
+{
+	// エンド分岐に応じたストーリーを分岐前ストーリーリストに追加する
+	switch (DecisionEndBranch())
+	{
+	case EndBranch::Excellent:
+	{
+		for (auto& story_text : m_story_datas)
+		{
+			if (story_text.m_end_branch == 1)
+			{
+				current_story_list.push_back(story_text);
+			}
+		}
+
+		break;
+	}
+	case EndBranch::Great:
+	{
+		for (auto& story_text : m_story_datas)
+		{
+			if (story_text.m_end_branch == 2)
+			{
+				current_story_list.push_back(story_text);
+			}
+		}
+
+		break;
+	}
+	case EndBranch::Good:
+	{
+		for (auto& story_text : m_story_datas)
+		{
+			if (story_text.m_end_branch == 3)
+			{
+				current_story_list.push_back(story_text);
+			}
+		}
+
+		break;
+	}
+	case EndBranch::Nice:
+	{
+		for (auto& story_text : m_story_datas)
+		{
+			if (story_text.m_end_branch == 4)
+			{
+				current_story_list.push_back(story_text);
+			}
+		}
+
+		break;
+	}
 	}
 }

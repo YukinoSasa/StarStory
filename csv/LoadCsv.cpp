@@ -273,7 +273,7 @@ StoryDatas LoadStory(const std::string& file_path)
 	// 2行目以降をデータとして読み込む
 	while (std::getline(file, line))
 	{
-		StoryData story_data{ 0, 0, "text_data" };
+		StoryData story_data{ 0, 0, 0, "text_data" };
 
 		// 空行を飛ばす
 		if (line.empty())
@@ -299,7 +299,8 @@ StoryDatas LoadStory(const std::string& file_path)
 		// データをストーリー構造体に変換
 		story_data.m_story_id = std::stoi(row[0]);
 		story_data.m_speaker = std::stoi(row[1]);
-		story_data.m_text = row[2];
+		story_data.m_end_branch = std::stoi(row[2]);
+		story_data.m_text = row[3];
 
 		story_datas.push_back(story_data);
 	}

@@ -70,6 +70,8 @@ public:
 	// アイテム取得時にカウント
 	void CountItem();
 
+	// 敵との衝突でデスした際、アイテムを1つ失う
+	void LoseItem();
 private:
 	// 左右の移動量を計算
 	void Move();

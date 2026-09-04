@@ -1,7 +1,8 @@
 #pragma once
 #include "../GameData.h"
-#include "../Story/StoryManager.h"
 #include "SceneBase.h"
+
+class StoryManager;
 
 /// <summary>
 /// シーンクラスを継承したクリアシーンクラス
@@ -9,7 +10,7 @@
 class SceneClear : public SceneBase
 {
 public:
-	SceneClear();
+	SceneClear(GameData& game_data, std::shared_ptr<StoryManager> p_story_manager);
 
 	~SceneClear() override;
 
@@ -32,7 +33,10 @@ private:
 	int m_end_handle;
 
 	// ストーリーマネージャー
-	StoryManager m_story_manager;
+	std::shared_ptr<StoryManager> m_p_story_manager = nullptr;
+
+	// アイテム個数の結果
+	int m_item_result;
 
 	// プレイヤーの画像ハンドル
 	int m_player_handle[2];

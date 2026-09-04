@@ -5,7 +5,7 @@
 #include "Stage.h"
 
 Stage::Stage(int current_stage_num) :
-	m_stage_height(0.0f), m_is_goal(false)
+	m_stage_height(0.0f), m_is_out(false), m_is_goal(false)
 {
 	// 指定したステージをcsv読み込み
 	std::string path = "csv/Stage" + std::to_string(current_stage_num) + ".csv";
@@ -147,6 +147,12 @@ bool Stage::IsTrigger(const Rect& rect, Rect& chip_rect)
 			{
 				// ぶつかったマップチップの矩形を設定
 				chip_rect.CalculateEdges(chip_x, chip_y, Game::MAPCHIP_SIZE, Game::MAPCHIP_SIZE);
+
+				// エリア外に落ちた場合リスポーンさせる
+				if (m_map_data[y][x] == 44)
+				{
+					m_is_out = true;
+				}
 
 				// ゴールと接触時はコリジョン処理を行わない
 				if (m_map_data[y][x] == 7)

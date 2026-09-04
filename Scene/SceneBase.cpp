@@ -1,8 +1,9 @@
 #include "../Sound/SoundManager.h"
+#include "../Story/StoryManager.h"
 #include "SceneBase.h"
 
-SceneBase::SceneBase() :
-	m_is_scene_end(false), m_scene_result(SceneResult::None)
+SceneBase::SceneBase(GameData& game_data, std::shared_ptr<StoryManager> p_story_manager)
+	:m_is_scene_end(false), m_scene_result(SceneResult::None)
 {
 
 }

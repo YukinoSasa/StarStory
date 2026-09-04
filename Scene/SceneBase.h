@@ -1,8 +1,10 @@
 #pragma once
 #include <memory>
+#include "../GameData.h"
 #include "../GameSetting.h"
 
 class SoundManager;
+class StoryManager;
 
 /// <summary>
 /// シーンの基底クラス
@@ -10,7 +12,7 @@ class SoundManager;
 class SceneBase
 {
 public:
-	SceneBase();
+	SceneBase(GameData& game_data, std::shared_ptr<StoryManager> p_story_manager);
 
 	virtual ~SceneBase() = default;
 

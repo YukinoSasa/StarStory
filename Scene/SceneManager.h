@@ -1,9 +1,11 @@
 #pragma once
 #include <memory>
+#include "../GameData.h"
 #include "../GameSetting.h"
 
 class SceneBase;
 class SoundManager;
+class StoryManager;
 
 /// <summary>
 /// シーンを管理するクラス
@@ -54,6 +56,12 @@ private:
 
 	// サウンドマネージャーのポインタ
 	std::shared_ptr<SoundManager> m_p_sound_manager = nullptr;
+
+	// ストーリーマネージャーのポインタ
+	std::shared_ptr<StoryManager> m_p_story_manager = nullptr;
+
+	// ゲームデータ構造体
+	GameData m_game_data;
 
 	// ゲームを終了するかどうか
 	bool m_is_game_end;

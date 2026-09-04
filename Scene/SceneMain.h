@@ -25,7 +25,7 @@ class UIManager;
 class SceneMain : public SceneBase
 {
 public:
-	SceneMain();
+	SceneMain(GameData& game_data, std::shared_ptr<StoryManager> p_story_manager);
 
 	~SceneMain() override;
 
@@ -85,11 +85,11 @@ private:
 	// UIマネージャーのポインタ
 	std::shared_ptr<UIManager> m_p_ui_manager = nullptr;
 
+	// ストーリーマネージャーのポインタ
+	std::shared_ptr<StoryManager> m_p_story_manager = nullptr;
+
 	// 設定
 	Config m_config;
-
-	// ストーリーマネージャー
-	StoryManager m_story_manager;
 
 	// イントロストーリーを再生済みかどうか
 	bool m_is_played_intro;
@@ -110,5 +110,5 @@ private:
 	bool m_is_goal;
 
 	// ゲームデータ
-	struct GameData m_game_data;
+	GameData& m_game_data;
 };

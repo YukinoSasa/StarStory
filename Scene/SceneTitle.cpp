@@ -4,7 +4,8 @@
 #include "Menu/MenuTitle.h"
 #include "SceneTitle.h"
 
-SceneTitle::SceneTitle()
+SceneTitle::SceneTitle(GameData& game_data, std::shared_ptr<StoryManager> p_story_manager)
+	:SceneBase(game_data, p_story_manager)
 {
 	m_p_menu_title = std::make_shared<MenuTitle>();
 	m_font_handle = CreateFontToHandle("ƒNƒ‰ƒtƒg–¾’©", 64, -1);

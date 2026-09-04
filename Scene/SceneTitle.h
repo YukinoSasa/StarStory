@@ -11,7 +11,7 @@ class SoundManager;
 class SceneTitle : public SceneBase
 {
 public:
-	SceneTitle();
+	SceneTitle(GameData& game_data, std::shared_ptr<StoryManager> p_story_manager);
 
 	~SceneTitle() override;
 

@@ -1,7 +1,9 @@
 #include <DxLib.h>
+#include "../Story/StoryManager.h"
 #include "SceneGameover.h"
 
-SceneGameover::SceneGameover()
+SceneGameover::SceneGameover(GameData& game_data, std::shared_ptr<StoryManager> p_story_manager)
+	:SceneBase(game_data, p_story_manager)
 {
 
 }

@@ -6,22 +6,27 @@ UIManager::UIManager()
 {
 	m_collect_bg_handle = LoadGraph("Data/UI/collect_background.png");
 	m_piece_ui_handle = LoadGraph("Data/UI/piece_ui.png");
+	m_amount_ui_handle = LoadGraph("Data/UI/amount_ui.png");
 	m_collect_font_handle = CreateFontToHandle("クラフト明朝", 64, -1);
 
 	m_move_ui_handle = LoadGraph("Data/UI/move_ui.png");
 	m_jump_ui_handle = LoadGraph("Data/UI/jump_ui.png");
 	m_reset_ui_handle = LoadGraph("Data/UI/reset_ui.png");
+
+	m_lose_ui_handle = LoadGraph("Data/UI/lose_ui.png");
 }
 
 UIManager::~UIManager()
 {
 	DeleteGraph(m_collect_bg_handle);
+	DeleteGraph(m_piece_ui_handle);
+	DeleteGraph(m_amount_ui_handle);
 	DeleteFontToHandle(m_collect_font_handle);
-	DeleteFontToHandle(m_piece_ui_handle);
 
-	DeleteFontToHandle(m_move_ui_handle);
-	DeleteFontToHandle(m_jump_ui_handle);
-	DeleteFontToHandle(m_reset_ui_handle);
+	DeleteGraph(m_move_ui_handle);
+	DeleteGraph(m_jump_ui_handle);
+	DeleteGraph(m_reset_ui_handle);
+	DeleteGraph(m_lose_ui_handle);
 }
 
 void UIManager::Draw(Vec2 camera_pos, int collect_item)
@@ -31,7 +36,8 @@ void UIManager::Draw(Vec2 camera_pos, int collect_item)
 	// 星のかけらカウントUIの描画
 	DrawGraphF(1600.0f, 0.0f, m_collect_bg_handle, true);
 	DrawGraphF(1680.0f, 30.0f, m_piece_ui_handle, true);
-	DrawFormatStringToHandle(1800.0f, 50.0f, GetColor(0, 105, 148),
+	DrawGraphF(1845.0f, 80.0f, m_amount_ui_handle, true);
+	DrawFormatStringToHandle(1760.0f, 50.0f, GetColor(0, 105, 148),
 		m_collect_font_handle, "%d", collect_item);
 }
 
@@ -57,4 +63,21 @@ void UIManager::DrawGuideUI(Vec2 camera_pos)
 	screen_y = 300.0f - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
 
 	DrawGraphF(screen_x, screen_y, m_reset_ui_handle, true);
+}
+
+void UIManager::DrawLoseUI(Vec2 player_pos, Vec2 camera_pos)
+{
+	// 画像の大きさ
+	float handle_width = 168.0f;
+	float handle_height = 72.0f;
+
+	// プレイヤーの位置を基準に画像の左上の座標を決定
+	float draw_x = player_pos.x - handle_width * 0.5f;
+	float draw_y = player_pos.y - handle_height * 2.0f;
+
+	// スクリーン座標
+	float screen_x = draw_x - camera_pos.x + Game::SCREEN_HALF_WIDTH;
+	float screen_y = draw_y - camera_pos.y + Game::SCREEN_HALF_HEIGHT;
+
+	DrawGraphF(screen_x, screen_y, m_lose_ui_handle, true);
 }

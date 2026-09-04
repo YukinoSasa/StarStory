@@ -36,11 +36,11 @@ namespace
 	int LAST_STAGE = 2;
 }
 
-SceneMain::SceneMain()
-	:m_current_stage_num(1), m_is_story(false), m_is_played_intro(false),
-	m_is_config(false), m_is_pause(false), m_is_goal(false)
+SceneMain::SceneMain(GameData& game_data, std::shared_ptr<StoryManager> p_story_manager)
+	:SceneBase(game_data, p_story_manager), m_current_stage_num(2), m_is_story(false), m_is_played_intro(false),
+	m_is_config(false), m_is_pause(false), m_is_goal(false), m_game_data(game_data)
 {
-	m_p_player = std::make_shared<Player>(m_game_data.m_spawn_pos);
+	m_p_player = std::make_shared<Player>(game_data.m_init_pos);
 	m_p_enemy_manager = std::make_shared<EnemyManager>(m_current_stage_num);
 	m_p_background = std::make_shared<BackGround>();
 	m_p_collision_manager = std::make_shared<CollisionManager>();
@@ -50,6 +50,8 @@ SceneMain::SceneMain()
 	m_p_item_manager = std::make_shared<ItemManager>(m_current_stage_num);
 	m_p_menu_pause = std::make_shared<MenuPause>();
 	m_p_ui_manager = std::make_shared<UIManager>();
+
+	m_p_story_manager = p_story_manager;
 
 	m_p_player->SetStage(m_p_stage);
 
@@ -77,7 +79,7 @@ void SceneMain::Init()
 	m_p_gimmick_manager->Init();
 	m_p_menu_pause->Init();
 	m_config.Init();
-	m_story_manager.Init();
+	m_p_story_manager->Init();
 }
 
 void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> p_sound_manager)
@@ -142,24 +144,24 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 	intro_count++;
 	if (intro_count > 1)
 	{
-		m_story_manager.PlayStory(StoryManager::Story::Intro);
+		m_p_story_manager->PlayStory(StoryManager::Story::Intro);
 	}
 
 	// ストーリー開始判定
 	if (m_p_player->GetPlayerCollectItem() >= GameData::STORY_ONE && CanPlayStory())
 	{
-		m_story_manager.PlayStory(StoryManager::Story::One);
+		m_p_story_manager->PlayStory(StoryManager::Story::One);
 	}
 
 	if (m_p_player->GetPlayerCollectItem() >= GameData::STORY_TWO && CanPlayStory())
 	{
-		m_story_manager.PlayStory(StoryManager::Story::Two);
+		m_p_story_manager->PlayStory(StoryManager::Story::Two);
 	}
 
 	// ストーリー再生中は以降のUpdateをしない
-	if (m_story_manager.GetIsPlayingStory())
+	if (m_p_story_manager->GetIsPlayingStory())
 	{
-		m_story_manager.Update();
+		m_p_story_manager->Update();
 
 		return;
 	}
@@ -203,8 +205,8 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		HitPlayerEnemy(m_p_player->GetRect(), enemy->GetRect());
 	}
 
-	// デス後1秒後にリスポーン位置にリスポーン
-	if (!m_p_player->GetIsAlive())
+	// デス後 または ステージアウト1秒後にリスポーン位置にリスポーン
+	if (!m_p_player->GetIsAlive() || m_p_stage->GetIsOut())
 	{
 		wait_count_respawn++;
 		if (wait_count_respawn < WAIT_TIME_RESPAWN)
@@ -216,6 +218,7 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		m_p_player->SetPlayerPosY(m_game_data.m_spawn_pos.y);
 
 		m_p_player->SetIsAlive(true);
+		m_p_stage->SetIsOut(false);
 
 		wait_count_respawn = 0;
 		return;
@@ -241,6 +244,10 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 	{
 		m_is_goal = true;
 		m_scene_result = SceneResult::Clear;
+
+		// クリアシーンで収集個数を参照するためにゲームデータへ記録
+		m_game_data.m_item_result = m_p_player->GetPlayerCollectItem();
+
 		m_is_scene_end = true;
 	}
 }
@@ -261,10 +268,16 @@ void SceneMain::Draw()
 
 	m_p_player->Draw(m_p_camera->GetCameraPos());
 
-	// ストーリー中の場合ストーリーのテキストboxを描画
-	if (m_story_manager.GetIsPlayingStory())
+	// プレイヤーデス時UIを描画
+	if (!m_p_player->GetIsAlive())
 	{
-		m_story_manager.Draw();
+		m_p_ui_manager->DrawLoseUI(m_p_player->GetPlayerPos(), m_p_camera->GetCameraPos());
+	}
+
+	// ストーリー中の場合ストーリーのテキストboxを描画
+	if (m_p_story_manager->GetIsPlayingStory())
+	{
+		m_p_story_manager->Draw();
 	}
 
 	// ポーズ中で設定が開かれた場合最前面に設定を描画、それ以外はポーズメニューを描画
@@ -283,10 +296,11 @@ void SceneMain::Draw()
 
 void SceneMain::HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect)
 {
-	// プレイヤーが敵に接している場合プレイヤー死亡
-	if (player_rect.IsCollision(enemy_rect))
+	// プレイヤーが敵に接したら場合プレイヤー死亡、星のかけらを1つ失う
+	if (player_rect.IsCollision(enemy_rect) && m_p_player->GetIsAlive())
 	{
 		m_p_player->SetIsAlive(false);
+		m_p_player->LoseItem();
 	}
 }
 
