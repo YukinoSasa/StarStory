@@ -17,7 +17,8 @@ SoundManager::SoundManager()
 	m_cancel_handle = LoadSoundMem("Data/Sound/SE/cancel.mp3");
 	m_select_handle = LoadSoundMem("Data/Sound/SE/select.mp3");
 	m_item_handle = LoadSoundMem("Data/Sound/SE/item.mp3");
-
+	m_story_handle = LoadSoundMem("Data/Sound/SE/story.mp3");
+	m_death_handle = LoadSoundMem("Data/Sound/SE/death.mp3");
 }
 
 SoundManager::~SoundManager()
@@ -29,6 +30,8 @@ SoundManager::~SoundManager()
 	DeleteSoundMem(m_cancel_handle);
 	DeleteSoundMem(m_select_handle);
 	DeleteSoundMem(m_item_handle);
+	DeleteSoundMem(m_story_handle);
+	DeleteSoundMem(m_death_handle);
 }
 
 void SoundManager::Init(SceneManager::SceneState current_scene)
@@ -103,6 +106,8 @@ void SoundManager::Update(const GameSetting& game_setting, SceneManager::SceneSt
 	ChangeVolumeSoundMem(game_setting.m_volume_se, m_cancel_handle);
 	ChangeVolumeSoundMem(game_setting.m_volume_se, m_select_handle);
 	ChangeVolumeSoundMem(game_setting.m_volume_se, m_item_handle);
+	ChangeVolumeSoundMem(game_setting.m_volume_se, m_story_handle);
+	ChangeVolumeSoundMem(game_setting.m_volume_se, m_death_handle);
 }
 
 void SoundManager::PlaySE(SeType se_type)
@@ -128,6 +133,16 @@ void SoundManager::PlaySE(SeType se_type)
 	case SeType::Item:
 	{
 		PlaySoundMem(m_item_handle, DX_PLAYTYPE_BACK);
+		break;
+	}
+	case SeType::Story:
+	{
+		PlaySoundMem(m_story_handle, DX_PLAYTYPE_BACK);
+		break;
+	}
+	case SeType::Death:
+	{
+		PlaySoundMem(m_death_handle, DX_PLAYTYPE_BACK);
 		break;
 	}
 	}

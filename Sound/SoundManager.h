@@ -25,6 +25,8 @@ public:
 		Cancel,
 		Select,
 		Item,
+		Story,
+		Death,
 	};
 
 	// SE‚ğÄ¶
@@ -41,6 +43,8 @@ private:
 	int m_cancel_handle;
 	int m_select_handle;
 	int m_item_handle;
+	int m_story_handle;
+	int m_death_handle;
 
 	// Œ»İ‚ÌƒV[ƒ“
 	SceneManager::SceneState m_current_state;

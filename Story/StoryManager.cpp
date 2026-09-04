@@ -3,6 +3,7 @@
 #include "../csv/LoadCsv.h"
 #include "../GameConst.h"
 #include "../Input/Keyboard.h"
+#include "../Sound/SoundManager.h"
 #include "StoryManager.h"
 
 StoryManager::StoryManager(GameData& game_data)
@@ -31,10 +32,12 @@ void StoryManager::Init()
 	GetGraphSizeF(m_box_handle, &m_box_width, &m_box_height);
 }
 
-void StoryManager::Update()
+void StoryManager::Update(std::shared_ptr<SoundManager> p_sound_manager)
 {
 	if (m_is_playing_story && Keyboard::IsTrigger(KEY_INPUT_RETURN))
 	{
+		p_sound_manager->PlaySE(SoundManager::SeType::Story);
+
 		m_story_index++;
 
 		if (m_story_index > m_current_story_list.size() - 1)

@@ -43,7 +43,7 @@ public:
 
 private:
 	// プレイヤーと敵の衝突をチェック
-	void HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect);
+	void HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect, std::shared_ptr<SoundManager> p_sound_manager);
 
 	// プレイヤーとアイテムの衝突をチェック
 	void HitPlayerItem(const Rect& player_rect, const Rect& item_rect,

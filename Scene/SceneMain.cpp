@@ -161,7 +161,7 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 	// ストーリー再生中は以降のUpdateをしない
 	if (m_p_story_manager->GetIsPlayingStory())
 	{
-		m_p_story_manager->Update();
+		m_p_story_manager->Update(p_sound_manager);
 
 		return;
 	}
@@ -202,7 +202,7 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		}
 
 		// 敵本体との接触判定
-		HitPlayerEnemy(m_p_player->GetRect(), enemy->GetRect());
+		HitPlayerEnemy(m_p_player->GetRect(), enemy->GetRect(), p_sound_manager);
 	}
 
 	// デス後 または ステージアウト1秒後にリスポーン位置にリスポーン
@@ -294,11 +294,12 @@ void SceneMain::Draw()
 	}
 }
 
-void SceneMain::HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect)
+void SceneMain::HitPlayerEnemy(const Rect& player_rect, const Rect& enemy_rect, std::shared_ptr<SoundManager> p_sound_manager)
 {
 	// プレイヤーが敵に接したら場合プレイヤー死亡、星のかけらを1つ失う
 	if (player_rect.IsCollision(enemy_rect) && m_p_player->GetIsAlive())
 	{
+		p_sound_manager->PlaySE(SoundManager::SeType::Death);
 		m_p_player->SetIsAlive(false);
 		m_p_player->LoseItem();
 	}

@@ -1,7 +1,10 @@
 #pragma once
+#include <memory>
 #include <string>
 #include <vector>
 #include "../GameData.h"
+
+class SoundManager;
 
 // ストーリー情報の構造体
 struct StoryData
@@ -33,7 +36,7 @@ public:
 	void Init();
 
 	// 更新
-	void Update();
+	void Update(std::shared_ptr<SoundManager> p_sound_manager);
 
 	// 描画
 	void Draw();

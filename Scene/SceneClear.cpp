@@ -73,7 +73,7 @@ void SceneClear::Update(GameSetting& game_setting, std::shared_ptr<SoundManager>
 
 	if (m_p_story_manager->GetIsPlayingStory())
 	{
-		m_p_story_manager->Update();
+		m_p_story_manager->Update(p_sound_manager);
 		return;
 	}
 
