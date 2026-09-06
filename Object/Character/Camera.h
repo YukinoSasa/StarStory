@@ -12,6 +12,9 @@ class Camera
 public:
 	Camera();
 
+	// ‰Šú‰»
+	void Init();
+
 	// XV
 	void Update();
 

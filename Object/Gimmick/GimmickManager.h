@@ -39,7 +39,7 @@ public:
 	void Init();
 
 	// XV
-	void Update(Rect player_rect, Vec2 player_last_move);
+	void Update();
 
 	// •`‰æ
 	void Draw(Vec2 camera_pos);

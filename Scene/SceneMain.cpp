@@ -37,7 +37,7 @@ namespace
 }
 
 SceneMain::SceneMain(GameData& game_data, std::shared_ptr<StoryManager> p_story_manager)
-	:SceneBase(game_data, p_story_manager), m_current_stage_num(2), m_is_story(false), m_is_played_intro(false),
+	:SceneBase(game_data, p_story_manager), m_current_stage_num(1), m_is_story(false), m_is_played_intro(false),
 	m_is_config(false), m_is_pause(false), m_is_goal(false), m_game_data(game_data)
 {
 	m_p_player = std::make_shared<Player>(game_data.m_init_pos);
@@ -77,6 +77,7 @@ void SceneMain::Init()
 	m_p_stage->Init();
 	m_p_item_manager->Init();
 	m_p_gimmick_manager->Init();
+	m_p_camera->Init();
 	m_p_menu_pause->Init();
 	m_config.Init();
 	m_p_story_manager->Init();
@@ -166,14 +167,13 @@ void SceneMain::Update(GameSetting& game_setting, std::shared_ptr<SoundManager> 
 		return;
 	}
 
-	m_p_gimmick_manager->Update(m_p_player->GetRect(), m_p_player->GetPlayerMove());
-
 	// 箱ギミックリセット判定
 	if (Keyboard::IsTrigger(KEY_INPUT_R))
 	{
 		m_p_gimmick_manager->ResetGimmickPos();
 	}
 
+	m_p_gimmick_manager->Update();
 	m_p_collision_manager->CheckBoxCollisionY(m_p_gimmick_manager, m_p_stage);
 	m_p_player->Update();
 	m_p_collision_manager->CheckPlayerCollisionX(m_p_player, m_p_stage, m_p_gimmick_manager, m_game_data);

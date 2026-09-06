@@ -8,6 +8,11 @@ Camera::Camera() :
 
 }
 
+void Camera::Init()
+{
+	m_pos.y = m_p_player->GetPlayerPos().y;
+}
+
 void Camera::Update()
 {
 	UpdateCameraPos();

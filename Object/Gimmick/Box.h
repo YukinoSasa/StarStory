@@ -17,7 +17,7 @@ public:
 	void Init() override;
 
 	// XV
-	void Update(Rect player_rect, Vec2 player_last_move);
+	void Update();
 
 	// ” ‚ÌˆÚ“®
 	void MoveByPush(Vec2 move) override;

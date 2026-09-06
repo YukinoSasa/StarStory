@@ -16,7 +16,7 @@ public:
 	virtual void Init();
 
 	// XV
-	virtual void Update(Rect player_rect, Vec2 player_last_move);
+	virtual void Update();
 
 	// •`‰æ
 	virtual void Draw(Vec2 camera_pos);

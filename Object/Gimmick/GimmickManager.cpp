@@ -69,11 +69,11 @@ void GimmickManager::Init()
 	}
 }
 
-void GimmickManager::Update(Rect player_rect, Vec2 player_move)
+void GimmickManager::Update()
 {
 	for (auto& gimmick : m_p_gimmicks)
 	{
-		gimmick->Update(player_rect, player_move);
+		gimmick->Update();
 	}
 }
 

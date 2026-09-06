@@ -23,7 +23,7 @@ void GimmickBase::Init()
 	
 }
 
-void GimmickBase::Update(Rect player_rect, Vec2 player_last_move)
+void GimmickBase::Update()
 {
 	m_rect.CalculateEdges(m_pos.x, m_pos.y, m_collision_width, m_collision_height);
 }
@@ -41,7 +41,7 @@ void GimmickBase::Draw(Vec2 camera_pos)
 	DrawGraphF(screen_x + m_handle_offset.x, screen_y + m_handle_offset.y, m_handle, true);
 
 #ifdef _DEBUG
-	m_rect.Draw(camera_pos);
+	//m_rect.Draw(camera_pos);
 #endif
 }
 

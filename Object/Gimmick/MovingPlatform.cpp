@@ -43,7 +43,7 @@ void MovingPlatform::Init()
 	m_handle_offset.y = m_collision_height;
 }
 
-void MovingPlatform::Update(Rect player_rect, Vec2 player_last_move)
+void MovingPlatform::Update()
 {
 	switch (m_gimmick_type)
 	{

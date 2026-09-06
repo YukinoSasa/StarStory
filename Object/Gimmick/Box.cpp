@@ -19,9 +19,9 @@ void Box::Init()
 	m_collision_height = 64.0f;
 }
 
-void Box::Update(Rect player_rect, Vec2 player_move)
+void Box::Update()
 {
-	GimmickBase::Update(player_rect, player_move);
+	GimmickBase::Update();
 
 	Game::Gravity(m_move.y);
 
