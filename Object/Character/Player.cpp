@@ -239,6 +239,11 @@ void Player::Move()
 	// “®‚­°(‰¡)‚Éæ‚Á‚Ä‚¢‚émove.x‚ğ‰ÁZ
 	if (m_is_on_moving_pratform)
 	{
+		if (!m_is_ground)
+		{
+			return;
+		}
+
 		m_move.x += m_move_by_gimmick.x;
 	}
 }

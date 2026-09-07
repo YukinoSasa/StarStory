@@ -24,6 +24,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	ChangeWindowMode(FALSE);
 #endif
 
+	SetMainWindowText("êØÇÃÇ‡ÇÃÇ™ÇΩÇË");
+
 	if (DxLib_Init() == -1)
 		return -1;
 
