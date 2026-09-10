@@ -16,7 +16,7 @@ EnemyBat::EnemyBat(EnemyData enemy_data)
 	:EnemyBase(enemy_data), m_is_tracking(false)
 {
 	LoadDivGraph(enemy_data.m_file_pass.c_str(), 9, 9, 1, 64, 64, m_handle_array);
-	m_search_handle = LoadGraph("Data/bat_search.png");
+	m_search_handle = LoadGraph("Data/Graph/bat_search.png");
 
 	// ‰ŠúÀ•W‚ğ•Û‘¶
 	m_init_pos = m_pos;

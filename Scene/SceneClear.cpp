@@ -19,10 +19,10 @@ SceneClear::SceneClear(GameData& game_data, std::shared_ptr<StoryManager> p_stor
 {
 	m_p_story_manager = p_story_manager;
 
-	m_background_handle = LoadGraph("Data/clear_bg.png");
-	m_end_handle = LoadGraph("Data/end_bg.png");
-	LoadDivGraph("Data/player_story.png", 2, 2, 1, 72, 72, m_player_handle);
-	LoadDivGraph("Data/king.png", 2, 2, 1, 72, 72, m_king_handle);
+	m_background_handle = LoadGraph("Data/Graph/clear_bg.png");
+	m_end_handle = LoadGraph("Data/Graph/end_bg.png");
+	LoadDivGraph("Data/Graph/player_story.png", 2, 2, 1, 72, 72, m_player_handle);
+	LoadDivGraph("Data/Graph/king.png", 2, 2, 1, 72, 72, m_king_handle);
 	m_endfont_handle = CreateFontToHandle("クラフト明朝", 48, -1);
 	m_font_handle = CreateFontToHandle("クラフト明朝", 32, -1);
 

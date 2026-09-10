@@ -4,8 +4,8 @@
 #include "Mapchip.h"
 #include "Stage.h"
 
-Stage::Stage(int current_stage_num) :
-	m_stage_height(0.0f), m_is_out(false), m_is_goal(false)
+Stage::Stage(int current_stage_num)
+	:m_stage_height(0.0f), m_is_out(false), m_is_goal(false)
 {
 	// 指定したステージをcsv読み込み
 	std::string path = "csv/Stage" + std::to_string(current_stage_num) + ".csv";
@@ -15,7 +15,7 @@ Stage::Stage(int current_stage_num) :
 	m_collision_data = LoadCollision("csv/MapCollision.csv");
 
 	// マップチップの画像データ読み込み
-	LoadDivGraph("Data/newtileset.png", 190, 18, 11, 16, 16, m_handle_array);
+	LoadDivGraph("Data/Graph/newtileset.png", 190, 18, 11, 16, 16, m_handle_array);
 
 	// マップチップをインスタンス化、vectorに格納
 	for (int y = 0; y < (int)m_map_data.size(); y++)

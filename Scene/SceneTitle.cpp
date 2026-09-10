@@ -9,7 +9,7 @@ SceneTitle::SceneTitle(GameData& game_data, std::shared_ptr<StoryManager> p_stor
 {
 	m_p_menu_title = std::make_shared<MenuTitle>();
 	m_font_handle = CreateFontToHandle("ƒNƒ‰ƒtƒg–¾’©", 64, -1);
-	m_bg_handle = LoadGraph("Data/title_bg.png");
+	m_bg_handle = LoadGraph("Data/Graph/title_bg.png");
 }
 
 SceneTitle::~SceneTitle()

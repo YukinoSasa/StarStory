@@ -1,3 +1,4 @@
+#include <windows.h>
 #include <Dxlib.h>
 #include <memory>
 #include "GameConst.h"
@@ -19,7 +20,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	
 	// デバッグ中はウィンドウモード、リリース版はフルスクリーン
 #ifdef _DEBUG
-	ChangeWindowMode(FALSE);
+	ChangeWindowMode(TRUE);
 #else
 	ChangeWindowMode(FALSE);
 #endif
@@ -28,6 +29,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	if (DxLib_Init() == -1)
 		return -1;
+
+	// ゲーム起動中だけフォントを一時的に保持する
+	AddFontResourceEx("Data/Font/クラフト明朝.ttf", FR_PRIVATE, NULL);
 
 	// シーンの生成、更新、遷移を管理
 	std::unique_ptr<SceneManager> p_scene_manager = std::make_unique<SceneManager>();
@@ -73,6 +77,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 #endif
 	}
+
+	// 一時的に保持していたフォントを削除
+	RemoveFontResourceEx("", FR_PRIVATE, NULL);
 
 	DxLib_End();
 	return 0;

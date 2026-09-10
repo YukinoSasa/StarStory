@@ -16,9 +16,9 @@ namespace
 Player::Player(Vec2 spawn_pos)
 	:m_move_by_gimmick(0.0f,0.0f), m_is_on_moving_pratform(false), m_collected_item(0)
 {
-	LoadDivGraph("Data/player.png", 42, 8, 6, 72, 72, m_handle_array);
-	m_glow_small_handle = LoadGraph("Data/glow_small.png");
-	m_glow_big_handle = LoadGraph("Data/glow_big.png");
+	LoadDivGraph("Data/Graph/player.png", 42, 8, 6, 72, 72, m_handle_array);
+	m_glow_small_handle = LoadGraph("Data/Graph/glow_small.png");
+	m_glow_big_handle = LoadGraph("Data/Graph/glow_big.png");
 	m_handle = m_handle_array[0];
 
 	// 光描画用のスクリーン作成

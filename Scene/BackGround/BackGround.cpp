@@ -5,7 +5,7 @@
 BackGround::BackGround() :
 	m_pos(0.0f, 0.0f), m_handle_width(0), m_handle_height(0)
 {
-	m_bg_handle = LoadGraph("Data/BG_02.png");
+	m_bg_handle = LoadGraph("Data/Graph/BG_02.png");
 }
 
 BackGround::~BackGround()
